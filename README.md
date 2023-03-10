@@ -1,0 +1,2 @@
+# VersusSweeper
+Competitive Minesweeper Platform
