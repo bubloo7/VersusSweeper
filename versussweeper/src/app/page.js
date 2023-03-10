@@ -2,6 +2,32 @@ import Image from 'next/image'
 import { Inter } from 'next/font/google'
 import styles from './page.module.css'
 
+
+
+// Import the functions you need from the SDKs you need
+import { initializeApp } from "firebase/app";
+import { getAnalytics } from "firebase/analytics";
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
+
+// Your web app's Firebase configuration
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+const firebaseConfig = {
+  apiKey: "AIzaSyBkmC-yE-HxywLBhMCVbGr_TFGMDqPx_Hk",
+  authDomain: "versussweeper.firebaseapp.com",
+  projectId: "versussweeper",
+  storageBucket: "versussweeper.appspot.com",
+  messagingSenderId: "291910899374",
+  appId: "1:291910899374:web:9b78825beb7e067ed77f3f",
+  measurementId: "G-QZV6P0Y1XH"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
+
+
+
 const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {
