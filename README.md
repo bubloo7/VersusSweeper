@@ -1,2 +1,2 @@
 # VersusSweeper
-Competitive Minesweeper Platform
+Competitive Minesweeper Platform 2023
