@@ -13,5 +13,9 @@ export default function Home() {
     //     return unsubscribe;
     // }, []);
 
-    return <div>Main index thingys</div>;
+    return (
+        <div>
+            <h1>Home</h1>            
+        </div>
+    )
 }
