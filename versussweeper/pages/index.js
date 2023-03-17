@@ -1,6 +1,7 @@
 import db from "../firebase/clientApp";
 import { useState, useEffect } from "react";
 import { collection, query, where, onSnapshot } from "firebase/firestore";
+import Header from "../components/Header";
 
 export default function Home() {
     // const [data, setData] = useState(null);
@@ -15,7 +16,11 @@ export default function Home() {
 
     return (
         <div>
-            <h1>Home</h1>            
+            <Header />
+
+            <br />
+
+            <h2>Home</h2>  
         </div>
     )
 }

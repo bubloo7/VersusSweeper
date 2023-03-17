@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 // import { firebase } from "../firebase/clientApp";
 import { ref, onValue } from "firebase/database";
 import db from "../firebase/clientApp";
+import Minesweeper from "../components/minesweeper";
 
 const Page = () => {
     const router = useRouter();
@@ -33,9 +34,9 @@ const Page = () => {
     if (loading) return <p>Loading...</p>;
     else {
         if (gameFound) {
-            if (gameStarted) return <p>Game started</p>;
+            if (gameStarted) return <Minesweeper />;
             else return <p>Game not started</p>;
-        } else return <p>Game not found {"):"}</p>;
+        } else return <Minesweeper />;
     }
 };
 
