@@ -1,9 +1,12 @@
 import { useRouter } from "next/router";
-import { useState, useEffect } from "react";
+import { useState, useEffect, createContext } from "react";
 // import { firebase } from "../firebase/clientApp";
-import { ref, onValue } from "firebase/database";
+import { ref, onValue, set } from "firebase/database";
 import db from "../firebase/clientApp";
-import Minesweeper from "../components/minesweeper";
+import Minesweeper from "../components/Minesweeper";
+import Lobby from "../components/Lobby";
+
+export const GameContext = createContext();
 
 const Page = () => {
     const router = useRouter();
@@ -11,32 +14,84 @@ const Page = () => {
     const [loading, setLoading] = useState(true);
     const [gameFound, setGameFound] = useState(false);
     const [gameStarted, setGameStarted] = useState(false);
+    const [rows, setRows] = useState(9);
+    const [cols, setCols] = useState(9);
+    const [mines, setMines] = useState(10);
+
+    const [board, setBoard] = useState([]);
+    const [revealed, setRevealed] = useState([]);
+    const [flagged, setFlagged] = useState([]);
+    const [lastMiss, setLastMiss] = useState([]);
+    const [hits, setHits] = useState(0);
+    const [misses, setMisses] = useState(0);
+    const [salt, setSalt] = useState(0);
+    const [firstRowClicked, setFirstRowClicked] = useState(-1);
+    const [firstColClicked, setFirstColClicked] = useState(-1);
+    const [startTime, setStartTime] = useState(-1);
 
     useEffect(() => {
         if (id) {
-            // console.log("in id db", db);
-            console.log("in useEffect");
             // get data stored in "game"
-            const gameRef = ref(db, "game");
+            const gameRef = ref(db, "rooms/" + id); //"game");
             onValue(gameRef, (snapshot) => {
                 const data = snapshot.val();
-                console.log("in onValue", data);
                 if (data) {
                     setGameFound(true);
-                    if (data.started) setGameStarted(true);
-                    else setGameStarted(false);
+                    console.log("game found, game started: " + data.started);
                 } else setGameFound(false);
                 setLoading(false);
             });
         }
     }, [id]);
 
-    if (loading) return <p>Loading...</p>;
+    if (loading) return <p>Loading...</p>; // still checking database if game exists
     else {
         if (gameFound) {
-            if (gameStarted) return <Minesweeper />;
-            else return <p>Game not started</p>;
-        } else return <Minesweeper />;
+            // Game exists! but are we in the lobby or has the game started?
+            if (gameStarted) {
+                // game started, render minesweeper
+                return (
+                    <GameContext.Provider
+                        value={[
+                            rows,
+                            cols,
+                            mines,
+                            board,
+                            setBoard,
+                            revealed,
+                            setRevealed,
+                            flagged,
+                            setFlagged,
+                            lastMiss,
+                            setLastMiss,
+                            hits,
+                            setHits,
+                            misses,
+                            setMisses,
+                            salt,
+                            id,
+                            firstRowClicked,
+                            setFirstRowClicked,
+                            firstColClicked,
+                            setFirstColClicked,
+                            startTime,
+                            setStartTime,
+                        ]}
+                    >
+                        <Minesweeper />
+                    </GameContext.Provider>
+                );
+            } else {
+                // game not started, render lobby
+                return (
+                    <GameContext.Provider
+                        value={[setGameStarted, rows, setRows, cols, setCols, mines, setMines, setSalt]}
+                    >
+                        <Lobby />
+                    </GameContext.Provider>
+                );
+            }
+        } else return <div>Game not found. Check url for typo?</div>; // game not found, tell user to retype url
     }
 };
 
