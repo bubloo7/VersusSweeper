@@ -1,5 +1,16 @@
 const seedrandom = require("seedrandom");
 
+/**
+ * Generates the minesweeper board as soon as the first square is clicked
+ * @param {int} rows number of rows
+ * @param {int} cols number of columns
+ * @param {int} numMines number of mines
+ * @param {string} seed seed used for random generation
+ * @param {int} firstRowClick first row that was clicked
+ * @param {int} firstColClick first column that was clicked
+ * @returns rows x cols board with numMines mines. -1 means mine, 0 means no mines nearby, 1 means 1 mine nearby, etc.
+ *          (firstRowClick,firstColClick) and its neighbors are guaranteed to not be mines
+ */
 function getBoard(rows, cols, numMines, seed, firstRowClick, firstColClick) {
     const board = [];
     for (let i = 0; i < rows; i++) {
@@ -31,7 +42,15 @@ function getBoard(rows, cols, numMines, seed, firstRowClick, firstColClick) {
     return boardWithNeighbors;
 }
 
-// returns number of mines nearby or -1 if mine
+
+
+/**
+ * Used as a helper function for getBoard 
+ * @param {int} row number of rows
+ * @param {int} col number of columns
+ * @param {int[][]} board board. -1 means mine, 0 means its not a mine
+ * @returns number of mines nearby or -1 if mine
+ */
 function getNeighbors(row, col, board) {
     if (row >= 0 && row < board.length && col >= 0 && col < board[0].length && board[row][col] === -1) {
         return -1;
@@ -53,6 +72,16 @@ function getNeighbors(row, col, board) {
     return neighbors;
 }
 
+/**
+ * Logic for revealing a square. Modifies revealed and flagged arrays
+ * @param {int} row number of rows
+ * @param {int} col number of columns
+ * @param {int[][]} minesweeperBoard board in format of getBoard()
+ * @param {bool[][]} revealed bool array of revealed squares
+ * @param {bool[][]} flagged bool array of flagged squares
+ * @param {int} stun time till player can click again 
+ * @returns [number of squares revealed, number of mines hit]
+ */
 function reveal(row, col, minesweeperBoard, revealed, flagged, stun) {
     let output = [0, 0];
     if (
@@ -68,24 +97,34 @@ function reveal(row, col, minesweeperBoard, revealed, flagged, stun) {
         }
         revealed[row][col] = true;
         if (minesweeperBoard[row][col] === -1) {
-            // tbd stun
             flagged[row][col] = true;
             return [0, 1];
         } else if (minesweeperBoard[row][col] === 0) {
-            let [hits1] = reveal(row - 1, col - 1, minesweeperBoard, revealed, flagged, stun);
-            let [hits2] = reveal(row - 1, col, minesweeperBoard, revealed, flagged, stun);
-            let [hits3] = reveal(row - 1, col + 1, minesweeperBoard, revealed, flagged, stun);
-            let [hits4] = reveal(row, col - 1, minesweeperBoard, revealed, flagged, stun);
-            let [hits5] = reveal(row, col + 1, minesweeperBoard, revealed, flagged, stun);
-            let [hits6] = reveal(row + 1, col - 1, minesweeperBoard, revealed, flagged, stun);
-            let [hits7] = reveal(row + 1, col, minesweeperBoard, revealed, flagged, stun);
-            let [hits8] = reveal(row + 1, col + 1, minesweeperBoard, revealed, flagged, stun);
+            const [hits1] = reveal(row - 1, col - 1, minesweeperBoard, revealed, flagged, stun);
+            const [hits2] = reveal(row - 1, col, minesweeperBoard, revealed, flagged, stun);
+            const [hits3] = reveal(row - 1, col + 1, minesweeperBoard, revealed, flagged, stun);
+            const [hits4] = reveal(row, col - 1, minesweeperBoard, revealed, flagged, stun);
+            const [hits5] = reveal(row, col + 1, minesweeperBoard, revealed, flagged, stun);
+            const [hits6] = reveal(row + 1, col - 1, minesweeperBoard, revealed, flagged, stun);
+            const [hits7] = reveal(row + 1, col, minesweeperBoard, revealed, flagged, stun);
+            const [hits8] = reveal(row + 1, col + 1, minesweeperBoard, revealed, flagged, stun);
             output[0] = hits1 + hits2 + hits3 + hits4 + hits5 + hits6 + hits7 + hits8;
         }
         output[0] += 1;
     }
     return output;
 }
+
+/**
+ * Logic for middle mouse click. Modifies revealed and flagged arrays
+ * @param {int} row number of rows
+ * @param {int} col number of columns
+ * @param {int[][]} minesweeperBoard board in format of getBoard()
+ * @param {bool[][]} revealed bool array of revealed squares
+ * @param {bool[][]} flagged bool array of flagged squares
+ * @param {int} stun time till player can click again 
+ * @returns [number of squares revealed, number of mines hit]
+ */
 function middleClick(row, col, minesweeperBoard, revealed, flagged, stun) {
     if (
         row >= 0 &&
@@ -174,27 +213,3 @@ function flag(row, col, flagged) {
     flagged[row][col] = !flagged[row][col];
 }
 export { getBoard, reveal, middleClick, flag };
-// const minesweeperBoard = getBoard(10, 10, 10, "see2dd", 0, 0);
-// const revealed = [];
-// const flagged = [];
-
-// for (let i = 0; i < minesweeperBoard.length; i++) {
-//     revealed.push([]);
-//     flagged.push([]);
-//     for (let j = 0; j < minesweeperBoard[0].length; j++) {
-//         revealed[i].push(false);
-//         flagged[i].push(false);
-//     }
-// }
-
-// console.log();
-// for (let i = 0; i < minesweeperBoard.length; i++) {
-//     console.log(minesweeperBoard[i].toString());
-// }
-
-// reveal(0, 0, minesweeperBoard, revealed, flagged);
-
-// console.log();
-// for (let i = 0; i < revealed.length; i++) {
-//     console.log(revealed[i].toString());
-// }

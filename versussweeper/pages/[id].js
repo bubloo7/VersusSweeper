@@ -1,10 +1,9 @@
 import { useRouter } from "next/router";
 import { useState, useEffect, createContext } from "react";
-// import { firebase } from "../firebase/clientApp";
 import { ref, onValue, set } from "firebase/database";
 import db from "../firebase/clientApp";
-import Minesweeper from "../components/Minesweeper";
 import Lobby from "../components/Lobby";
+import Minesweeper from "../components/Minesweeper";
 
 export const GameContext = createContext();
 
@@ -29,6 +28,8 @@ const Page = () => {
     const [firstColClicked, setFirstColClicked] = useState(-1);
     const [startTime, setStartTime] = useState(-1);
 
+    const [numFlags, setNumFlags] = useState(0);
+
     useEffect(() => {
         if (id) {
             // get data stored in "game"
@@ -37,7 +38,6 @@ const Page = () => {
                 const data = snapshot.val();
                 if (data) {
                     setGameFound(true);
-                    console.log("game found, game started: " + data.started);
                 } else setGameFound(false);
                 setLoading(false);
             });
@@ -76,6 +76,8 @@ const Page = () => {
                             setFirstColClicked,
                             startTime,
                             setStartTime,
+                            numFlags,
+                            setNumFlags,
                         ]}
                     >
                         <Minesweeper />

@@ -95,8 +95,7 @@ export default function Lobby() {
                     min={5}
                     max={20}
                     onChange={(e) => {
-                        setRows(e.target.value);
-                        setMines(Math.min(mines, Math.floor(e.target.value * cols * 0.25)));
+                        setRows(parseInt(e.target.value));
                     }}
                 ></input>
             </div>
@@ -109,8 +108,7 @@ export default function Lobby() {
                     min={5}
                     max={40}
                     onChange={(e) => {
-                        setCols(e.target.value);
-                        setMines(Math.min(mines, Math.floor(rows * e.target.value * 0.25)));
+                        setCols(parseInt(e.target.value));
                     }}
                 ></input>
             </div>
@@ -122,7 +120,9 @@ export default function Lobby() {
                     value={mines}
                     min={0}
                     max={Math.floor(rows * cols * 0.25)}
-                    onChange={(e) => setMines(e.target.value)}
+                    onChange={(e) => {
+                        setMines(parseInt(e.target.value));
+                    }}
                 ></input>
             </div>
             <button
@@ -133,6 +133,32 @@ export default function Lobby() {
                     backgroundColor: "red",
                 }}
                 onClick={() => {
+                    if (rows < 5) {
+                        alert("rows must be at least 5");
+                        return;
+                    }
+                    if (rows > 20) {
+                        alert("rows must be at most 20");
+                        return;
+                    }
+                    if (cols < 5) {
+                        alert("cols must be at least 5");
+                        return;
+                    }
+                    if (cols > 40) {
+                        alert("cols must be at most 40");
+                        return;
+                    }
+
+                    if (mines < 0) {
+                        alert("mines must be at least 0");
+                        return;
+                    }
+                    if (mines > Math.floor(rows * cols * 0.25)) {
+                        alert("mines must be at most 25% of the board");
+                        return;
+                    }
+
                     setGameStarted(true);
                     setSalt(Math.floor(Math.random() * 100000));
                 }}
