@@ -1,5 +1,5 @@
 import React from "react";
-import { getBoard, reveal, middleClick, flag } from "../javascript/game";
+import { getBoard, reveal } from "../javascript/game";
 import { GameContext } from "@/pages/[id]";
 import { useContext, useEffect, useState } from "react";
 import MinesweeperRow from "./MinesweeperRow";

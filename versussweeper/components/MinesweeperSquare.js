@@ -13,7 +13,7 @@ import Seven from "../images/7.png";
 import Eight from "../images/8.png";
 import Mine from "../images/mine.png";
 import Flag from "../images/flag.png";
-import { getBoard, reveal, middleClick, flag } from "../javascript/game";
+import { reveal, middleClick } from "../javascript/game";
 
 export default function MinesweeperRow(props) {
     const [
@@ -42,6 +42,7 @@ export default function MinesweeperRow(props) {
         setStartTime,
         numFlags,
         setNumFlags,
+        isCtrlPressed,
     ] = useContext(GameContext);
 
     return (
@@ -153,6 +154,22 @@ export default function MinesweeperRow(props) {
                         setFirstColClicked(props.colNum);
                         return;
                     } else {
+                        if (isCtrlPressed) {
+                            if (revealed[props.rowNum][props.colNum] || firstColClicked === -1) {
+                                return;
+                            }
+                            const temp_flag = [...flagged];
+                            temp_flag[props.rowNum][props.colNum] = !temp_flag[props.rowNum][props.colNum];
+                            if (temp_flag[props.rowNum][props.colNum]) {
+                                setNumFlags(numFlags + 1);
+                            } else {
+                                setNumFlags(numFlags - 1);
+                            }
+
+                            setFlagged(temp_flag);
+                            return;
+                        }
+
                         if (flagged[props.rowNum][props.colNum]) {
                             return;
                         }

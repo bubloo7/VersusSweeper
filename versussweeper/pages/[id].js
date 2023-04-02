@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 import { useState, useEffect, createContext } from "react";
-import { ref, onValue, set } from "firebase/database";
+import { ref, onValue } from "firebase/database";
 import db from "../firebase/clientApp";
 import Lobby from "../components/Lobby";
 import Minesweeper from "../components/Minesweeper";
@@ -27,8 +27,33 @@ const Page = () => {
     const [firstRowClicked, setFirstRowClicked] = useState(-1);
     const [firstColClicked, setFirstColClicked] = useState(-1);
     const [startTime, setStartTime] = useState(-1);
-
     const [numFlags, setNumFlags] = useState(0);
+    const [isCtrlPressed, setIsCtrlPressed] = useState(false);
+
+    useEffect(() => {
+        function handleKeyDown(event) {
+            if (event.ctrlKey) {
+                setIsCtrlPressed(true);
+                console.log("ctrl pressed", event.ctrlKey);
+            }
+        }
+
+        function handleKeyUp(event) {
+
+            if (event.keyCode === 17) {
+                setIsCtrlPressed(false);
+                console.log("ctrl released");
+            }
+        }
+
+        window.addEventListener("keydown", handleKeyDown);
+        window.addEventListener("keyup", handleKeyUp);
+
+        return () => {
+            window.removeEventListener("keydown", handleKeyDown);
+            window.removeEventListener("keyup", handleKeyUp);
+        };
+    }, []);
 
     useEffect(() => {
         if (id) {
@@ -78,6 +103,8 @@ const Page = () => {
                             setStartTime,
                             numFlags,
                             setNumFlags,
+                            isCtrlPressed,
+                            setIsCtrlPressed,
                         ]}
                     >
                         <Minesweeper />
