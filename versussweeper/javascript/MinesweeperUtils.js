@@ -42,10 +42,8 @@ function getBoard(rows, cols, numMines, seed, firstRowClick, firstColClick) {
     return boardWithNeighbors;
 }
 
-
-
 /**
- * Used as a helper function for getBoard 
+ * Used as a helper function for getBoard
  * @param {int} row number of rows
  * @param {int} col number of columns
  * @param {int[][]} board board. -1 means mine, 0 means its not a mine
@@ -79,7 +77,7 @@ function getNeighbors(row, col, board) {
  * @param {int[][]} minesweeperBoard board in format of getBoard()
  * @param {bool[][]} revealed bool array of revealed squares
  * @param {bool[][]} flagged bool array of flagged squares
- * @param {int} stun time till player can click again 
+ * @param {int} stun time till player can click again
  * @returns [number of squares revealed, number of mines hit]
  */
 function reveal(row, col, minesweeperBoard, revealed, flagged, stun) {
@@ -122,7 +120,7 @@ function reveal(row, col, minesweeperBoard, revealed, flagged, stun) {
  * @param {int[][]} minesweeperBoard board in format of getBoard()
  * @param {bool[][]} revealed bool array of revealed squares
  * @param {bool[][]} flagged bool array of flagged squares
- * @param {int} stun time till player can click again 
+ * @param {int} stun time till player can click again
  * @returns [number of squares revealed, number of mines hit]
  */
 function middleClick(row, col, minesweeperBoard, revealed, flagged, stun) {

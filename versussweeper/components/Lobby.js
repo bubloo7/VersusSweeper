@@ -3,7 +3,22 @@ import { useState, useContext } from "react";
 import { GameContext } from "@/pages/[id]";
 export default function Lobby() {
     const [difficulty, setDifficulty] = useState(0);
-    const [setGameStarted, rows, setRows, cols, setCols, mines, setMines, setSalt] = useContext(GameContext);
+    const [
+        setGameStarted,
+        rows,
+        setRows,
+        cols,
+        setCols,
+        mines,
+        setMines,
+        setSalt,
+        disableFlag,
+        setDisableFlag,
+        disableMiddleMouse,
+        setDisableMiddleMouse,
+        stunDuration,
+        setStunDuration,
+    ] = useContext(GameContext);
     return (
         <div>
             <h2>Choose difficulty</h2>
@@ -122,6 +137,41 @@ export default function Lobby() {
                     max={Math.floor(rows * cols * 0.25)}
                     onChange={(e) => {
                         setMines(parseInt(e.target.value));
+                    }}
+                ></input>
+            </div>
+
+            <div>
+                Disable Flag
+                <input
+                    type={"checkbox"}
+                    checked={disableFlag}
+                    onChange={(e) => {
+                        setDisableFlag(e.target.checked);
+                        if (e.target.checked) {
+                            setDisableMiddleMouse(true);
+                        }
+                    }}
+                ></input>
+                Disable Middle Mouse
+                <input
+                    type={"checkbox"}
+                    checked={disableMiddleMouse}
+                    onChange={(e) => {
+                        setDisableMiddleMouse(e.target.checked);
+                    }}
+                    disabled={disableFlag}
+                ></input>
+            </div>
+            <div>
+                Set stun duration (in seconds):
+                <input
+                    value={stunDuration}
+                    type={"number"}
+                    min={0}
+                    max={60}
+                    onChange={(e) => {
+                        setStunDuration(parseInt(e.target.value));
                     }}
                 ></input>
             </div>

@@ -1,5 +1,5 @@
 import React from "react";
-import { getBoard, reveal } from "../javascript/game";
+import { getBoard, reveal } from "../javascript/MinesweeperUtils";
 import { GameContext } from "@/pages/[id]";
 import { useContext, useEffect, useState } from "react";
 import MinesweeperRow from "./MinesweeperRow";
@@ -31,7 +31,15 @@ export default function Minesweeper() {
         setStartTime,
         numFlags,
         setNumFlags,
+        isCtrlPressed,
+        setIsCtrlPressed,
+        disableFlag,
+        setDisableFlag,
+        disableMiddleMouse,
+        setDisableMiddleMouse,
+        stunDuration,
     ] = useContext(GameContext);
+    console.log("stunDuration: " + stunDuration);
     const [stunTimer, setStunTimer] = useState(-1);
     const [minesweeperRows, setMinesweeperRows] = useState([]);
     const [time, setTime] = useState(-1);
@@ -90,8 +98,8 @@ export default function Minesweeper() {
     // This effect is called whenever misses is incremented
     useEffect(() => {
         if (misses !== 0) {
-            setLastMiss(Date.now() + 5000 * misses);
-            setStunTimer(misses * 5);
+            setLastMiss(Date.now() + stunDuration * 1000);
+            setStunTimer(stunDuration);
         }
     }, [misses]);
 

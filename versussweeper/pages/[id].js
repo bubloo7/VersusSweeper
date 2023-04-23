@@ -29,20 +29,19 @@ const Page = () => {
     const [startTime, setStartTime] = useState(-1);
     const [numFlags, setNumFlags] = useState(0);
     const [isCtrlPressed, setIsCtrlPressed] = useState(false);
-
+    const [disableFlag, setDisableFlag] = useState(false);
+    const [disableMiddleMouse, setDisableMiddleMouse] = useState(false);
+    const [stunDuration, setStunDuration] = useState(5);
     useEffect(() => {
         function handleKeyDown(event) {
             if (event.ctrlKey) {
                 setIsCtrlPressed(true);
-                console.log("ctrl pressed", event.ctrlKey);
             }
         }
 
         function handleKeyUp(event) {
-
             if (event.keyCode === 17) {
                 setIsCtrlPressed(false);
-                console.log("ctrl released");
             }
         }
 
@@ -105,6 +104,11 @@ const Page = () => {
                             setNumFlags,
                             isCtrlPressed,
                             setIsCtrlPressed,
+                            disableFlag,
+                            setDisableFlag,
+                            disableMiddleMouse,
+                            setDisableMiddleMouse,
+                            stunDuration,
                         ]}
                     >
                         <Minesweeper />
@@ -114,7 +118,22 @@ const Page = () => {
                 // game not started, render lobby
                 return (
                     <GameContext.Provider
-                        value={[setGameStarted, rows, setRows, cols, setCols, mines, setMines, setSalt]}
+                        value={[
+                            setGameStarted,
+                            rows,
+                            setRows,
+                            cols,
+                            setCols,
+                            mines,
+                            setMines,
+                            setSalt,
+                            disableFlag,
+                            setDisableFlag,
+                            disableMiddleMouse,
+                            setDisableMiddleMouse,
+                            stunDuration,
+                            setStunDuration,
+                        ]}
                     >
                         <Lobby />
                     </GameContext.Provider>
