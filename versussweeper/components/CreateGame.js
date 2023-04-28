@@ -1,24 +1,18 @@
 import React from "react";
-import { useState, useContext } from "react";
-import { GameContext } from "@/pages/[id]";
+import { useState } from "react";
 export default function Lobby() {
     const [difficulty, setDifficulty] = useState(0);
-    const [
-        setGameStarted,
-        rows,
-        setRows,
-        cols,
-        setCols,
-        mines,
-        setMines,
-        setSalt,
-        disableFlag,
-        setDisableFlag,
-        disableMiddleMouse,
-        setDisableMiddleMouse,
-        stunDuration,
-        setStunDuration,
-    ] = useContext(GameContext);
+
+    const [rows, setRows] = useState(9);
+    const [cols, setCols] = useState(9);
+    const [mines, setMines] = useState(10);
+    const [stunDuration, setStunDuration] = useState(5);
+    const [playerLimit, setPlayerLimit] = useState(8);
+    const [disableFlag, setDisableFlag] = useState(false);
+    const [disableMiddleMouse, setDisableMiddleMouse] = useState(false);
+    const [seed, setSeed] = useState("");
+    const [publicRoom, setPublicRoom] = useState(true);
+
     return (
         <div>
             <h2>Choose difficulty</h2>
@@ -140,7 +134,30 @@ export default function Lobby() {
                     }}
                 ></input>
             </div>
-
+            <div>
+                Set stun duration (in seconds):
+                <input
+                    value={stunDuration}
+                    type={"number"}
+                    min={0}
+                    max={60}
+                    onChange={(e) => {
+                        setStunDuration(parseInt(e.target.value));
+                    }}
+                ></input>
+            </div>
+            <div>
+                Set max number of players:
+                <input
+                    value={playerLimit}
+                    type={"number"}
+                    min={0}
+                    max={10}
+                    onChange={(e) => {
+                        setPlayerLimit(parseInt(e.target.value));
+                    }}
+                ></input>
+            </div>
             <div>
                 Disable Flag
                 <input
@@ -164,16 +181,45 @@ export default function Lobby() {
                 ></input>
             </div>
             <div>
-                Set stun duration (in seconds):
+                Set Seed:
                 <input
-                    value={stunDuration}
                     type={"number"}
-                    min={0}
-                    max={60}
                     onChange={(e) => {
-                        setStunDuration(parseInt(e.target.value));
+                        setSeed(e.target.value);
                     }}
                 ></input>
+            </div>
+            <div>
+                <button
+                    style={{
+                        width: "100px",
+                        height: "50px",
+                        fontSize: "20px",
+                        backgroundColor: publicRoom ? "green" : "white",
+                        color: publicRoom ? "white" : "black",
+                        fontWeight: publicRoom ? "bold" : "normal",
+                    }}
+                    onClick={() => {
+                        setPublicRoom(true);
+                    }}
+                >
+                    Public
+                </button>
+                <button
+                    style={{
+                        width: "100px",
+                        height: "50px",
+                        fontSize: "20px",
+                        backgroundColor: publicRoom ? "white" : "green",
+                        color: publicRoom ? "black" : "white",
+                        fontWeight: publicRoom ? "normal" : "bold",
+                    }}
+                    onClick={() => {
+                        setPublicRoom(false);
+                    }}
+                >
+                    Private
+                </button>
             </div>
             <button
                 style={{
@@ -209,11 +255,36 @@ export default function Lobby() {
                         return;
                     }
 
-                    setGameStarted(true);
-                    setSalt(Math.floor(Math.random() * 100000));
+                    const apiCall = {
+                        difficulty,
+                        rows,
+                        cols,
+                        mines,
+                        stunDuration,
+                        playerLimit,
+                        disableFlag,
+                        disableMiddleMouse,
+                        seed,
+                        publicRoom,
+                    };
+                    console.log(apiCall, "apiCall");
+                    // fetch(process.env.BACKEND_URL + "/api/create", {
+                    fetch("http://localhost:3001/api/create", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify(apiCall),
+                    })
+                        .then((res) => res.json())
+                        .then((res) => {
+                            // redirect to room
+                            console.log(res, "res");
+                            window.location.href = "/" + res.id;
+                        });
                 }}
             >
-                Start
+                Create Room
             </button>
         </div>
     );

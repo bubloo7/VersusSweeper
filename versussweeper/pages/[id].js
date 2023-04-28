@@ -2,7 +2,7 @@ import { useRouter } from "next/router";
 import { useState, useEffect, createContext } from "react";
 import { ref, onValue } from "firebase/database";
 import db from "../firebase/clientApp";
-import Lobby from "../components/Lobby";
+import Lobby from "../components/CreateGame";
 import Minesweeper from "../components/Minesweeper";
 
 export const GameContext = createContext();
@@ -57,90 +57,90 @@ const Page = () => {
     useEffect(() => {
         if (id) {
             // get data stored in "game"
-            const gameRef = ref(db, "rooms/" + id); //"game");
-            onValue(gameRef, (snapshot) => {
-                const data = snapshot.val();
-                if (data) {
-                    setGameFound(true);
-                } else setGameFound(false);
-                setLoading(false);
-            });
+            // const gameRef = ref(db, "rooms/" + id); //"game");
+            // onValue(gameRef, (snapshot) => {
+            //     const data = snapshot.val();
+            //     if (data) {
+            //         setGameFound(true);
+            //     } else setGameFound(false);
+            //     setLoading(false);
+            // });
         }
     }, [id]);
 
-    if (loading) return <p>Loading...</p>; // still checking database if game exists
-    else {
-        if (gameFound) {
-            // Game exists! but are we in the lobby or has the game started?
-            if (gameStarted) {
-                // game started, render minesweeper
-                return (
-                    <GameContext.Provider
-                        value={[
-                            rows,
-                            cols,
-                            mines,
-                            board,
-                            setBoard,
-                            revealed,
-                            setRevealed,
-                            flagged,
-                            setFlagged,
-                            lastMiss,
-                            setLastMiss,
-                            hits,
-                            setHits,
-                            misses,
-                            setMisses,
-                            salt,
-                            id,
-                            firstRowClicked,
-                            setFirstRowClicked,
-                            firstColClicked,
-                            setFirstColClicked,
-                            startTime,
-                            setStartTime,
-                            numFlags,
-                            setNumFlags,
-                            isCtrlPressed,
-                            setIsCtrlPressed,
-                            disableFlag,
-                            setDisableFlag,
-                            disableMiddleMouse,
-                            setDisableMiddleMouse,
-                            stunDuration,
-                        ]}
-                    >
-                        <Minesweeper />
-                    </GameContext.Provider>
-                );
-            } else {
-                // game not started, render lobby
-                return (
-                    <GameContext.Provider
-                        value={[
-                            setGameStarted,
-                            rows,
-                            setRows,
-                            cols,
-                            setCols,
-                            mines,
-                            setMines,
-                            setSalt,
-                            disableFlag,
-                            setDisableFlag,
-                            disableMiddleMouse,
-                            setDisableMiddleMouse,
-                            stunDuration,
-                            setStunDuration,
-                        ]}
-                    >
-                        <Lobby />
-                    </GameContext.Provider>
-                );
-            }
-        } else return <div>Game not found. Check url for typo?</div>; // game not found, tell user to retype url
-    }
+    // if (loading) return <p>Loading...</p>; // still checking database if game exists
+    // else {
+    //     if (gameFound) {
+    //         // Game exists! but are we in the lobby or has the game started?
+    //         if (gameStarted) {
+    //             // game started, render minesweeper
+    //             return (
+    //                 <GameContext.Provider
+    //                     value={[
+    //                         rows,
+    //                         cols,
+    //                         mines,
+    //                         board,
+    //                         setBoard,
+    //                         revealed,
+    //                         setRevealed,
+    //                         flagged,
+    //                         setFlagged,
+    //                         lastMiss,
+    //                         setLastMiss,
+    //                         hits,
+    //                         setHits,
+    //                         misses,
+    //                         setMisses,
+    //                         salt,
+    //                         id,
+    //                         firstRowClicked,
+    //                         setFirstRowClicked,
+    //                         firstColClicked,
+    //                         setFirstColClicked,
+    //                         startTime,
+    //                         setStartTime,
+    //                         numFlags,
+    //                         setNumFlags,
+    //                         isCtrlPressed,
+    //                         setIsCtrlPressed,
+    //                         disableFlag,
+    //                         setDisableFlag,
+    //                         disableMiddleMouse,
+    //                         setDisableMiddleMouse,
+    //                         stunDuration,
+    //                     ]}
+    //                 >
+    //                     <Minesweeper />
+    //                 </GameContext.Provider>
+    //             );
+    //         } else {
+    //             // game not started, render lobby
+    //             return (
+    //                 <GameContext.Provider
+    //                     value={[
+    //                         setGameStarted,
+    //                         rows,
+    //                         setRows,
+    //                         cols,
+    //                         setCols,
+    //                         mines,
+    //                         setMines,
+    //                         setSalt,
+    //                         disableFlag,
+    //                         setDisableFlag,
+    //                         disableMiddleMouse,
+    //                         setDisableMiddleMouse,
+    //                         stunDuration,
+    //                         setStunDuration,
+    //                     ]}
+    //                 >
+    //                     <Lobby />
+    //                 </GameContext.Provider>
+    //             );
+    //         }
+    //     } else return <div>Game not found. Check url for typo?</div>; // game not found, tell user to retype url
+    // }
 };
 
 export default Page;
