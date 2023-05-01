@@ -1,6 +1,6 @@
 import React from "react";
 import { useState } from "react";
-export default function Lobby() {
+export default function CreateGame() {
     const [difficulty, setDifficulty] = useState(0);
 
     const [rows, setRows] = useState(9);
@@ -267,9 +267,7 @@ export default function Lobby() {
                         seed,
                         publicRoom,
                     };
-                    console.log(apiCall, "apiCall");
-                    // fetch(process.env.BACKEND_URL + "/api/create", {
-                    fetch("http://localhost:3001/api/create", {
+                    fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/create`, {
                         method: "POST",
                         headers: {
                             "Content-Type": "application/json",

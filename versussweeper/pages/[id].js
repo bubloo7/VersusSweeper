@@ -1,37 +1,58 @@
 import { useRouter } from "next/router";
 import { useState, useEffect, createContext } from "react";
-import { ref, onValue } from "firebase/database";
-import db from "../firebase/clientApp";
-import Lobby from "../components/CreateGame";
-import Minesweeper from "../components/Minesweeper";
+import ChooseName from "../components/ChooseName";
+import GameFull from "../components/GameFull";
+import GameNotFound from "../components/GameNotFound";
+import Lobby from "../components/Lobby";
+import io from "socket.io-client";
+
+// import Minesweeper from "../components/Minesweeper";
 
 export const GameContext = createContext();
 
+let socket = null;
 const Page = () => {
     const router = useRouter();
     const { id } = router.query;
-    const [loading, setLoading] = useState(true);
-    const [gameFound, setGameFound] = useState(false);
-    const [gameStarted, setGameStarted] = useState(false);
+    const [loading, setLoading] = useState(true); // Are we loading?
+    const [gameFound, setGameFound] = useState(false); // Does the game exist?
+
+    const [name, setName] = useState(""); // User's name
+    const [gameFull, setGameFull] = useState(false); // Is the game full?
+
+    // gameData from redis
+    const [difficulty, setDifficulty] = useState(0);
     const [rows, setRows] = useState(9);
     const [cols, setCols] = useState(9);
     const [mines, setMines] = useState(10);
-
-    const [board, setBoard] = useState([]);
-    const [revealed, setRevealed] = useState([]);
-    const [flagged, setFlagged] = useState([]);
-    const [lastMiss, setLastMiss] = useState([]);
-    const [hits, setHits] = useState(0);
-    const [misses, setMisses] = useState(0);
-    const [salt, setSalt] = useState(0);
-    const [firstRowClicked, setFirstRowClicked] = useState(-1);
-    const [firstColClicked, setFirstColClicked] = useState(-1);
-    const [startTime, setStartTime] = useState(-1);
-    const [numFlags, setNumFlags] = useState(0);
-    const [isCtrlPressed, setIsCtrlPressed] = useState(false);
+    const [publicRoom, setPublicRoom] = useState(true);
+    const [stunDuration, setStunDuration] = useState(5);
+    const [playerLimit, setPlayerLimit] = useState(8);
     const [disableFlag, setDisableFlag] = useState(false);
     const [disableMiddleMouse, setDisableMiddleMouse] = useState(false);
-    const [stunDuration, setStunDuration] = useState(5);
+    const [seed, setSeed] = useState("9202723864");
+    const [seedRandomlyGenerated, setSeedRandomlyGenerated] = useState(true);
+    const [nextGameId, setNextGameId] = useState("");
+    const [gameStarted, setGameStarted] = useState(false);
+    const [startTime, setStartTime] = useState(-1);
+    const [hostName, setHostName] = useState("");
+    const [firstMoveName, setFirstMoveName] = useState("");
+    const [firstColClicked, setFirstColClicked] = useState(-1);
+    const [firstRowClicked, setFirstRowClicked] = useState(-1);
+    const [players, setPlayers] = useState({});
+
+    // playerElem from redis
+    const [clears, setClears] = useState(0);
+    const [misses, setMisses] = useState(0);
+    const [finishTime, setFinishTime] = useState(-1);
+
+    // playerObj from redis
+    const [flags, setFlags] = useState(0);
+    const [stun, setStun] = useState(-1);
+    const [revealed, setRevealed] = useState([]);
+    const [flagged, setFlagged] = useState([]);
+
+    const [isCtrlPressed, setIsCtrlPressed] = useState(false);
     useEffect(() => {
         function handleKeyDown(event) {
             if (event.ctrlKey) {
@@ -56,91 +77,129 @@ const Page = () => {
 
     useEffect(() => {
         if (id) {
-            // get data stored in "game"
-            // const gameRef = ref(db, "rooms/" + id); //"game");
-            // onValue(gameRef, (snapshot) => {
-            //     const data = snapshot.val();
-            //     if (data) {
-            //         setGameFound(true);
-            //     } else setGameFound(false);
-            //     setLoading(false);
-            // });
+            socket = io("http://localhost:3001", { query: { id } });
+
+            socket.on("newPlayer", (data) => {
+                console.log("newPlayer received in client", data);
+
+                setPlayers((prevPlayers) => {
+                    let tempPlayers = { ...prevPlayers };
+                    const nPlayer = {
+                        name: data.name,
+                        clears: 0,
+                        misses: 0,
+                        finishTime: 1682900908681 * 2, // time in the far far future, for when the user has not actually finished yet
+                    };
+                    tempPlayers[data.name] = nPlayer;
+                    return tempPlayers;
+                });
+            });
+
+            // Check if game exists
+            fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/exists`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ id }),
+            })
+                .then((res) => res.json())
+                .then((data) => {
+                    if (data.exists) {
+                        setGameFound(true);
+                    } else {
+                        setGameFound(false);
+                    }
+                    setLoading(false);
+                });
         }
     }, [id]);
 
-    // if (loading) return <p>Loading...</p>; // still checking database if game exists
-    // else {
-    //     if (gameFound) {
-    //         // Game exists! but are we in the lobby or has the game started?
-    //         if (gameStarted) {
-    //             // game started, render minesweeper
-    //             return (
-    //                 <GameContext.Provider
-    //                     value={[
-    //                         rows,
-    //                         cols,
-    //                         mines,
-    //                         board,
-    //                         setBoard,
-    //                         revealed,
-    //                         setRevealed,
-    //                         flagged,
-    //                         setFlagged,
-    //                         lastMiss,
-    //                         setLastMiss,
-    //                         hits,
-    //                         setHits,
-    //                         misses,
-    //                         setMisses,
-    //                         salt,
-    //                         id,
-    //                         firstRowClicked,
-    //                         setFirstRowClicked,
-    //                         firstColClicked,
-    //                         setFirstColClicked,
-    //                         startTime,
-    //                         setStartTime,
-    //                         numFlags,
-    //                         setNumFlags,
-    //                         isCtrlPressed,
-    //                         setIsCtrlPressed,
-    //                         disableFlag,
-    //                         setDisableFlag,
-    //                         disableMiddleMouse,
-    //                         setDisableMiddleMouse,
-    //                         stunDuration,
-    //                     ]}
-    //                 >
-    //                     <Minesweeper />
-    //                 </GameContext.Provider>
-    //             );
-    //         } else {
-    //             // game not started, render lobby
-    //             return (
-    //                 <GameContext.Provider
-    //                     value={[
-    //                         setGameStarted,
-    //                         rows,
-    //                         setRows,
-    //                         cols,
-    //                         setCols,
-    //                         mines,
-    //                         setMines,
-    //                         setSalt,
-    //                         disableFlag,
-    //                         setDisableFlag,
-    //                         disableMiddleMouse,
-    //                         setDisableMiddleMouse,
-    //                         stunDuration,
-    //                         setStunDuration,
-    //                     ]}
-    //                 >
-    //                     <Lobby />
-    //                 </GameContext.Provider>
-    //             );
-    //         }
-    //     } else return <div>Game not found. Check url for typo?</div>; // game not found, tell user to retype url
-    // }
+    // Still checking if game exists
+    if (loading) {
+        return <div> Loading... </div>;
+    } else {
+        // Game doesn't exist
+        if (!gameFound) {
+            return <GameNotFound />;
+        }
+        // Game exists
+        else {
+            if (!name) {
+                return (
+                    <GameContext.Provider
+                        value={[
+                            id,
+                            setDifficulty,
+                            setRows,
+                            setCols,
+                            setMines,
+                            setPublicRoom,
+                            setStunDuration,
+                            setPlayerLimit,
+                            setDisableFlag,
+                            setDisableMiddleMouse,
+                            setSeed,
+                            setSeedRandomlyGenerated,
+                            setNextGameId,
+                            setGameStarted,
+                            setStartTime,
+                            setHostName,
+                            setFirstMoveName,
+                            setFirstColClicked,
+                            setFirstRowClicked,
+                            setPlayers,
+                            setClears,
+                            setMisses,
+                            setFinishTime,
+                            setFlags,
+                            setStun,
+                            setRevealed,
+                            setFlagged,
+                            setName,
+                            setGameFull,
+                            socket,
+                        ]}
+                    >
+                        <ChooseName />
+                    </GameContext.Provider>
+                );
+            } else {
+                if (gameFull) {
+                    return <GameFull />;
+                } else if (!gameStarted) {
+                    return (
+                        <GameContext.Provider
+                            value={[
+                                id,
+                                name,
+                                difficulty,
+                                rows,
+                                cols,
+                                mines,
+                                publicRoom,
+                                stunDuration,
+                                playerLimit,
+                                disableFlag,
+                                disableMiddleMouse,
+                                seed,
+                                seedRandomlyGenerated,
+                                setGameStarted,
+                                setStartTime,
+                                hostName,
+                                setFirstMoveName,
+                                players,
+                            ]}
+                        >
+                            <Lobby />
+                        </GameContext.Provider>
+                    );
+                } else {
+                    return <div>Minesweeper</div>;
+                }
+            }
+        }
+    }
 };
 
 export default Page;
