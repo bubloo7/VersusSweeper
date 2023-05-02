@@ -3,6 +3,7 @@ import { useState, useContext, useEffect } from "react";
 
 export default function Lobby() {
     const [sDifficulty, setSDifficulty] = useState("");
+    const [loading, setLoading] = useState(false); // will be loading after clicking start game
 
     const [
         id,
@@ -23,6 +24,7 @@ export default function Lobby() {
         hostName,
         setFirstMoveName,
         players,
+        socket,
     ] = useContext(GameContext);
 
     useEffect(() => {
@@ -40,25 +42,41 @@ export default function Lobby() {
         }
     }, [difficulty]);
 
-    return (
-        <div>
+    if (loading) {
+        return <div>Loading...</div>;
+    } else {
+        return (
             <div>
-                {publicRoom ? "Public" : "Private"} Lobby {id}
+                <div>
+                    {publicRoom ? "Public" : "Private"} Lobby {id}
+                </div>
+                <div> Difficulty: {sDifficulty} </div>
+                <div> Rows: {rows} </div>
+                <div> Columns: {cols} </div>
+                <div> Mines: {mines} </div>
+                <div> Stun Duration: {stunDuration} </div>
+                <div> Flag: {disableFlag ? "Disabled" : "Enabled"} </div>
+                <div> Middle Mouse: {disableMiddleMouse ? "Disabled" : "Enabled"} </div>
+                <div>
+                    {seedRandomlyGenerated ? "Randomly generated " : "Set "}seed: {seed}{" "}
+                </div>
+                <div>
+                    Current players: {Object.keys(players).join(", ")}{" "}
+                    {`(${Object.keys(players).length}/${playerLimit})`}
+                </div>
+                {hostName === name ? (
+                    <button
+                        onClick={() => {
+                            // setGameStarted(true);
+                            socket.emit("startGameToServer");
+                        }}
+                    >
+                        Start Game
+                    </button>
+                ) : (
+                    <div>Waiting for host to start game...</div>
+                )}
             </div>
-            <div> Difficulty: {sDifficulty} </div>
-            <div> Rows: {rows} </div>
-            <div> Columns: {cols} </div>
-            <div> Mines: {mines} </div>
-            <div> Stun Duration: {stunDuration} </div>
-            <div> Flag: {disableFlag ? "Disabled" : "Enabled"} </div>
-            <div> Middle Mouse: {disableMiddleMouse ? "Disabled" : "Enabled"} </div>
-            <div>
-                {seedRandomlyGenerated ? "Randomly generated " : "Set "}seed: {seed}{" "}
-            </div>
-            <div>
-                Current players: {Object.keys(players).join(", ")} {`(${Object.keys(players).length}/${playerLimit})`}
-            </div>
-            {hostName === name ? <button>Start Game</button> : <div>Waiting for host to start game...</div>}
-        </div>
-    );
+        );
+    }
 }

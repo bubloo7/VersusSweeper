@@ -128,7 +128,7 @@ app.post("/api/join", async (req, res) => {
             flags: 0,
             stun: -1,
             revealed: falseArr,
-            clicked: falseArr,
+            flagged: falseArr,
         };
         gameData["players"][name] = playersElem;
         if (Object.keys(gameData.players).length === 1) {
@@ -159,17 +159,6 @@ io.on("connection", async (socket) => {
     const id = socket.handshake.query.id;
     socket.join(id);
 
-    // Get data from redis
-
-    // redis.call("JSON.GET", `${id}`, ".").then((data) => {
-    //     data = JSON.parse(data);
-
-    //     console.log(data, "data from redis");
-    //     if (data === null) {
-    //         socket.emit("joinRoom", "DNE");
-    //     } else socket.emit("joinRoom", data);
-    // });
-
     redis.incr("_players");
 
     socket.on("newPlayer", (data) => {
@@ -179,6 +168,31 @@ io.on("connection", async (socket) => {
 
     socket.on("test", (data) => {
         console.log("socket test", data);
+    });
+
+    socket.on("startGameToServer", () => {
+        redis.call("JSON.OBJKEYS", `${id}`, "$.players").then((data) => {
+            console.log(data);
+            const firstMoveName = data[0][Math.floor(Math.random() * data[0].length)];
+            console.log(firstMoveName);
+            redis.call("JSON.SET", `${id}`, `$.firstMoveName`, `\"${firstMoveName}\"`).then(() => {
+                redis.call("JSON.SET", `${id}`, `$.gameStarted`, `true`).then(() => {
+                    io.to(id).emit("startGameToClient", { firstMoveName });
+                });
+            });
+        });
+    });
+
+    socket.on("firstMoveToServer", async (data) => {
+        const checkStartTime = JSON.parse(await redis.call("JSON.GET", `${id}`, `$.startTime`));
+        console.log(checkStartTime);
+        if (checkStartTime !== -1) {
+            await redis.call("JSON.SET", `${id}`, `$.firstColClicked`, `${data.firstColClicked}`);
+            await redis.call("JSON.SET", `${id}`, `$.firstRowClicked`, `${data.firstRowClicked}`);
+            data.startTime = Date.now();
+            await redis.call("JSON.SET", `${id}`, `$.startTime`, `${data.startTime}`).then();
+            io.to(id).emit("firstMoveToClient", data);
+        }
     });
 
     socket.on("disconnect", () => {

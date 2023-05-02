@@ -4,9 +4,9 @@ import ChooseName from "../components/ChooseName";
 import GameFull from "../components/GameFull";
 import GameNotFound from "../components/GameNotFound";
 import Lobby from "../components/Lobby";
+import Minesweeper from "../components/Minesweeper";
 import io from "socket.io-client";
 
-// import Minesweeper from "../components/Minesweeper";
 
 export const GameContext = createContext();
 
@@ -52,6 +52,7 @@ const Page = () => {
     const [revealed, setRevealed] = useState([]);
     const [flagged, setFlagged] = useState([]);
 
+    const [board, setBoard] = useState([]);
     const [isCtrlPressed, setIsCtrlPressed] = useState(false);
     useEffect(() => {
         function handleKeyDown(event) {
@@ -80,8 +81,6 @@ const Page = () => {
             socket = io("http://localhost:3001", { query: { id } });
 
             socket.on("newPlayer", (data) => {
-                console.log("newPlayer received in client", data);
-
                 setPlayers((prevPlayers) => {
                     let tempPlayers = { ...prevPlayers };
                     const nPlayer = {
@@ -93,6 +92,18 @@ const Page = () => {
                     tempPlayers[data.name] = nPlayer;
                     return tempPlayers;
                 });
+            });
+
+            socket.on("startGameToClient", (data) => {
+                setFirstMoveName(data.firstMoveName);
+                setGameStarted(true);
+            });
+
+            socket.on("firstMoveToClient", (data) => {
+                console.log(data, "helpp", data.firstColClicked, data.firstRowClicked);
+                setFirstColClicked(data.firstColClicked);
+                setFirstRowClicked(data.firstRowClicked);
+                setStartTime(data.startTime);
             });
 
             // Check if game exists
@@ -189,13 +200,56 @@ const Page = () => {
                                 hostName,
                                 setFirstMoveName,
                                 players,
+                                socket,
                             ]}
                         >
                             <Lobby />
                         </GameContext.Provider>
                     );
                 } else {
-                    return <div>Minesweeper</div>;
+                    return (
+                        <GameContext.Provider
+                            value={[
+                                rows,
+                                cols,
+                                mines,
+                                board,
+                                setBoard,
+                                revealed,
+                                setRevealed,
+                                flagged,
+                                setFlagged,
+                                stun,
+                                setStun,
+                                clears,
+                                setClears,
+                                misses,
+                                setMisses,
+                                seed,
+                                id,
+                                firstRowClicked,
+                                setFirstRowClicked,
+                                firstColClicked,
+                                setFirstColClicked,
+                                startTime,
+                                setStartTime,
+                                flags,
+                                setFlags,
+                                isCtrlPressed,
+                                setIsCtrlPressed,
+                                disableFlag,
+                                setDisableFlag,
+                                disableMiddleMouse,
+                                setDisableMiddleMouse,
+                                stunDuration,
+                                name,
+                                firstMoveName,
+                                socket,
+                            ]}
+                        >
+                            <Minesweeper />
+                        </GameContext.Provider>
+                    );
                 }
             }
         }

@@ -49,7 +49,10 @@ export default function MinesweeperRow(props) {
         disableMiddleMouse,
         setDisableMiddleMouse,
         stunDuration,
-    ]= useContext(GameContext);
+        name,
+        firstMoveName,
+        socket,
+    ] = useContext(GameContext);
 
     const getImage = () => {
         if (revealed[props.rowNum][props.colNum]) {
@@ -84,6 +87,7 @@ export default function MinesweeperRow(props) {
                 return Eight;
             }
         } else {
+            console.log("test flagged", flagged);
             if (flagged[props.rowNum][props.colNum]) {
                 return Flag;
             } else {
@@ -148,9 +152,12 @@ export default function MinesweeperRow(props) {
 
     const handleClick = () => {
         if (firstColClicked === -1) {
-            setFirstRowClicked(props.rowNum);
-            setFirstColClicked(props.colNum);
-            return;
+            console.log(name, firstMoveName);
+            if (name === firstMoveName) {
+                // setFirstRowClicked(props.rowNum);
+                // setFirstColClicked(props.colNum);
+                socket.emit("firstMoveToServer", { firstColClicked: props.colNum, firstRowClicked: props.rowNum });
+            }
         } else {
             if (isCtrlPressed) {
                 flag();

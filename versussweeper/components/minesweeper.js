@@ -15,7 +15,7 @@ export default function Minesweeper() {
         setRevealed,
         flagged,
         setFlagged,
-        lastMiss,
+        lastMiss, // time till you can click again
         setLastMiss,
         hits,
         setHits,
@@ -38,39 +38,50 @@ export default function Minesweeper() {
         disableMiddleMouse,
         setDisableMiddleMouse,
         stunDuration,
+        name,
+        firstMoveName,
+        socket,
     ] = useContext(GameContext);
-    console.log("stunDuration: " + stunDuration);
     const [stunTimer, setStunTimer] = useState(-1);
     const [minesweeperRows, setMinesweeperRows] = useState([]);
     const [time, setTime] = useState(-1);
 
+    useEffect(() => {
+        if (startTime !== -1) {
+            console.log((Date.now() - startTime) / 1000, "time");
+            setTime(Math.floor((Date.now() - startTime) / 1000));
+        }
+    }, [startTime]);
+
     // This use effect is called when the first row and col are clicked
     useEffect(() => {
-        const newBoard = getBoard(rows, cols, mines, id + salt, firstRowClicked, firstColClicked);
-        setBoard(newBoard);
-        const temp_reveal = [];
-        const temp_flag = [];
-        for (let i = 0; i < rows; i++) {
-            temp_reveal.push([]);
-            temp_flag.push([]);
-            for (let j = 0; j < cols; j++) {
-                temp_reveal[i].push(false);
-                temp_flag[i].push(false);
+        console.log("first row and col clicked", firstRowClicked, firstColClicked);
+        if (firstRowClicked !== -1 && firstColClicked !== -1) {
+            const newBoard = getBoard(rows, cols, mines, id + salt, firstRowClicked, firstColClicked);
+            setBoard(newBoard);
+            const temp_reveal = [];
+            const temp_flag = [];
+            for (let i = 0; i < rows; i++) {
+                temp_reveal.push([]);
+                temp_flag.push([]);
+                for (let j = 0; j < cols; j++) {
+                    temp_reveal[i].push(false);
+                    temp_flag[i].push(false);
+                }
             }
+            const [tempHits, tempMisses] = reveal(
+                firstRowClicked,
+                firstColClicked,
+                newBoard,
+                temp_reveal,
+                temp_flag,
+                lastMiss
+            );
+            setRevealed(temp_reveal);
+            setHits(tempHits);
+            setMisses(tempMisses);
+            setFlagged(temp_flag);
         }
-        const [tempHits, tempMisses] = reveal(
-            firstRowClicked,
-            firstColClicked,
-            newBoard,
-            temp_reveal,
-            temp_flag,
-            lastMiss
-        );
-        setRevealed(temp_reveal);
-        setHits(tempHits);
-        setMisses(tempMisses);
-        setFlagged(temp_flag);
-        setTime(0);
     }, [firstRowClicked, firstColClicked]);
 
     // This use effect handles the timer
@@ -116,6 +127,13 @@ export default function Minesweeper() {
     return (
         <div>
             {minesweeperRows}
+            {firstColClicked === -1 && (
+                <div>
+                    {firstMoveName === name
+                        ? "You get to make the first move!"
+                        : `Waiting for ${firstMoveName} to make a move...`}
+                </div>
+            )}
             <div>
                 Hits = {hits}
                 Misses = {misses}
