@@ -81,7 +81,7 @@ function getNeighbors(row, col, board) {
  * @returns [number of squares revealed, number of mines hit]
  */
 function reveal(row, col, minesweeperBoard, revealed, flagged, stun) {
-    let output = [0, 0];
+    let output = [0, 0, []];
     if (
         row >= 0 &&
         row < minesweeperBoard.length &&
@@ -91,24 +91,26 @@ function reveal(row, col, minesweeperBoard, revealed, flagged, stun) {
         !flagged[row][col]
     ) {
         if (Date.now() < stun) {
-            return [0, 0];
+            return [0, 0, []];
         }
         revealed[row][col] = true;
         if (minesweeperBoard[row][col] === -1) {
             flagged[row][col] = true;
-            return [0, 1];
+            return [0, 1, [[row, col]]];
         } else if (minesweeperBoard[row][col] === 0) {
-            const [hits1] = reveal(row - 1, col - 1, minesweeperBoard, revealed, flagged, stun);
-            const [hits2] = reveal(row - 1, col, minesweeperBoard, revealed, flagged, stun);
-            const [hits3] = reveal(row - 1, col + 1, minesweeperBoard, revealed, flagged, stun);
-            const [hits4] = reveal(row, col - 1, minesweeperBoard, revealed, flagged, stun);
-            const [hits5] = reveal(row, col + 1, minesweeperBoard, revealed, flagged, stun);
-            const [hits6] = reveal(row + 1, col - 1, minesweeperBoard, revealed, flagged, stun);
-            const [hits7] = reveal(row + 1, col, minesweeperBoard, revealed, flagged, stun);
-            const [hits8] = reveal(row + 1, col + 1, minesweeperBoard, revealed, flagged, stun);
+            const [hits1, misses1, indexes1] = reveal(row - 1, col - 1, minesweeperBoard, revealed, flagged, stun);
+            const [hits2, misses2, indexes2] = reveal(row - 1, col, minesweeperBoard, revealed, flagged, stun);
+            const [hits3, misses3, indexes3] = reveal(row - 1, col + 1, minesweeperBoard, revealed, flagged, stun);
+            const [hits4, misses4, indexes4] = reveal(row, col - 1, minesweeperBoard, revealed, flagged, stun);
+            const [hits5, misses5, indexes5] = reveal(row, col + 1, minesweeperBoard, revealed, flagged, stun);
+            const [hits6, misses6, indexes6] = reveal(row + 1, col - 1, minesweeperBoard, revealed, flagged, stun);
+            const [hits7, misses7, indexes7] = reveal(row + 1, col, minesweeperBoard, revealed, flagged, stun);
+            const [hits8, misses8, indexes8] = reveal(row + 1, col + 1, minesweeperBoard, revealed, flagged, stun);
             output[0] = hits1 + hits2 + hits3 + hits4 + hits5 + hits6 + hits7 + hits8;
+            output[2] = indexes1.concat(indexes2, indexes3, indexes4, indexes5, indexes6, indexes7, indexes8);
         }
         output[0] += 1;
+        output[2].push([row, col]);
     }
     return output;
 }
@@ -124,15 +126,9 @@ function reveal(row, col, minesweeperBoard, revealed, flagged, stun) {
  * @returns [number of squares revealed, number of mines hit]
  */
 function middleClick(row, col, minesweeperBoard, revealed, flagged, stun) {
-    if (
-        row >= 0 &&
-        row < minesweeperBoard.length &&
-        col >= 0 &&
-        col < minesweeperBoard[0].length &&
-        revealed[row][col]
-    ) {
+    if (revealed[row][col]) {
         if (Date.now() < stun) {
-            return [0, 0];
+            return [0, 0, []];
         }
         let neighbors = 0;
         if (row - 1 >= 0 && col - 1 >= 0 && flagged[row - 1][col - 1]) {
@@ -161,50 +157,59 @@ function middleClick(row, col, minesweeperBoard, revealed, flagged, stun) {
         }
         if (neighbors === minesweeperBoard[row][col]) {
             let hits = 0;
-            const [hits1, misses1] = reveal(row - 1, col - 1, minesweeperBoard, revealed, flagged, stun);
+            let revealedIndexes = [];
+            let [hits1, misses1, indexes1] = reveal(row - 1, col - 1, minesweeperBoard, revealed, flagged, stun);
             if (misses1 > 0) {
-                return [hits, 1];
+                return [hits, 1, revealedIndexes];
             }
             hits += hits1;
-            const [hits2, misses2] = reveal(row - 1, col, minesweeperBoard, revealed, flagged, stun);
-            if (misses2 > 0) {
-                return [hits, 1];
+            revealedIndexes = revealedIndexes.concat(indexes1);
+            [hits1, misses1, indexes1] = reveal(row - 1, col, minesweeperBoard, revealed, flagged, stun);
+            if (misses1 > 0) {
+                return [hits, 1, revealedIndexes];
             }
-            hits += hits2;
-            const [hits3, misses3] = reveal(row - 1, col + 1, minesweeperBoard, revealed, flagged, stun);
-            if (misses3 > 0) {
-                return [hits, 1];
+            hits += hits1;
+            revealedIndexes = revealedIndexes.concat(indexes1);
+            [hits1, misses1, indexes1] = reveal(row - 1, col + 1, minesweeperBoard, revealed, flagged, stun);
+            if (misses1 > 0) {
+                return [hits, 1, revealedIndexes];
             }
-            hits += hits3;
-            const [hits4, misses4] = reveal(row, col - 1, minesweeperBoard, revealed, flagged, stun);
-            if (misses4 > 0) {
-                return [hits, 1];
+            hits += hits1;
+            revealedIndexes = revealedIndexes.concat(indexes1);
+            [hits1, misses1, indexes1] = reveal(row, col - 1, minesweeperBoard, revealed, flagged, stun);
+            if (misses1 > 0) {
+                return [hits, 1, revealedIndexes];
             }
-            hits += hits4;
-            const [hits5, misses5] = reveal(row, col + 1, minesweeperBoard, revealed, flagged, stun);
-            if (misses5 > 0) {
-                return [hits, 1];
+            hits += hits1;
+            revealedIndexes = revealedIndexes.concat(indexes1);
+            [hits1, misses1, indexes1] = reveal(row, col + 1, minesweeperBoard, revealed, flagged, stun);
+            if (misses1 > 0) {
+                return [hits, 1, revealedIndexes];
             }
-            hits += hits5;
-            const [hits6, misses6] = reveal(row + 1, col - 1, minesweeperBoard, revealed, flagged, stun);
-            if (misses6 > 0) {
-                return [hits, 1];
+            hits += hits1;
+            revealedIndexes = revealedIndexes.concat(indexes1);
+            [hits1, misses1, indexes1] = reveal(row + 1, col - 1, minesweeperBoard, revealed, flagged, stun);
+            if (misses1 > 0) {
+                return [hits, 1, revealedIndexes];
             }
-            hits += hits6;
-            const [hits7, misses7] = reveal(row + 1, col, minesweeperBoard, revealed, flagged, stun);
-            if (misses7 > 0) {
-                return [hits, 1];
+            hits += hits1;
+            revealedIndexes = revealedIndexes.concat(indexes1);
+            [hits1, misses1, indexes1] = reveal(row + 1, col, minesweeperBoard, revealed, flagged, stun);
+            if (misses1 > 0) {
+                return [hits, 1, revealedIndexes];
             }
-            hits += hits7;
-            const [hits8, misses8] = reveal(row + 1, col + 1, minesweeperBoard, revealed, flagged, stun);
-            if (misses8 > 0) {
-                return [hits, 1];
+            hits += hits1;
+            revealedIndexes = revealedIndexes.concat(indexes1);
+            [hits1, misses1, indexes1] = reveal(row + 1, col + 1, minesweeperBoard, revealed, flagged, stun);
+            if (misses1 > 0) {
+                return [hits, 1, revealedIndexes];
             }
-            hits += hits8;
-            return [hits, 0];
+            hits += hits1;
+            revealedIndexes = revealedIndexes.concat(indexes1);
+            return [hits, 0, revealedIndexes];
         }
     }
-    return [0, 0];
+    return [0, 0, []];
 }
 
 function flag(row, col, flagged) {
