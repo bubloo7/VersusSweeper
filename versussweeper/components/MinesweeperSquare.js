@@ -52,6 +52,8 @@ export default function MinesweeperRow(props) {
         name,
         firstMoveName,
         socket,
+        stunTimer,
+        setStunTimer,
     ] = useContext(GameContext);
 
     const getImage = () => {
@@ -87,7 +89,6 @@ export default function MinesweeperRow(props) {
                 return Eight;
             }
         } else {
-            console.log("test flagged", flagged);
             if (flagged[props.rowNum][props.colNum]) {
                 return Flag;
             } else {
@@ -147,12 +148,12 @@ export default function MinesweeperRow(props) {
             setNumFlags(numFlags - 1);
         }
 
+        socket.emit("flagToServer", { name, row: props.rowNum, col: props.colNum });
         setFlagged(temp_flag);
     };
 
     const handleClick = () => {
         if (firstColClicked === -1) {
-            console.log(name, firstMoveName);
             if (name === firstMoveName) {
                 // setFirstRowClicked(props.rowNum);
                 // setFirstColClicked(props.colNum);
@@ -164,9 +165,8 @@ export default function MinesweeperRow(props) {
                 return;
             }
             if (!flagged[props.rowNum][props.colNum]) {
-                const temp_flagged = [...flagged];
-                const temp_revealed = [...revealed];
-                const [tempHits, tempMisses] = reveal(
+                let temp_revealed = [...revealed];
+                const [tempHits, tempMisses, revealedIndices] = reveal(
                     props.rowNum,
                     props.colNum,
                     board,
@@ -175,10 +175,19 @@ export default function MinesweeperRow(props) {
                     lastMiss
                 );
                 setRevealed(temp_revealed);
-                setFlagged(temp_flagged);
                 setHits(hits + tempHits);
                 setMisses(misses + tempMisses);
                 setNumFlags(numFlags + tempMisses);
+                socket.emit("revealToServer", { revealedIndices, hits: tempHits, misses: tempMisses, name });
+
+                if (tempMisses > 0) {
+                    let temp_flagged = [...flagged];
+                    temp_flagged[props.rowNum][props.colNum] = true;
+                    const temp = Date.now() + stunDuration * 1000;
+                    setLastMiss(temp);
+                    setStunTimer(stunDuration);
+                    socket.emit("stunToServer", { stun: temp, name, row: props.rowNum, col: props.colNum });
+                }
             }
         }
     };
@@ -187,10 +196,9 @@ export default function MinesweeperRow(props) {
         e.preventDefault();
         if (e.button === 1 && !disableMiddleMouse) {
             if (revealed[props.rowNum][props.colNum]) {
-                const temp_revealed = [...revealed];
-                const temp_flagged = [...flagged];
+                let temp_revealed = [...revealed];
 
-                const [tempHits, tempMisses] = middleClick(
+                const [tempHits, tempMisses, revealedIndices] = middleClick(
                     props.rowNum,
                     props.colNum,
                     board,
@@ -199,11 +207,23 @@ export default function MinesweeperRow(props) {
                     lastMiss
                 );
                 setRevealed(temp_revealed);
-                setFlagged(temp_flagged);
 
                 setHits(hits + tempHits);
                 setMisses(misses + tempMisses);
                 setNumFlags(numFlags + tempMisses);
+                socket.emit("revealToServer", { revealedIndices, hits: tempHits, misses: tempMisses, name });
+                if (tempMisses > 0) {
+                    let temp_flagged = [...flagged];
+                    const rowNum = revealedIndices[revealedIndices.length - 1][0];
+                    const colNum = revealedIndices[revealedIndices.length - 1][1];
+                    temp_flagged[rowNum][colNum] = true;
+                    setFlagged(temp_flagged);
+
+                    const temp = Date.now() + stunDuration * 1000;
+                    setLastMiss(temp);
+                    setStunTimer(stunDuration);
+                    socket.emit("stunToServer", { stun: temp, name, row: rowNum, col: colNum });
+                }
             }
         }
     };

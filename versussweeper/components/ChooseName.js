@@ -37,6 +37,8 @@ export default function ChooseName() {
         setName,
         setGameFull,
         socket,
+        stunTimer,
+        setStunTimer,
     ] = useContext(GameContext);
     if (loading) {
         return <div> Loading change name... </div>;
@@ -103,8 +105,11 @@ export default function ChooseName() {
                                 setRevealed(data.playerObj.revealed);
                                 setFlagged(data.playerObj.flagged);
 
+                                if (data.playerObj.stun > Date.now()) {
+                                    setStunTimer(Math.floor((data.playerObj.stun - Date.now()) / 1000));
+                                }
+
                                 if (!data.playerAlreadyInGame) {
-                                    console.log("newPlayer sending to server", data.playerAlreadyInGame);
                                     socket.emit("newPlayer", { name: tempName });
                                 }
 

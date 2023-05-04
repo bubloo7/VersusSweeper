@@ -95,7 +95,7 @@ function reveal(row, col, minesweeperBoard, revealed, flagged, stun) {
         }
         revealed[row][col] = true;
         if (minesweeperBoard[row][col] === -1) {
-            flagged[row][col] = true;
+            // flagged[row][col] = true;
             return [0, 1, [[row, col]]];
         } else if (minesweeperBoard[row][col] === 0) {
             const [hits1, misses1, indexes1] = reveal(row - 1, col - 1, minesweeperBoard, revealed, flagged, stun);
@@ -158,54 +158,63 @@ function middleClick(row, col, minesweeperBoard, revealed, flagged, stun) {
         if (neighbors === minesweeperBoard[row][col]) {
             let hits = 0;
             let revealedIndexes = [];
+
             let [hits1, misses1, indexes1] = reveal(row - 1, col - 1, minesweeperBoard, revealed, flagged, stun);
+            revealedIndexes = revealedIndexes.concat(indexes1);
             if (misses1 > 0) {
                 return [hits, 1, revealedIndexes];
             }
             hits += hits1;
-            revealedIndexes = revealedIndexes.concat(indexes1);
+
             [hits1, misses1, indexes1] = reveal(row - 1, col, minesweeperBoard, revealed, flagged, stun);
+            revealedIndexes = revealedIndexes.concat(indexes1);
             if (misses1 > 0) {
                 return [hits, 1, revealedIndexes];
             }
             hits += hits1;
-            revealedIndexes = revealedIndexes.concat(indexes1);
+
             [hits1, misses1, indexes1] = reveal(row - 1, col + 1, minesweeperBoard, revealed, flagged, stun);
+            revealedIndexes = revealedIndexes.concat(indexes1);
             if (misses1 > 0) {
                 return [hits, 1, revealedIndexes];
             }
             hits += hits1;
-            revealedIndexes = revealedIndexes.concat(indexes1);
+
             [hits1, misses1, indexes1] = reveal(row, col - 1, minesweeperBoard, revealed, flagged, stun);
+            revealedIndexes = revealedIndexes.concat(indexes1);
             if (misses1 > 0) {
                 return [hits, 1, revealedIndexes];
             }
             hits += hits1;
-            revealedIndexes = revealedIndexes.concat(indexes1);
+
             [hits1, misses1, indexes1] = reveal(row, col + 1, minesweeperBoard, revealed, flagged, stun);
+            revealedIndexes = revealedIndexes.concat(indexes1);
             if (misses1 > 0) {
                 return [hits, 1, revealedIndexes];
             }
             hits += hits1;
-            revealedIndexes = revealedIndexes.concat(indexes1);
+
             [hits1, misses1, indexes1] = reveal(row + 1, col - 1, minesweeperBoard, revealed, flagged, stun);
+            revealedIndexes = revealedIndexes.concat(indexes1);
             if (misses1 > 0) {
                 return [hits, 1, revealedIndexes];
             }
             hits += hits1;
-            revealedIndexes = revealedIndexes.concat(indexes1);
+
             [hits1, misses1, indexes1] = reveal(row + 1, col, minesweeperBoard, revealed, flagged, stun);
+            revealedIndexes = revealedIndexes.concat(indexes1);
             if (misses1 > 0) {
                 return [hits, 1, revealedIndexes];
             }
             hits += hits1;
-            revealedIndexes = revealedIndexes.concat(indexes1);
+
             [hits1, misses1, indexes1] = reveal(row + 1, col + 1, minesweeperBoard, revealed, flagged, stun);
+            revealedIndexes = revealedIndexes.concat(indexes1);
             if (misses1 > 0) {
                 return [hits, 1, revealedIndexes];
             }
             hits += hits1;
-            revealedIndexes = revealedIndexes.concat(indexes1);
+
             return [hits, 0, revealedIndexes];
         }
     }

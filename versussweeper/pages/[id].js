@@ -4,9 +4,8 @@ import ChooseName from "../components/ChooseName";
 import GameFull from "../components/GameFull";
 import GameNotFound from "../components/GameNotFound";
 import Lobby from "../components/Lobby";
-import Minesweeper from "../components/Minesweeper";
+import Minesweeper from "../components/minesweeper";
 import io from "socket.io-client";
-
 
 export const GameContext = createContext();
 
@@ -54,6 +53,8 @@ const Page = () => {
 
     const [board, setBoard] = useState([]);
     const [isCtrlPressed, setIsCtrlPressed] = useState(false);
+    const [stunTimer, setStunTimer] = useState(-1);
+
     useEffect(() => {
         function handleKeyDown(event) {
             if (event.ctrlKey) {
@@ -100,12 +101,20 @@ const Page = () => {
             });
 
             socket.on("firstMoveToClient", (data) => {
-                console.log(data, "helpp", data.firstColClicked, data.firstRowClicked);
                 setFirstColClicked(data.firstColClicked);
                 setFirstRowClicked(data.firstRowClicked);
                 setStartTime(data.startTime);
             });
 
+            socket.on("revealToClient", (data) => {
+                setPlayers((temp_players) => {
+                    let temp_players2 = { ...temp_players };
+                    console.log("updating players test");
+                    temp_players2[data.name].clears = data.hits;
+                    temp_players2[data.name].misses = data.misses;
+                    return temp_players2;
+                });
+            });
             // Check if game exists
             fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/exists`, {
                 method: "POST",
@@ -170,6 +179,8 @@ const Page = () => {
                             setName,
                             setGameFull,
                             socket,
+                            stunTimer,
+                            setStunTimer,
                         ]}
                     >
                         <ChooseName />
@@ -245,6 +256,9 @@ const Page = () => {
                                 name,
                                 firstMoveName,
                                 socket,
+                                stunTimer,
+                                setStunTimer,
+                                players,
                             ]}
                         >
                             <Minesweeper />

@@ -162,7 +162,6 @@ io.on("connection", async (socket) => {
     redis.incr("_players");
 
     socket.on("newPlayer", (data) => {
-        console.log("newPlayer received in server");
         socket.broadcast.to(id).emit("newPlayer", data);
     });
 
@@ -172,9 +171,7 @@ io.on("connection", async (socket) => {
 
     socket.on("startGameToServer", () => {
         redis.call("JSON.OBJKEYS", `${id}`, "$.players").then((data) => {
-            console.log(data);
             const firstMoveName = data[0][Math.floor(Math.random() * data[0].length)];
-            console.log(firstMoveName);
             redis.call("JSON.SET", `${id}`, `$.firstMoveName`, `\"${firstMoveName}\"`).then(() => {
                 redis.call("JSON.SET", `${id}`, `$.gameStarted`, `true`).then(() => {
                     io.to(id).emit("startGameToClient", { firstMoveName });
@@ -185,7 +182,6 @@ io.on("connection", async (socket) => {
 
     socket.on("firstMoveToServer", async (data) => {
         const checkStartTime = JSON.parse(await redis.call("JSON.GET", `${id}`, `$.startTime`));
-        console.log(checkStartTime);
         if (checkStartTime !== -1) {
             await redis.call("JSON.SET", `${id}`, `$.firstColClicked`, `${data.firstColClicked}`);
             await redis.call("JSON.SET", `${id}`, `$.firstRowClicked`, `${data.firstRowClicked}`);
@@ -193,6 +189,36 @@ io.on("connection", async (socket) => {
             await redis.call("JSON.SET", `${id}`, `$.startTime`, `${data.startTime}`).then();
             io.to(id).emit("firstMoveToClient", data);
         }
+    });
+
+    socket.on("revealToServer", async (data) => {
+        console.log(data.name, "revealed", data.revealedIndices.length, "squares");
+        const hits = await redis.call("JSON.NUMINCRBY", `${id}`, `$.players.${data.name}.clears`, data.hits);
+        const misses = await redis.call("JSON.NUMINCRBY", `${id}`, `$.players.${data.name}.misses`, data.misses);
+        for (let i = 0; i < data.revealedIndices.length; i++) {
+            redis.call(
+                "JSON.SET",
+                `${id}.${data.name}`,
+                `$.revealed[${data.revealedIndices[i][0]}][${data.revealedIndices[i][1]}]`,
+                "true"
+            );
+        }
+        socket
+            .to(id)
+            .emit("revealToClient", { hits: JSON.parse(hits)[0], misses: JSON.parse(misses)[0], name: data.name });
+    });
+    socket.on("stunToServer", (data) => {
+        redis.call("JSON.SET", `${id}.${data.name}`, `$.stun`, `${data.stun}`);
+        redis.call("JSON.SET", `${id}.${data.name}`, `$.flagged[${data.row}][${data.col}]`, "true");
+        redis.call("JSON.NUMINCRBY", `${id}.${data.name}`, `$.flags`, 1);
+    });
+
+    socket.on("flagToServer", (data) => {
+        redis.call("JSON.TOGGLE", `${id}.${data.name}`, `$.flagged[${data.row}][${data.col}]`).then((data2) => {
+            if (data2[0] === 1) {
+                redis.call("JSON.NUMINCRBY", `${id}.${data.name}`, `$.flags`, 1);
+            } else redis.call("JSON.NUMINCRBY", `${id}.${data.name}`, `$.flags`, -1);
+        });
     });
 
     socket.on("disconnect", () => {

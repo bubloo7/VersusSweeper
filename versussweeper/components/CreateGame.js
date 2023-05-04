@@ -6,7 +6,7 @@ export default function CreateGame() {
     const [rows, setRows] = useState(9);
     const [cols, setCols] = useState(9);
     const [mines, setMines] = useState(10);
-    const [stunDuration, setStunDuration] = useState(5);
+    const [stunDuration, setStunDuration] = useState(15);
     const [playerLimit, setPlayerLimit] = useState(8);
     const [disableFlag, setDisableFlag] = useState(false);
     const [disableMiddleMouse, setDisableMiddleMouse] = useState(false);
@@ -277,7 +277,6 @@ export default function CreateGame() {
                         .then((res) => res.json())
                         .then((res) => {
                             // redirect to room
-                            console.log(res, "res");
                             window.location.href = "/" + res.id;
                         });
                 }}

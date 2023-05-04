@@ -3,6 +3,7 @@ import { getBoard, reveal } from "../javascript/MinesweeperUtils";
 import { GameContext } from "@/pages/[id]";
 import { useContext, useEffect, useState } from "react";
 import MinesweeperRow from "./MinesweeperRow";
+import Leaderboard from "./Leaderboard";
 
 export default function Minesweeper() {
     const [
@@ -41,46 +42,48 @@ export default function Minesweeper() {
         name,
         firstMoveName,
         socket,
+        stunTimer,
+        setStunTimer,
+        players,
     ] = useContext(GameContext);
-    const [stunTimer, setStunTimer] = useState(-1);
     const [minesweeperRows, setMinesweeperRows] = useState([]);
     const [time, setTime] = useState(-1);
 
     useEffect(() => {
         if (startTime !== -1) {
-            console.log((Date.now() - startTime) / 1000, "time");
             setTime(Math.floor((Date.now() - startTime) / 1000));
         }
     }, [startTime]);
 
     // This use effect is called when the first row and col are clicked
     useEffect(() => {
-        console.log("first row and col clicked", firstRowClicked, firstColClicked);
         if (firstRowClicked !== -1 && firstColClicked !== -1) {
-            const newBoard = getBoard(rows, cols, mines, id + salt, firstRowClicked, firstColClicked);
+            const newBoard = getBoard(rows, cols, mines, salt, firstRowClicked, firstColClicked);
             setBoard(newBoard);
-            const temp_reveal = [];
-            const temp_flag = [];
-            for (let i = 0; i < rows; i++) {
-                temp_reveal.push([]);
-                temp_flag.push([]);
-                for (let j = 0; j < cols; j++) {
-                    temp_reveal[i].push(false);
-                    temp_flag[i].push(false);
+            if (!revealed[firstRowClicked][firstColClicked]) {
+                let revealStupid = [...revealed];
+                revealStupid[firstRowClicked][firstColClicked] = true;
+                setRevealed(revealStupid);
+                let temp_reveal = [];
+                for (let i = 0; i < rows; i++) {
+                    temp_reveal.push([]);
+                    for (let j = 0; j < cols; j++) {
+                        temp_reveal[i].push(false);
+                    }
                 }
+                const [tempHits, tempMisses, revealedIndices] = reveal(
+                    firstRowClicked,
+                    firstColClicked,
+                    newBoard,
+                    temp_reveal,
+                    flagged,
+                    lastMiss
+                );
+                setRevealed(temp_reveal);
+                setHits(tempHits);
+                console.log("test", "first move", tempHits, tempMisses, name);
+                socket.emit("revealToServer", { revealedIndices, hits: tempHits, misses: tempMisses, name });
             }
-            const [tempHits, tempMisses] = reveal(
-                firstRowClicked,
-                firstColClicked,
-                newBoard,
-                temp_reveal,
-                temp_flag,
-                lastMiss
-            );
-            setRevealed(temp_reveal);
-            setHits(tempHits);
-            setMisses(tempMisses);
-            setFlagged(temp_flag);
         }
     }, [firstRowClicked, firstColClicked]);
 
@@ -105,14 +108,6 @@ export default function Minesweeper() {
         }
         setMinesweeperRows(temp);
     }, []);
-
-    // This effect is called whenever misses is incremented
-    useEffect(() => {
-        if (misses !== 0) {
-            setLastMiss(Date.now() + stunDuration * 1000);
-            setStunTimer(stunDuration);
-        }
-    }, [misses]);
 
     // This method handles how long you are stunned for
     useEffect(() => {
@@ -142,6 +137,7 @@ export default function Minesweeper() {
             {hits + mines === rows * cols && <div>You win!</div>}
             <div>Mines left: {mines - numFlags}</div>
             {stunTimer > 0 && <div>Stunned for {stunTimer} seconds</div>}
+            <Leaderboard hits={hits} misses={misses} players={players} name={name} />
         </div>
     );
 }
