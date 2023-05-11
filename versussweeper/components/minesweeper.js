@@ -4,6 +4,7 @@ import { GameContext } from "@/pages/[id]";
 import { useContext, useEffect, useState } from "react";
 import MinesweeperRow from "./MinesweeperRow";
 import Leaderboard from "./Leaderboard";
+import { set } from "firebase/database";
 
 export default function Minesweeper() {
     const [
@@ -45,6 +46,14 @@ export default function Minesweeper() {
         stunTimer,
         setStunTimer,
         players,
+        finishTime,
+        setFinishTime,
+        showNextGame,
+        setShowNextGame,
+        difficulty,
+        publicRoom,
+        playerLimit,
+        setPlayers,
     ] = useContext(GameContext);
     const [minesweeperRows, setMinesweeperRows] = useState([]);
     const [time, setTime] = useState(-1);
@@ -64,6 +73,7 @@ export default function Minesweeper() {
                 let revealStupid = [...revealed];
                 revealStupid[firstRowClicked][firstColClicked] = true;
                 setRevealed(revealStupid);
+                console.log("first click reveal");
                 let temp_reveal = [];
                 for (let i = 0; i < rows; i++) {
                     temp_reveal.push([]);
@@ -79,10 +89,29 @@ export default function Minesweeper() {
                     flagged,
                     lastMiss
                 );
+
+                let tempFinishTime = 1682900908681 * 2;
+                if (hits + tempHits === rows * cols - mines) {
+                    tempFinishTime = Date.now();
+                    console.log("play setting time", tempFinishTime);
+                    setPlayers((prevPlayers) => {
+                        let temp = { ...prevPlayers };
+                        temp[name].finishTime = tempFinishTime;
+                        return temp;
+                    });
+                    setFinishTime(finishTime);
+                    setShowNextGame(true);
+                }
                 setRevealed(temp_reveal);
                 setHits(tempHits);
                 console.log("test", "first move", tempHits, tempMisses, name);
-                socket.emit("revealToServer", { revealedIndices, hits: tempHits, misses: tempMisses, name });
+                socket.emit("revealToServer", {
+                    revealedIndices,
+                    hits: tempHits,
+                    misses: tempMisses,
+                    name,
+                    finishTime: tempFinishTime,
+                });
             }
         }
     }, [firstRowClicked, firstColClicked]);
@@ -132,12 +161,49 @@ export default function Minesweeper() {
             <div>
                 Hits = {hits}
                 Misses = {misses}
-                Time = {Math.max(time, 0)}
+                Time = {Math.min(Math.max(time, 0), Math.floor((finishTime - startTime) / 1000))}
             </div>
             {hits + mines === rows * cols && <div>You win!</div>}
             <div>Mines left: {mines - numFlags}</div>
             {stunTimer > 0 && <div>Stunned for {stunTimer} seconds</div>}
-            <Leaderboard hits={hits} misses={misses} players={players} name={name} />
+            {showNextGame && (
+                <button
+                    onClick={() => {
+                        fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/joinNextGame`, {
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/json",
+                            },
+                            body: JSON.stringify({
+                                difficulty,
+                                rows,
+                                cols,
+                                mines,
+                                publicRoom,
+                                stunDuration,
+                                playerLimit,
+                                disableFlag,
+                                disableMiddleMouse,
+                                id,
+                            }),
+                        })
+                            .then((res) => res.json())
+                            .then((res) => {
+                                window.location.href = "/" + res.id;
+                            });
+                    }}
+                >
+                    Join next game
+                </button>
+            )}
+            <Leaderboard
+                hits={hits}
+                misses={misses}
+                players={players}
+                name={name}
+                startTime={startTime}
+                finishTime={finishTime}
+            />
         </div>
     );
 }

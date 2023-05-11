@@ -6,6 +6,7 @@ import GameNotFound from "../components/GameNotFound";
 import Lobby from "../components/Lobby";
 import Minesweeper from "../components/minesweeper";
 import io from "socket.io-client";
+import { set } from "firebase/database";
 
 export const GameContext = createContext();
 
@@ -43,7 +44,7 @@ const Page = () => {
     // playerElem from redis
     const [clears, setClears] = useState(0);
     const [misses, setMisses] = useState(0);
-    const [finishTime, setFinishTime] = useState(-1);
+    const [finishTime, setFinishTime] = useState(1682900908681 * 2);
 
     // playerObj from redis
     const [flags, setFlags] = useState(0);
@@ -54,6 +55,8 @@ const Page = () => {
     const [board, setBoard] = useState([]);
     const [isCtrlPressed, setIsCtrlPressed] = useState(false);
     const [stunTimer, setStunTimer] = useState(-1);
+
+    const [showNextGame, setShowNextGame] = useState(false);
 
     useEffect(() => {
         function handleKeyDown(event) {
@@ -112,6 +115,10 @@ const Page = () => {
                     console.log("updating players test");
                     temp_players2[data.name].clears = data.hits;
                     temp_players2[data.name].misses = data.misses;
+                    if (data.finishTime !== 1682900908681 * 2) {
+                        temp_players2[data.name].finishTime = data.finishTime;
+                        setShowNextGame(true);
+                    }
                     return temp_players2;
                 });
             });
@@ -181,6 +188,7 @@ const Page = () => {
                             socket,
                             stunTimer,
                             setStunTimer,
+                            setShowNextGame,
                         ]}
                     >
                         <ChooseName />
@@ -259,6 +267,14 @@ const Page = () => {
                                 stunTimer,
                                 setStunTimer,
                                 players,
+                                finishTime,
+                                setFinishTime,
+                                showNextGame,
+                                setShowNextGame,
+                                difficulty,
+                                publicRoom,
+                                playerLimit,
+                                setPlayers,
                             ]}
                         >
                             <Minesweeper />

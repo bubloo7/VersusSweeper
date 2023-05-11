@@ -37,25 +37,24 @@ export default function Leaderboard(props) {
         let temp_players = { ...props.players };
         temp_players[props.name].misses = props.misses;
         temp_players[props.name].clears = props.hits;
+        temp_players[props.name].finishTime = Math.min(props.finishTime, temp_players[props.name].finishTime);
+        console.log(props.finishTime, "finish time", props.startTime, "start time");
         let l = [...Object.values(temp_players)];
-        console.log(l, "list before sort");
         l = l.sort(compare);
-        console.log(l, "list post sort");
+        console.log(l, "players", props.finishTime);
         setLeaderboard(
             l.map((player, index) => {
                 return (
                     <div key={index}>
-                        {index + 1}. {player.name} - {player.clears} clears, {player.misses} misses
+                        {index + 1}. {player.name} - {player.clears} clears, {player.misses} misses{" "}
+                        {player.finishTime === 1682900908681 * 2
+                            ? ""
+                            : `in ${Math.floor((player.finishTime - props.startTime) / 1000)} seconds`}
                     </div>
                 );
             })
         );
-    }, [props.hits, props.misses, props.players]);
+    }, [props.hits, props.misses, props.players, props.finishTime]);
 
-    return (
-        <div>
-
-            {leaderboard}
-        </div>
-    );
+    return <div>{leaderboard}</div>;
 }

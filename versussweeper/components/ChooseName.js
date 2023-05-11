@@ -39,6 +39,7 @@ export default function ChooseName() {
         socket,
         stunTimer,
         setStunTimer,
+        setShowNextGame,
     ] = useContext(GameContext);
     if (loading) {
         return <div> Loading change name... </div>;
@@ -96,6 +97,14 @@ export default function ChooseName() {
                                 setFirstRowClicked(data.gameData.firstRowClicked);
                                 setPlayers(data.gameData.players);
 
+                                for (const key in data.gameData.players) {
+                                    console.log(data.gameData.players[key].finishTime, "help meee");
+                                    if (data.gameData.players[key].finishTime !== 1682900908681 * 2) {
+                                        setShowNextGame(true);
+                                        break;
+                                    }
+                                }
+
                                 setClears(data.gameData.players[tempName].clears);
                                 setMisses(data.gameData.players[tempName].misses);
                                 setFinishTime(data.gameData.players[tempName].finishTime);
@@ -104,6 +113,7 @@ export default function ChooseName() {
                                 setStun(data.playerObj.stun);
                                 setRevealed(data.playerObj.revealed);
                                 setFlagged(data.playerObj.flagged);
+                                // setFinishTime(data.playerObj.finishTime);
 
                                 if (data.playerObj.stun > Date.now()) {
                                     setStunTimer(Math.floor((data.playerObj.stun - Date.now()) / 1000));

@@ -54,6 +54,11 @@ export default function MinesweeperRow(props) {
         socket,
         stunTimer,
         setStunTimer,
+        players,
+        finishTime,
+        setFinishTime,
+        showNextGame,
+        setShowNextGame,
     ] = useContext(GameContext);
 
     const getImage = () => {
@@ -174,19 +179,36 @@ export default function MinesweeperRow(props) {
                     flagged,
                     lastMiss
                 );
+                let tempFinishTime = 1682900908681 * 2;
+                if (hits + tempHits === rows * cols - mines) {
+                    tempFinishTime = Date.now();
+                    setFinishTime(tempFinishTime);
+                    setShowNextGame(true);
+                }
+
                 setRevealed(temp_revealed);
                 setHits(hits + tempHits);
                 setMisses(misses + tempMisses);
                 setNumFlags(numFlags + tempMisses);
-                socket.emit("revealToServer", { revealedIndices, hits: tempHits, misses: tempMisses, name });
+                // socket.emit("revealToServer", { revealedIndices, hits: tempHits, misses: tempMisses, name });
+                const temp = Date.now() + stunDuration * 1000;
 
                 if (tempMisses > 0) {
                     let temp_flagged = [...flagged];
                     temp_flagged[props.rowNum][props.colNum] = true;
-                    const temp = Date.now() + stunDuration * 1000;
                     setLastMiss(temp);
                     setStunTimer(stunDuration);
-                    socket.emit("stunToServer", { stun: temp, name, row: props.rowNum, col: props.colNum });
+                    // socket.emit("stunToServer", { stun: temp, name, row: props.rowNum, col: props.colNum });
+                }
+                if (tempHits + tempMisses > 0) {
+                    socket.emit("revealToServer", {
+                        revealedIndices,
+                        hits: tempHits,
+                        misses: tempMisses,
+                        name,
+                        stun: temp,
+                        finishTime: tempFinishTime,
+                    });
                 }
             }
         }
@@ -206,23 +228,39 @@ export default function MinesweeperRow(props) {
                     flagged,
                     lastMiss
                 );
-                setRevealed(temp_revealed);
+                let tempFinishTime = 1682900908681 * 2;
+                if (hits + tempHits === rows * cols - mines) {
+                    tempFinishTime = Date.now();
+                    setFinishTime(tempFinishTime);
+                    setShowNextGame(true);
+                }
 
+                setRevealed(temp_revealed);
                 setHits(hits + tempHits);
                 setMisses(misses + tempMisses);
                 setNumFlags(numFlags + tempMisses);
-                socket.emit("revealToServer", { revealedIndices, hits: tempHits, misses: tempMisses, name });
+                // socket.emit("revealToServer", { revealedIndices, hits: tempHits, misses: tempMisses, name });
+                const temp = Date.now() + stunDuration * 1000;
+
                 if (tempMisses > 0) {
                     let temp_flagged = [...flagged];
                     const rowNum = revealedIndices[revealedIndices.length - 1][0];
                     const colNum = revealedIndices[revealedIndices.length - 1][1];
                     temp_flagged[rowNum][colNum] = true;
                     setFlagged(temp_flagged);
-
-                    const temp = Date.now() + stunDuration * 1000;
                     setLastMiss(temp);
                     setStunTimer(stunDuration);
-                    socket.emit("stunToServer", { stun: temp, name, row: rowNum, col: colNum });
+                    // socket.emit("stunToServer", { stun: temp, name, row: rowNum, col: colNum });
+                }
+                if (tempHits + tempMisses > 0) {
+                    socket.emit("revealToServer", {
+                        revealedIndices,
+                        hits: tempHits,
+                        misses: tempMisses,
+                        name,
+                        stun: temp,
+                        finishTime: tempFinishTime,
+                    });
                 }
             }
         }

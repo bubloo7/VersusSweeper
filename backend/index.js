@@ -47,15 +47,6 @@ function makeFalseArray(rows, columns) {
     return array;
 }
 
-function objInList(list, field, target) {
-    for (let i = 0; i < list.length; i++) {
-        if (list[i][field] === target) {
-            return true;
-        }
-    }
-    return false;
-}
-
 app.post("/api/create", async (req, res) => {
     req.setTimeout(0);
 
@@ -148,6 +139,43 @@ app.post("/api/join", async (req, res) => {
     }
 });
 
+app.post("/api/joinNextGame", async (req, res) => {
+    req.setTimeout(0);
+    let id = JSON.parse(await redis.call("JSON.GET", `${req.body.id}`, `$.nextGameId`))[0];
+    console.log(id, "exists");
+
+    if (id !== "") {
+        console.log("game exists");
+        res.send({ id });
+    } else {
+        id = generateRandomId(5);
+        while (await redis.call("EXISTS", `${id}`)) {
+            id = generateRandomId(5);
+        }
+        let data = req.body;
+        data.seed = generateRandomSeed(10);
+        data.seedRandomlyGenerated = true;
+        data.nextGameId = "";
+        data.gameStarted = false;
+        data.startTime = -1;
+        data.hostName = "";
+        data.firstMoveName = "";
+        data.firstColClicked = -1;
+        data.firstRowClicked = -1;
+        data.players = {};
+
+        // Create redis entry
+        redis.call("JSON.SET", `${id}`, ".", JSON.stringify(data)).then(() => {
+            // Set expiration to 3 hrs
+            // TODO change expire time later
+            redis.call("EXPIRE", `${id}`, 60 * 60 * 3);
+            redis.call("JSON.SET", `${req.body.id}`, `$.nextGameId`, `\"${id}\"`).then(() => {
+                res.send({ id });
+            });
+        });
+    }
+});
+
 const io = new Server(server, {
     cors: {
         origin: "http://localhost:3000",
@@ -192,7 +220,6 @@ io.on("connection", async (socket) => {
     });
 
     socket.on("revealToServer", async (data) => {
-        console.log(data.name, "revealed", data.revealedIndices.length, "squares");
         const hits = await redis.call("JSON.NUMINCRBY", `${id}`, `$.players.${data.name}.clears`, data.hits);
         const misses = await redis.call("JSON.NUMINCRBY", `${id}`, `$.players.${data.name}.misses`, data.misses);
         for (let i = 0; i < data.revealedIndices.length; i++) {
@@ -203,14 +230,22 @@ io.on("connection", async (socket) => {
                 "true"
             );
         }
-        socket
-            .to(id)
-            .emit("revealToClient", { hits: JSON.parse(hits)[0], misses: JSON.parse(misses)[0], name: data.name });
-    });
-    socket.on("stunToServer", (data) => {
-        redis.call("JSON.SET", `${id}.${data.name}`, `$.stun`, `${data.stun}`);
-        redis.call("JSON.SET", `${id}.${data.name}`, `$.flagged[${data.row}][${data.col}]`, "true");
-        redis.call("JSON.NUMINCRBY", `${id}.${data.name}`, `$.flags`, 1);
+        if (data.finishTime !== 1682900908681 * 2) {
+            redis.call("JSON.SET", `${id}`, `$.players.${data.name}.finishTime`, `${data.finishTime}`);
+        }
+        socket.to(id).emit("revealToClient", {
+            hits: JSON.parse(hits)[0],
+            misses: JSON.parse(misses)[0],
+            name: data.name,
+            finishTime: data.finishTime,
+        });
+        const row = data.revealedIndices[data.revealedIndices.length - 1][0];
+        const col = data.revealedIndices[data.revealedIndices.length - 1][1];
+        if (data.misses > 0) {
+            redis.call("JSON.SET", `${id}.${data.name}`, `$.stun`, `${data.stun}`);
+            redis.call("JSON.SET", `${id}.${data.name}`, `$.flagged[${row}][${col}]`, "true");
+            redis.call("JSON.NUMINCRBY", `${id}.${data.name}`, `$.flags`, 1);
+        }
     });
 
     socket.on("flagToServer", (data) => {
