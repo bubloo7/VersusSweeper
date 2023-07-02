@@ -8,8 +8,8 @@ require("dotenv").config();
 const app = express();
 const port = 3001;
 const redis = new Redis({
-    port: 18210,
-    host: "redis-18210.c61.us-east-1-3.ec2.cloud.redislabs.com",
+    port: 14371,
+    host: "redis-14371.c92.us-east-1-3.ec2.cloud.redislabs.com",
     username: "default",
     password: process.env.REDIS_PASSWORD,
 });
