@@ -49,6 +49,14 @@ export default function PublicGames() {
       {isLoading && <div>Loading...</div>}
       {isError && <div>Error loading public games</div>}
       <button
+        style={{
+          backgroundColor: difficulty === 0 ? "green" : "white",
+          color: difficulty === 0 ? "white" : "black",
+          fontWeight: difficulty === 0 ? "bold" : "normal",
+          width: "100px",
+          height: "50px",
+          fontSize: "20px",
+        }}
         onClick={() => {
           setDifficulty(0);
         }}
@@ -56,6 +64,14 @@ export default function PublicGames() {
         Easy
       </button>
       <button
+        style={{
+          backgroundColor: difficulty === 1 ? "green" : "white",
+          color: difficulty === 1 ? "white" : "black",
+          fontWeight: difficulty === 1 ? "bold" : "normal",
+          width: "100px",
+          height: "50px",
+          fontSize: "20px",
+        }}
         onClick={() => {
           setDifficulty(1);
         }}
@@ -63,6 +79,14 @@ export default function PublicGames() {
         Medium
       </button>
       <button
+        style={{
+          backgroundColor: difficulty === 2 ? "green" : "white",
+          color: difficulty === 2 ? "white" : "black",
+          fontWeight: difficulty === 2 ? "bold" : "normal",
+          width: "100px",
+          height: "50px",
+          fontSize: "20px",
+        }}
         onClick={() => {
           setDifficulty(2);
         }}
@@ -70,15 +94,23 @@ export default function PublicGames() {
         Hard
       </button>
       <button
+        style={{
+          backgroundColor: difficulty === 3 ? "green" : "white",
+          color: difficulty === 3 ? "white" : "black",
+          fontWeight: difficulty === 3 ? "bold" : "normal",
+          width: "100px",
+          height: "50px",
+          fontSize: "20px",
+        }}
         onClick={() => {
           setDifficulty(3);
         }}
       >
         Custom
       </button>
-      
+
       <h2>{difficultyMap[difficulty]}</h2>
-      {publicGames === {} && <div>No public games</div>}
+      {Object.keys(publicGames).length === 0 && <div>No public games</div>}
       {Object.keys(publicGames).map((key) => {
         return (
           <div key={key}>
