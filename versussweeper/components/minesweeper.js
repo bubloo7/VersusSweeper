@@ -4,7 +4,6 @@ import { GameContext } from "@/pages/[id]";
 import { useContext, useEffect, useState } from "react";
 import MinesweeperRow from "./MinesweeperRow";
 import Leaderboard from "./Leaderboard";
-import { set } from "firebase/database";
 
 export default function Minesweeper() {
     const [

@@ -1,5 +1,7 @@
 import React from "react";
 import { useState } from "react";
+import PublicGames from "./PublicGames";
+
 export default function CreateGame() {
     const [difficulty, setDifficulty] = useState(0);
 
@@ -283,6 +285,12 @@ export default function CreateGame() {
             >
                 Create Room
             </button>
+
+            <div style={{height : "50px"}}>
+
+            </div>
+
+            <PublicGames />
         </div>
     );
 }

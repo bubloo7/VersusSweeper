@@ -4,9 +4,8 @@ import ChooseName from "../components/ChooseName";
 import GameFull from "../components/GameFull";
 import GameNotFound from "../components/GameNotFound";
 import Lobby from "../components/Lobby";
-import Minesweeper from "../components/minesweeper";
+import Minesweeper from "../components/Minesweeper";
 import io from "socket.io-client";
-import { set } from "firebase/database";
 
 export const GameContext = createContext();
 
