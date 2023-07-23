@@ -58,10 +58,40 @@ export default function Minesweeper() {
     const [time, setTime] = useState(-1);
 
     useEffect(() => {
+        // old timer approach
+        // if (startTime !== -1) {
+        //     setTime(Math.floor((Date.now() - startTime) / 1000));
+        // }
+        // new timer approach
         if (startTime !== -1) {
-            setTime(Math.floor((Date.now() - startTime) / 1000));
+            console.log("setting interval in startTime");
+            const interval = setInterval(() => {
+                console.log("interval!! in startTime");
+                setTime(Math.floor((Date.now() - startTime) / 1000));
+            }, 500);
+            return () => {
+                console.log("clearing interval in startTime");
+                clearInterval(interval);
+            };
         }
     }, [startTime]);
+
+    useEffect(() => {
+        if (lastMiss > Date.now()) {
+            console.log("setting interval in lastMiss");
+            const interval = setInterval(() => {
+                console.log("interval!! in lastMiss");
+                if (lastMiss <= Date.now()) {
+                    console.log("smart clear of interval in lastMiss");
+                    clearInterval(interval);
+                }
+                setStunTimer(Math.ceil((lastMiss - Date.now()) / 1000));
+            }, 500);
+            return () => {
+                clearInterval(interval);
+            };
+        }
+    }, [lastMiss]);
 
     // This use effect is called when the first row and col are clicked
     useEffect(() => {
@@ -116,17 +146,23 @@ export default function Minesweeper() {
     }, [firstRowClicked, firstColClicked]);
 
     // This use effect handles the timer
-    useEffect(() => {
-        if (time === -1 || hits + mines === rows * cols) {
-            return;
-        } else {
-            const interval = setInterval(() => {
-                setTime(time + 1);
-            }, 1000);
+    // useEffect(() => {
+    //     if (time === -1 || hits + mines === rows * cols) {
+    //         return;
+    //     } else {
+    //         console.log("setting interval");
+    //         const interval = setInterval(() => {
+    //             console.log("interval!!");
 
-            return () => clearInterval(interval);
-        }
-    }, [time]);
+    //             setTime(time + 1);
+    //         }, 1000);
+
+    //         return () => {
+    //             console.log("clearing interval");
+    //             clearInterval(interval);
+    //         };
+    //     }
+    // }, [time]);
 
     // This effect is called at the very beginning
     useEffect(() => {
@@ -137,15 +173,15 @@ export default function Minesweeper() {
         setMinesweeperRows(temp);
     }, []);
 
-    // This method handles how long you are stunned for
-    useEffect(() => {
-        if (stunTimer !== -1) {
-            const interval = setInterval(() => {
-                setStunTimer(stunTimer - 1);
-            }, 1000);
-            return () => clearInterval(interval);
-        }
-    }, [stunTimer]);
+    // // This method handles how long you are stunned for
+    // useEffect(() => {
+    //     if (stunTimer !== -1) {
+    //         const interval = setInterval(() => {
+    //             setStunTimer(stunTimer - 1);
+    //         }, 1000);
+    //         return () => clearInterval(interval);
+    //     }
+    // }, [stunTimer]);
 
     return (
         <div>
@@ -160,7 +196,7 @@ export default function Minesweeper() {
             <div>
                 Hits = {hits}
                 Misses = {misses}
-                Time = {Math.min(Math.max(time, 0), Math.floor((finishTime - startTime) / 1000))}
+                Time = {Math.max(time, 0)}
             </div>
             {hits + mines === rows * cols && <div>You win!</div>}
             <div>Mines left: {mines - numFlags}</div>
