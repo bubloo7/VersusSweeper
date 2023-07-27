@@ -6,6 +6,10 @@ export default function Home() {
         window.location.href = "/create";
     }
 
+    function navigateToGames() {
+        window.location.href = "/games";
+    }
+
     return (
         <div>
             <Header />
@@ -16,7 +20,7 @@ export default function Home() {
 
             {/* Create Game Button */}
             <button onClick={navigateToCreate}>Create Game</button>
-            <button onClick={() => { window.location.href = "/LAJFA" }}>Public Games</button>
+            <button onClick={navigateToGames}>Public Games</button>
 
         </div>
     );

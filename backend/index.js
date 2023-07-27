@@ -58,7 +58,7 @@ app.post("/api/create", async (req, res) => {
 
   let id = generateRandomId(5);
 
-  while (await redis.call("EXISTS", `${id}`)) {
+  while (await redis.call("EXISTS", `game:${id}`)) {
     id = generateRandomId(5);
   }
 
@@ -78,12 +78,13 @@ app.post("/api/create", async (req, res) => {
   data.firstColClicked = -1;
   data.firstRowClicked = -1;
   data.players = {};
+  data.gameFull = false;
 
   // Create redis entry
-  redis.call("JSON.SET", `${id}`, ".", JSON.stringify(data)).then(() => {
+  redis.call("JSON.SET", `game:${id}`, ".", JSON.stringify(data)).then(() => {
     // Set expiration to 3 hrs
     // TODO change expire time later
-    redis.call("EXPIRE", `${id}`, 60 * 60 * 3);
+    redis.call("EXPIRE", `game:${id}`, 60 * 60 * 3);
     res.send({ id });
   });
 });
@@ -92,7 +93,7 @@ app.post("/api/exists", (req, res) => {
   req.setTimeout(0);
 
   let id = req.body.id;
-  redis.call("EXISTS", `${id}`).then((data) => {
+  redis.call("EXISTS", `game:${id}`).then((data) => {
     res.send({ exists: data });
   });
 });
@@ -103,7 +104,7 @@ app.post("/api/join", async (req, res) => {
   const id = req.body.id;
   const name = req.body.name;
 
-  const gameData = JSON.parse(await redis.call("JSON.GET", id, "."));
+  const gameData = JSON.parse(await redis.call("JSON.GET", `game:${id}`, "."));
 
   // Players already in game
   if (name in gameData.players) {
@@ -131,13 +132,13 @@ app.post("/api/join", async (req, res) => {
     };
     gameData["players"][name] = playersElem;
     if (Object.keys(gameData.players).length === 1) {
-      await redis.call("JSON.SET", `${id}`, `$.hostName`, `\"${name}\"`);
+      await redis.call("JSON.SET", `game:${id}`, `$.hostName`, `\"${name}\"`);
       gameData.hostName = name;
     }
 
     await redis.call(
       "JSON.SET",
-      `${id}`,
+      `game:${id}`,
       `$.players.${name}`,
       JSON.stringify(playersElem)
     );
@@ -149,6 +150,11 @@ app.post("/api/join", async (req, res) => {
     );
 
     redis.call("EXPIRE", `${id}.${name}`, 60 * 60 * 3);
+
+    if (Object.keys(gameData.players).length === gameData.playerLimit) {
+      redis.call("JSON.SET", `game:${id}`, `$.gameFull`, `true`);
+    }
+
     res.send({ gameData, playerObj, playerAlreadyInGame: false });
   }
   // new player, game full
@@ -160,7 +166,7 @@ app.post("/api/join", async (req, res) => {
 app.post("/api/joinNextGame", async (req, res) => {
   req.setTimeout(0);
   let id = JSON.parse(
-    await redis.call("JSON.GET", `${req.body.id}`, `$.nextGameId`)
+    await redis.call("JSON.GET", `game:${req.body.id}`, `$.nextGameId`)
   )[0];
   console.log(id, "exists");
 
@@ -169,7 +175,7 @@ app.post("/api/joinNextGame", async (req, res) => {
     res.send({ id });
   } else {
     id = generateRandomId(5);
-    while (await redis.call("EXISTS", `${id}`)) {
+    while (await redis.call("EXISTS", `game:${id}`)) {
       id = generateRandomId(5);
     }
     let data = req.body;
@@ -183,14 +189,15 @@ app.post("/api/joinNextGame", async (req, res) => {
     data.firstColClicked = -1;
     data.firstRowClicked = -1;
     data.players = {};
+    data.gameFull = false;
 
     // Create redis entry
-    redis.call("JSON.SET", `${id}`, ".", JSON.stringify(data)).then(() => {
+    redis.call("JSON.SET", `game:${id}`, ".", JSON.stringify(data)).then(() => {
       // Set expiration to 3 hrs
       // TODO change expire time later
-      redis.call("EXPIRE", `${id}`, 60 * 60 * 3);
+      redis.call("EXPIRE", `game:${id}`, 60 * 60 * 3);
       redis
-        .call("JSON.SET", `${req.body.id}`, `$.nextGameId`, `\"${id}\"`)
+        .call("JSON.SET", `game:${req.body.id}`, `$.nextGameId`, `\"${id}\"`)
         .then(() => {
           res.send({ id });
         });
@@ -203,23 +210,16 @@ app.post("/api/publicGames", async (req, res) => {
 
   const difficulty = req.body.difficulty;
 
-  const keys = await redis.call("KEYS", "*");
+  const filteredGames = await redis.call(
+    "FT.SEARCH",
+    "games_idx",
+    `@difficulty:[${difficulty} ${difficulty}] @gameFull:{false} @publicRoom:{true}`,
+    "LIMIT",
+    0,
+    10
+  );
 
-  const filteredKeys = keys.filter((key) => {
-    return key.length === 5;
-  });
-
-  const publicGames = {};
-  for (let i = 0; i < filteredKeys.length; i++) {
-    const gameData = JSON.parse(
-      await redis.call("JSON.GET", filteredKeys[i], ".")
-    );
-    if (gameData.publicRoom && gameData.difficulty === difficulty) {
-      publicGames[filteredKeys[i]] = gameData;
-    }
-  }
-
-    res.send({ publicGames });
+  res.send({ filteredGames });
 });
 
 const io = new Server(server, {
@@ -244,38 +244,45 @@ io.on("connection", async (socket) => {
   });
 
   socket.on("startGameToServer", () => {
-    redis.call("JSON.OBJKEYS", `${id}`, "$.players").then((data) => {
+    redis.call("JSON.OBJKEYS", `game:${id}`, "$.players").then((data) => {
       const firstMoveName = data[0][Math.floor(Math.random() * data[0].length)];
       redis
-        .call("JSON.SET", `${id}`, `$.firstMoveName`, `\"${firstMoveName}\"`)
+        .call(
+          "JSON.SET",
+          `game:${id}`,
+          `$.firstMoveName`,
+          `\"${firstMoveName}\"`
+        )
         .then(() => {
-          redis.call("JSON.SET", `${id}`, `$.gameStarted`, `true`).then(() => {
-            io.to(id).emit("startGameToClient", { firstMoveName });
-          });
+          redis
+            .call("JSON.SET", `game:${id}`, `$.gameStarted`, `true`)
+            .then(() => {
+              io.to(id).emit("startGameToClient", { firstMoveName });
+            });
         });
     });
   });
 
   socket.on("firstMoveToServer", async (data) => {
     const checkStartTime = JSON.parse(
-      await redis.call("JSON.GET", `${id}`, `$.startTime`)
+      await redis.call("JSON.GET", `game:${id}`, `$.startTime`)
     );
     if (checkStartTime !== -1) {
       await redis.call(
         "JSON.SET",
-        `${id}`,
+        `game:${id}`,
         `$.firstColClicked`,
         `${data.firstColClicked}`
       );
       await redis.call(
         "JSON.SET",
-        `${id}`,
+        `game:${id}`,
         `$.firstRowClicked`,
         `${data.firstRowClicked}`
       );
       data.startTime = Date.now();
       await redis
-        .call("JSON.SET", `${id}`, `$.startTime`, `${data.startTime}`)
+        .call("JSON.SET", `game:${id}`, `$.startTime`, `${data.startTime}`)
         .then();
       io.to(id).emit("firstMoveToClient", data);
     }
@@ -284,13 +291,13 @@ io.on("connection", async (socket) => {
   socket.on("revealToServer", async (data) => {
     const hits = await redis.call(
       "JSON.NUMINCRBY",
-      `${id}`,
+      `game:${id}`,
       `$.players.${data.name}.clears`,
       data.hits
     );
     const misses = await redis.call(
       "JSON.NUMINCRBY",
-      `${id}`,
+      `game:${id}`,
       `$.players.${data.name}.misses`,
       data.misses
     );
@@ -305,7 +312,7 @@ io.on("connection", async (socket) => {
     if (data.finishTime !== 1682900908681 * 2) {
       redis.call(
         "JSON.SET",
-        `${id}`,
+        `game:${id}`,
         `$.players.${data.name}.finishTime`,
         `${data.finishTime}`
       );

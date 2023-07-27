@@ -1,6 +1,5 @@
 import React from "react";
 import { useState } from "react";
-import PublicGames from "./PublicGames";
 
 export default function CreateGame() {
     const [difficulty, setDifficulty] = useState(0);
@@ -153,7 +152,7 @@ export default function CreateGame() {
                 <input
                     value={playerLimit}
                     type={"number"}
-                    min={0}
+                    min={2}
                     max={10}
                     onChange={(e) => {
                         setPlayerLimit(parseInt(e.target.value));
@@ -256,6 +255,10 @@ export default function CreateGame() {
                         alert("mines must be at most 25% of the board");
                         return;
                     }
+                    if (playerLimit < 2) {
+                        alert("player limit must be at least 2");
+                        return;
+                    }
 
                     const apiCall = {
                         difficulty,
@@ -289,8 +292,6 @@ export default function CreateGame() {
             <div style={{height : "50px"}}>
 
             </div>
-
-            <PublicGames />
         </div>
     );
 }

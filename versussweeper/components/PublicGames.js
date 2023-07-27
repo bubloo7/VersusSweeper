@@ -1,11 +1,10 @@
 "use client";
 import useSWR from "swr";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { GameContext } from "@/pages/[id]";
+import { Pagination } from "antd";
 
 export default function PublicGames() {
-  const socket = useContext(GameContext);
-
   const [publicGames, setPublicGames] = useState({});
   const [difficulty, setDifficulty] = useState(0);
 
@@ -14,10 +13,9 @@ export default function PublicGames() {
     1: "Medium",
     2: "Hard",
     3: "Custom",
-    };
+  };
 
-  // // Make a fetcher function to get data from REDIS API
-  const fetcher = async (url) =>
+  const fetcher = async (url) => {
     await fetch(url, {
       method: "POST",
       headers: {
@@ -29,19 +27,34 @@ export default function PublicGames() {
     })
       .then((res) => res.json())
       .then((data) => {
-        setPublicGames(data.publicGames);
-        console.log("publicGames", publicGames);
+        let transformedData = {};
+
+        for (let idx = 1; idx < data.filteredGames.length; idx = idx + 2) {
+          let game = data.filteredGames[idx].substr(5, 10);
+          let gameData = JSON.parse(data.filteredGames[idx + 1][1]);
+
+          transformedData[game] = gameData;
+        }
+
+        setPublicGames(transformedData);
       });
+  };
 
   const { data, isLoading, isError, mutate } = useSWR(
     `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/publicGames`,
-    fetcher
+    fetcher,
+    {
+      revalidateOnMount: false,
+      revalidateOnFocus: false,
+      revalidateOnReconnect: false,
+    }
   );
 
   useEffect(() => {
     // Call the fetcher function to update data with new difficulty
     mutate();
-  }, [difficulty, mutate]);
+  }, [difficulty]);
+
 
   return (
     <div>
@@ -111,13 +124,17 @@ export default function PublicGames() {
 
       <h2>{difficultyMap[difficulty]}</h2>
       {Object.keys(publicGames).length === 0 && <div>No public games</div>}
-      {Object.keys(publicGames).map((key) => {
-        return (
-          <div key={key}>
-            {key} {difficultyMap[publicGames[key].difficulty]}
-          </div>
-        );
-      })}
+      {Object.keys(publicGames)
+        .map((key) => {
+          return (
+            <div key={key}>
+              {key} {difficultyMap[publicGames[key].difficulty]}{" "}
+              {Object.keys(publicGames[key].players).length}/
+              {publicGames[key].playerLimit}{" "}
+              {publicGames[key].gameStarted ? "In Game" : "In Lobby"}
+            </div>
+          );
+        })}
     </div>
   );
 }

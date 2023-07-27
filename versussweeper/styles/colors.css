@@ -1,0 +1,11 @@
+:root {
+  --background-color: #f4f4f4; /*Background for all pages*/
+  --main-black: #1a1a1a; /*Black buttons and text*/
+  --main-blue: #0000ff; /*Blue buttons*/
+  --main-green: #057d05; /*Green buttons*/
+  --main-red: #ff0000; /*Red buttons*/
+  --white-text: #f4f4f4; /*White text*/
+  --dark-gray: #7b7b7b; /*Dark gray text and background*/
+  --light-gray: #bdbdbd; /*Light gray text and background*/
+  --lighter-gray: #d9d9d9; /*Lighter gray text and background*/
+}
