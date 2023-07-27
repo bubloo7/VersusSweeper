@@ -204,12 +204,13 @@ app.post("/api/publicGames", async (req, res) => {
     res.send({ filteredGames });
 });
 
-app.post("/ping", (req, res) => {
+app.get("/ping", (req, res) => {
     res.send("pong");
 });
 
-app.post("/crash", (req, res) => {
+app.get("/crash", (req, res) => {
     const a = 5 / 0;
+    b.sjfiojoifjod; 
     res.send("err");
 });
 
