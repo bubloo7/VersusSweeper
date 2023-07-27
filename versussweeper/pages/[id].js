@@ -4,7 +4,7 @@ import ChooseName from "../components/ChooseName";
 import GameFull from "../components/GameFull";
 import GameNotFound from "../components/GameNotFound";
 import Lobby from "../components/Lobby";
-import Minesweeper from "../components/Minesweeper";
+import Minesweeper from "../components/minesweeper";
 import io from "socket.io-client";
 
 export const GameContext = createContext();
@@ -81,7 +81,7 @@ const Page = () => {
 
     useEffect(() => {
         if (id) {
-            socket = io("http://localhost:3001", { query: { id } });
+            socket = io(process.env.NEXT_PUBLIC_BACKEND_URL, { query: { id } });
 
             socket.on("newPlayer", (data) => {
                 setPlayers((prevPlayers) => {
