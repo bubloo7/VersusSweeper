@@ -44,6 +44,7 @@ export default function PublicGames() {
     `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/publicGames`,
     fetcher,
     {
+      revalidateIfStale: false,
       revalidateOnMount: false,
       revalidateOnFocus: false,
       revalidateOnReconnect: false,
@@ -55,9 +56,14 @@ export default function PublicGames() {
     mutate();
   }, [difficulty]);
 
+  const refreshPage = () => {
+    mutate();
+  };
+
 
   return (
     <div>
+      <button onClick={refreshPage}>Refresh</button>
       <h1>Public Games</h1>
       {isLoading && <div>Loading...</div>}
       {isError && <div>Error loading public games</div>}

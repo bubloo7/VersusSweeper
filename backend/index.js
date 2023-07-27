@@ -198,21 +198,21 @@ app.post("/api/publicGames", async (req, res) => {
         `@difficulty:[${difficulty} ${difficulty}] @gameFull:{false} @publicRoom:{true}`,
         "LIMIT",
         0,
-        10
+        1000
     );
 
     res.send({ filteredGames });
 });
 
-app.get("/ping", (req, res) => {
-    res.send("pong");
-});
+// app.get("/ping", (req, res) => {
+//     res.send("pong");
+// });
 
-app.get("/crash", (req, res) => {
-    const a = 5 / 0;
-    b.sjfiojoifjod; 
-    res.send("err");
-});
+// app.get("/crash", (req, res) => {
+//     const a = 5 / 0;
+//     b.sjfiojoifjod; 
+//     res.send("err");
+// });
 
 const io = new Server(server, {
     cors: {
