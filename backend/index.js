@@ -47,7 +47,7 @@ function makeFalseArray(rows, columns) {
     return array;
 }
 
-app.post("/api/create", async (req, res) => {
+app.post("/create", async (req, res) => {
     req.setTimeout(0);
 
     // Make random string of length 5, all capital letters, no numbers
@@ -85,7 +85,7 @@ app.post("/api/create", async (req, res) => {
     });
 });
 
-app.post("/api/exists", (req, res) => {
+app.post("/exists", (req, res) => {
     req.setTimeout(0);
 
     let id = req.body.id;
@@ -94,7 +94,7 @@ app.post("/api/exists", (req, res) => {
     });
 });
 
-app.post("/api/join", async (req, res) => {
+app.post("/join", async (req, res) => {
     req.setTimeout(0);
 
     const id = req.body.id;
@@ -149,7 +149,7 @@ app.post("/api/join", async (req, res) => {
     }
 });
 
-app.post("/api/joinNextGame", async (req, res) => {
+app.post("/joinNextGame", async (req, res) => {
     req.setTimeout(0);
     let id = JSON.parse(await redis.call("JSON.GET", `game:${req.body.id}`, `$.nextGameId`))[0];
     console.log(id, "exists");
@@ -187,7 +187,7 @@ app.post("/api/joinNextGame", async (req, res) => {
     }
 });
 
-app.post("/api/publicGames", async (req, res) => {
+app.post("/publicGames", async (req, res) => {
     req.setTimeout(0);
 
     const difficulty = req.body.difficulty;
@@ -204,13 +204,13 @@ app.post("/api/publicGames", async (req, res) => {
     res.send({ filteredGames });
 });
 
-app.get("/api/ping", (req, res) => {
+app.get("/ping", (req, res) => {
     res.send("pong");
 });
 
-app.get("/api/crash", (req, res) => {
+app.get("/crash", (req, res) => {
     const a = 5 / 0;
-    b.sjfiojoifjod; 
+    b.sjfiojoifjod;
     res.send("err");
 });
 
