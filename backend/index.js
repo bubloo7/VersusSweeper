@@ -204,15 +204,15 @@ app.post("/api/publicGames", async (req, res) => {
     res.send({ filteredGames });
 });
 
-// app.get("/ping", (req, res) => {
-//     res.send("pong");
-// });
+app.get("/api/ping", (req, res) => {
+    res.send("pong");
+});
 
-// app.get("/crash", (req, res) => {
-//     const a = 5 / 0;
-//     b.sjfiojoifjod; 
-//     res.send("err");
-// });
+app.get("/api/crash", (req, res) => {
+    const a = 5 / 0;
+    b.sjfiojoifjod; 
+    res.send("err");
+});
 
 const io = new Server(server, {
     cors: {
