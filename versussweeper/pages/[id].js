@@ -81,7 +81,7 @@ const Page = () => {
 
     useEffect(() => {
         if (id) {
-            socket = io(process.env.NEXT_PUBLIC_BACKEND_URL, { query: { id } });
+            socket = io(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api`, { query: { id } });
 
             socket.on("newPlayer", (data) => {
                 setPlayers((prevPlayers) => {
