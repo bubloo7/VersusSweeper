@@ -1,11 +1,12 @@
 import { useRouter } from "next/router";
 import { useState, useEffect, createContext } from "react";
-import ChooseName from "../components/chooseName/ChooseName";
-import GameFull from "../components/gameFull/GameFull";
+import ChooseName from "../components/ChooseName";
+import GameFull from "../components/GameFull";
 import GameNotFound from "../components/GameNotFound";
 import Lobby from "../components/Lobby";
 import Minesweeper from "../components/Minesweeper";
 import io from "socket.io-client";
+import Loading from "@/components/Loading";
 
 export const GameContext = createContext();
 
@@ -143,7 +144,7 @@ const Page = () => {
 
     // Still checking if game exists
     if (loading) {
-        return <div> Loading... </div>;
+        return <Loading />;
     } else {
         // Game doesn't exist
         if (!gameFound) {

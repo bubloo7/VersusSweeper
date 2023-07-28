@@ -1,5 +1,6 @@
 import { GameContext } from "@/pages/[id]";
 import { useState, useContext, useEffect } from "react";
+import Loading from "./Loading";
 
 export default function Lobby() {
     const [sDifficulty, setSDifficulty] = useState("");
@@ -43,7 +44,7 @@ export default function Lobby() {
     }, [difficulty]);
 
     if (loading) {
-        return <div>Loading...</div>;
+        return <Loading/>;
     } else {
         return (
             <div>
