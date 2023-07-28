@@ -3,18 +3,30 @@
   src: url("../fonts/mine-sweeper.ttf") format("truetype");
 }
 
-.mine-sweeper {
-  font-family: "mine-sweeper";
-}
-
-/* Add Roboto Mono and a class for it
 @font-face {
-  font-family: "roboto-mono";
-  src: url("../fonts/roboto-mono.ttf") format("monospace");
+  font-family: "RobotoMono-Regular";
+  src: url("../fonts/RobotoMono-Regular.ttf") format("truetype"); 
 }
 
-@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&display=swap');
+@font-face {
+  font-family: "RobotoMono-Bold";
+  src: url("../fonts/RobotoMono-Bold.ttf") format("truetype");
+}
 
-.roboto-mono {
-  font-family: "roboto-mono";
-} */
+:root {
+  --robo-reg: "RobotoMono-Regular";
+  --robo-bold: "RobotoMono-Bold";
+  --mine-sweeper: "mine-sweeper";
+}
+
+.mine-sweeper {
+  font-family: var(--mine-sweeper)
+}
+
+.robo-reg {
+  font-family: var(--robo-reg)
+}
+
+.robo-bold {
+  font-family: var(--robo-bold)
+}
