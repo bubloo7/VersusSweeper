@@ -82,8 +82,9 @@ const Page = () => {
     useEffect(() => {
         if (id) {
             // socket = io(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/socket.io`, {
-            socket = io(`http://18.221.11.188:3001/`, {
-                // path: "/api/socket.io",
+            //socket = io(`http://18.221.11.188:3001/`, {
+            socket = io("https://versussweeper.com/", {
+                path: "/api/socket.io",
                 query: { id },
             });
             // socket = io(`https://stupidbigidiot.com/api`, { query: { id } });
