@@ -4,7 +4,7 @@ import ChooseName from "../components/chooseName/ChooseName";
 import GameFull from "../components/gameFull/GameFull";
 import GameNotFound from "../components/GameNotFound";
 import Lobby from "../components/Lobby";
-import Minesweeper from "../components/Minesweeper";
+import Minesweeper from "../components/minesweeper";
 import io from "socket.io-client";
 
 export const GameContext = createContext();
