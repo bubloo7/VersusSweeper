@@ -4,7 +4,7 @@ import ChooseName from "../components/ChooseName";
 import GameFull from "../components/GameFull";
 import GameNotFound from "../components/GameNotFound";
 import Lobby from "../components/Lobby";
-import Minesweeper from "../components/Minesweeper";
+import Minesweeper from "../components/minesweeper";
 import io from "socket.io-client";
 import Loading from "@/components/Loading";
 
@@ -82,7 +82,13 @@ const Page = () => {
 
     useEffect(() => {
         if (id) {
-            socket = io(process.env.NEXT_PUBLIC_BACKEND_URL, { query: { id } });
+            // socket = io(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/socket.io`, {
+            //socket = io(`http://18.221.11.188:3001/`, {
+            socket = io("https://versussweeper.com/", {
+                path: "/api/socket.io",
+                query: { id },
+            });
+            // socket = io(`https://stupidbigidiot.com/api`, { query: { id } });
 
             socket.on("newPlayer", (data) => {
                 setPlayers((prevPlayers) => {
@@ -139,6 +145,13 @@ const Page = () => {
                     }
                     setLoading(false);
                 });
+            return () => {
+                console.log("disconnecting socket. ready state", socket.readyState);
+                if (socket.readyState === 1) {
+                    console.log("ready state", socket.readyState);
+                    socket.disconnect();
+                }
+            };
         }
     }, [id]);
 
