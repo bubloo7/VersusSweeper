@@ -266,7 +266,7 @@ export default function PublicGames() {
           >
             <span>No </span> 
             <span style={{ color: "var(--main-green)" }}>{difficultyMap[difficulty]}</span>
-            <span> games found, why <br />don't you make one? </span>
+            <span> games found, why <br />don&apos;t you make one? </span>
           </p>
         </Row>
         <Row justify="center" style={{marginTop: "40px"}}>
