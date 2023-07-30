@@ -116,17 +116,19 @@ const Page = () => {
             });
 
             socket.on("revealToClient", (data) => {
-                setPlayers((temp_players) => {
-                    let temp_players2 = { ...temp_players };
-                    console.log("updating players test");
-                    temp_players2[data.name].clears = data.hits;
-                    temp_players2[data.name].misses = data.misses;
-                    if (data.finishTime !== 1682900908681 * 2) {
-                        temp_players2[data.name].finishTime = data.finishTime;
-                        setShowNextGame(true);
-                    }
-                    return temp_players2;
-                });
+                if (name !== "") {
+                    setPlayers((temp_players) => {
+                        let temp_players2 = { ...temp_players };
+                        console.log("updating players test");
+                        temp_players2[data.name].clears = data.hits;
+                        temp_players2[data.name].misses = data.misses;
+                        if (data.finishTime !== 1682900908681 * 2) {
+                            temp_players2[data.name].finishTime = data.finishTime;
+                            setShowNextGame(true);
+                        }
+                        return temp_players2;
+                    });
+                }
             });
             // Check if game exists
             fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/exists`, {
