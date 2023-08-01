@@ -120,66 +120,68 @@ export default function ChooseName() {
     return <div> Loading change name... </div>;
   } else {
     return (
-        <Row
-          wrap={false}
-          justify="center"
-          align="middle"
-          style={{
-            height: "100vh",
-            backgroundColor: "var(--background-color)",
-          }}
-        >
-          <Col span={24}>
-            <Row justify="center">
-              <h1
-                className="header-text"
-                style={{ color: "var(--main-black)" }}
-              >
-                Ready to join?
-              </h1>
-            </Row>
-            <Row justify="center">
-              <p
-                className="body-text"
+      <Row
+        wrap={false}
+        justify="center"
+        align="middle"
+        style={{
+          height: "100vh",
+          backgroundColor: "var(--background-color)",
+        }}
+      >
+        <Col span={24}>
+          <Row justify="center">
+            <h1 className="header-text" style={{ color: "var(--main-black)" }}>
+              Ready to join?
+            </h1>
+          </Row>
+          <Row justify="center">
+            <p
+              className="body-text"
+              style={{
+                color: "var(--main-black)",
+                textAlign: "center",
+                marginTop: "20px",
+              }}
+            >
+              The game is set and your <br /> opponents await you!
+            </p>
+          </Row>
+          <Row justify="center">
+            <Space.Compact style={{ marginTop: "75px" }}>
+              <Input
                 style={{
-                  color: "var(--main-black)",
-                  textAlign: "center",
-                  marginTop: "20px",
+                  width: "310px",
+                  height: "58px",
+                  color: "var(--darker-gray)",
+                  borderRadius: "0px",
+                  borderColor: "var(--darker-gray)",
+                  textTransform: "none",
                 }}
+                className="button-text "
+                placeholder="Name"
+                value={tempName}
+                onChange={(e) => {
+                  setTempName(e.target.value);
+                }}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") {
+                    handleNameSelect();
+                  }
+                }}
+              />
+              <Button
+                className="black-button"
+                style={{ backgroundColor: "var(--main-green)" }}
+                onClick={handleNameSelect}
+                type="null"
               >
-                The game is set and your <br /> opponents await you!
-              </p>
-            </Row>
-            <Row justify="center">
-              <Space.Compact style={{ marginTop: "75px" }}>
-                <Input
-                  style={{
-                    width: "310px",
-                    height: "58px",
-                    color: "var(--dark-gray)",
-                    borderRadius: "0px",
-                    borderColor: "var(--dark-gray)",
-                    textDecoration: "uppercase",
-                  }}
-                  className="button-text "
-                  placeholder="Name"
-                  value={tempName}
-                  onChange={(e) => {
-                    setTempName(e.target.value);
-                  }}
-                />
-                <Button
-                  className="black-button"
-                  style={{ backgroundColor: "var(--main-green)" }}
-                  onClick={handleNameSelect}
-                  type="null"
-                >
-                  Join {id}
-                </Button>
-              </Space.Compact>
-            </Row>
-          </Col>
-        </Row>
+                Join {id}
+              </Button>
+            </Space.Compact>
+          </Row>
+        </Col>
+      </Row>
     );
   }
 }
