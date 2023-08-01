@@ -114,6 +114,8 @@ a {
   font-family: var(--robo-bold);
   font-size: 20px;
   letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--main-black);
 }
 
 /* Body Text - RobotoMono, Size 20, Line Spacing - 150% */
@@ -121,6 +123,7 @@ a {
   font-family: var(--robo-reg);
   font-size: 20px;
   letter-spacing: 2px;
+  color: var(--main-black);
 }
 
 /* Header Text - Minesweeper, Size 26, Line Spacing - 110% */
@@ -128,6 +131,7 @@ a {
   font-family: var(--mine-sweeper);
   font-size: 26px;
   letter-spacing: 2px;
+  color: var(--main-black);
 }
 
 /* Subheader Text - Minesweeper, Size 18, Line Spacing - 110% */
@@ -135,8 +139,16 @@ a {
   font-family: var(--mine-sweeper);
   font-size: 18px;
   letter-spacing: 2px;
+  color: var(--main-black);
 }
 
+/* Subheader Text - Minesweeper, Size 18, Line Spacing - 110% */
+.subsubheader-text {
+  font-family: var(--mine-sweeper);
+  font-size: 14px;
+  letter-spacing: 2px;
+  color: var(--main-black);
+}
 
 .black-button {
   width: 190px;
@@ -154,7 +166,74 @@ a {
 }
 
 .black-button:hover {
-  background-color: var(--dark-gray);
+  background-color: var(--darker-gray);
   color: var(--main-black);
 }
 
+.create-button {
+  width: 170px;
+  height: 64px;
+  background-color: var(--white-text);
+  color: var(--darker-gray);
+  border-radius: 0;
+  border: 2px solid var(--darker-gray);
+  font-family: var(--robo-bold);
+  font-size: 20px;
+  text-transform: uppercase;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.create-button:hover {
+  background-color: var(--create-blue);
+  color: var(--white-text);
+  border: 2px solid var(--darker-gray);
+}
+
+.create-button-active {
+  width: 170px;
+  height: 64px;
+  background-color: var(--create-blue);
+  color: var(--white-text);
+  border-radius: 0;
+  border: 2px solid var(--darker-gray);
+  font-family: var(--robo-bold);
+  font-size: 20px;
+  text-transform: uppercase;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.create-button-active:hover {
+  background-color: var(--create-blue);
+  color: var(--white-text);
+  border: 2px solid var(--darker-gray);
+}
+
+.ant-checkbox .ant-checkbox-inner {
+  width: 25px;
+  height: 25px;
+  border-color: var(--darker-gray);
+}
+
+.ant-checkbox-disabled .ant-checkbox-inner {
+  width: 25px;
+  height: 25px;
+  border-color: var(--darker-gray);
+  
+}
+
+.ant-checkbox-checked .ant-checkbox-inner {
+  width: 25px;
+  height: 25px;
+  background-color: transparent;
+  border-color: var(--darker-gray);
+  border: 2px solid var(--darker-gray);
+}
+
+.ant-checkbox-checked:hover .ant-checkbox-inner{
+  background-color: transparent;
+  border: 2px solid var(--darker-gray);
+}

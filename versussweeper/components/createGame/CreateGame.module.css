@@ -1,0 +1,28 @@
+.errorMessage {
+  color: var(--main-red);
+  font-size: 12px;
+  font-family: var(--robo-reg);
+}
+
+.input {
+  width: 95px;
+  height: 64px;
+  border-radius: 0;
+  background-color: var(--background-color);
+  color: var(--dark-gray);
+  border: 2px solid var(--darker-gray);
+  font-family: var(--robo-reg);
+  font-size: 20px;
+  text-transform: uppercase;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.input:hover {
+  background-color: var(--background-color);
+  border: 2px solid var(--darker-gray);
+  color: var(--darker-gray);
+}
+
+
