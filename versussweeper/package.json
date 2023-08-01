@@ -9,14 +9,17 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@ant-design/icons": "^5.1.4",
     "antd": "^5.7.2",
     "eslint": "8.36.0",
     "eslint-config-next": "13.2.4",
+    "formik": "^2.4.2",
     "next": "13.2.4",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "seedrandom": "^3.0.5",
     "socket.io-client": "^4.6.1",
-    "swr": "^2.2.0"
+    "swr": "^2.2.0",
+    "yup": "^1.2.0"
   }
 }

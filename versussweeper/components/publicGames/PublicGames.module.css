@@ -1,0 +1,54 @@
+.gameRow {
+    background-color: var(--lighter-gray);
+    height: 80px;
+    margin-top: 10px;
+    margin-left: 80px;
+    margin-right: 80px;
+}
+
+.gameRow:hover {
+    border: 2px solid var(--darker-gray);
+    cursor: pointer;
+}
+
+/* const paginationItemStyle = {
+    // Your custom styles for the pagination item
+    backgroundColor: "var(--lighter-gray)",
+    borderColor: "var(--main-black)",
+    color: "var(--main-black)",
+    borderRadius: "0px",
+    borderWidth: "0px",
+    fontSize: "16px",
+    textAlign: "center",
+  };
+
+  const activePaginationItemStyle = {
+    // Your custom styles for the active pagination item
+    backgroundColor: "var(--main-black)",
+    borderColor: "var(--main-black)",
+    color: "var(--lighter-gray)",
+    borderRadius: "0px",
+    borderWidth: "0px",
+    fontSize: "16px",
+    textAlign: "center",
+  };
+
+  // Custom hover style
+  paginationItemStyle[":hover"] = {
+    backgroundColor: "var(--main-green)",
+    borderColor: "var(--main-black)",
+    color: "var(--lighter-gray)",
+    borderRadius: "0px",
+    borderWidth: "0px",
+    textAlign: "center",
+  };
+
+  activePaginationItemStyle[":hover"] = {
+    // Your custom styles for the active pagination item
+    backgroundColor: "var(--main-red)",
+    borderColor: "var(--main-black)",
+    color: "var(--lighter-gray)",
+    borderRadius: "0px",
+    borderWidth: "0px",
+    textAlign: "center",
+  }; */
