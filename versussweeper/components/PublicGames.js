@@ -194,7 +194,7 @@ export default function PublicGames() {
           justify="space-around"
           style={{
             marginTop: "60px",
-            borderColor: "var(--dark-gray)",
+            borderColor: "var(--darker-gray)",
             borderWidth: "2px",
             borderStyle: "solid",
             borderRadius: "0px",
@@ -207,7 +207,7 @@ export default function PublicGames() {
               type="null"
               style={{
                 color:
-                  difficulty === 0 ? "var(--main-black)" : "var(--darker-gray)",
+                  difficulty === 0 ? "var(--main-black)" : "var(--dark-gray)",
               }}
               onClick={() => setDifficulty(0)}
             >
@@ -220,7 +220,7 @@ export default function PublicGames() {
               type="null"
               style={{
                 color:
-                  difficulty === 1 ? "var(--main-black)" : "var(--darker-gray)",
+                  difficulty === 1 ? "var(--main-black)" : "var(--dark-gray)",
               }}
               onClick={() => setDifficulty(1)}
             >
@@ -233,7 +233,7 @@ export default function PublicGames() {
               type="null"
               style={{
                 color:
-                  difficulty === 2 ? "var(--main-black)" : "var(--darker-gray)",
+                  difficulty === 2 ? "var(--main-black)" : "var(--dark-gray)",
               }}
               onClick={() => setDifficulty(2)}
             >
@@ -246,7 +246,7 @@ export default function PublicGames() {
               type="null"
               style={{
                 color:
-                  difficulty === 3 ? "var(--main-black)" : "var(--darker-gray)",
+                  difficulty === 3 ? "var(--main-black)" : "var(--dark-gray)",
               }}
               onClick={() => setDifficulty(3)}
             >
@@ -259,25 +259,31 @@ export default function PublicGames() {
           <p
             className="subheader-text"
             style={{
-              color: "var(--darker-gray)",
+              color: "var(--dark-gray)",
               textAlign: "center",
               marginTop: "40px",
             }}
           >
-            <span>No </span> 
-            <span style={{ color: "var(--main-green)" }}>{difficultyMap[difficulty]}</span>
-            <span> games found, why <br />don&apos;t you make one? </span>
+            <span>No </span>
+            <span style={{ color: "var(--main-green)" }}>
+              {difficultyMap[difficulty]}
+            </span>
+            <span>
+              {" "}
+              games found, why <br />
+              don&apos;t you make one?{" "}
+            </span>
           </p>
         </Row>
-        <Row justify="center" style={{marginTop: "40px"}}>
+        <Row justify="center" style={{ marginTop: "40px" }}>
           <Button
-              className="black-button"
-              type="null"
-              style={{ backgroundColor: "var(--main-green)" }}
-              onClick={navigateToCreate}
-            >
-              Create Game
-            </Button>
+            className="black-button"
+            type="null"
+            style={{ backgroundColor: "var(--main-green)" }}
+            onClick={navigateToCreate}
+          >
+            Create Game
+          </Button>
         </Row>
       </Col>
     </Row>

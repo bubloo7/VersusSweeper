@@ -4,9 +4,10 @@
   --main-blue: #0000ff; /*Blue buttons*/
   --main-green: #057d05; /*Green buttons*/
   --main-red: #ff0000; /*Red buttons*/
+  --create-blue: #008284;
   --white-text: #f4f4f4; /*White text*/
-  --darker-gray: #999999; /*Darker gray text and background*/
-  --dark-gray: #7b7b7b; /*Dark gray text and background*/
+  --dark-gray: #999999; /*Darker gray text and background*/
+  --darker-gray: #7b7b7b; /*Dark gray text and background*/
   --light-gray: #bdbdbd; /*Light gray text and background*/
   --lighter-gray: #d9d9d9; /*Lighter gray text and background*/
 }

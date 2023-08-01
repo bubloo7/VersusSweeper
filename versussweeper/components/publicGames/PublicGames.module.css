@@ -1,14 +1,14 @@
 .gameRow {
-    background-color: var(--lighter-gray);
-    height: 80px;
-    margin-top: 10px;
-    margin-left: 80px;
-    margin-right: 80px;
+  background-color: var(--lighter-gray);
+  height: 80px;
+  margin-top: 10px;
+  margin-left: 80px;
+  margin-right: 80px;
 }
 
 .gameRow:hover {
-    border: 2px solid var(--darker-gray);
-    cursor: pointer;
+  border: 2px solid var(--dark-gray);
+  cursor: pointer;
 }
 
 /* const paginationItemStyle = {

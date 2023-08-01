@@ -3,7 +3,7 @@ import useSWR from "swr";
 import React, { useEffect, useState } from "react";
 import { Pagination, Row, Col, Button, Input, Space } from "antd";
 import { TeamOutlined, TrophyOutlined } from "@ant-design/icons";
-import styles from "./PublicGames.module.css"
+import styles from "./PublicGames.module.css";
 
 export default function PublicGames() {
   const [publicGames, setPublicGames] = useState({});
@@ -84,7 +84,7 @@ export default function PublicGames() {
         onClick={() => {
           window.location.href = `/${key}`;
         }}
-        className= {styles.gameRow}
+        className={styles.gameRow}
       >
         <Col flex={4}>
           <h1
@@ -102,11 +102,11 @@ export default function PublicGames() {
             style={{ height: "100%", width: "100%" }}
           >
             <TeamOutlined
-              style={{ color: "var(--darker-gray)", fontSize: "20px" }}
+              style={{ color: "var(--dark-gray)", fontSize: "20px" }}
             />
             <p
               className="body-text"
-              style={{ marginLeft: "15px", color: "var(--darker-gray)" }}
+              style={{ marginLeft: "15px", color: "var(--dark-gray)" }}
             >
               {Object.keys(publicGames[key].players).length}/
               {publicGames[key].playerLimit}
@@ -118,11 +118,11 @@ export default function PublicGames() {
             style={{ height: "100%", width: "100%" }}
           >
             <TrophyOutlined
-              style={{ color: "var(--darker-gray)", fontSize: "20px" }}
+              style={{ color: "var(--dark-gray)", fontSize: "20px" }}
             />
             <p
               className="body-text"
-              style={{ marginLeft: "15px", color: "var(--darker-gray)" }}
+              style={{ marginLeft: "15px", color: "var(--dark-gray)" }}
             >
               {publicGames[key].gameStarted ? "In Game" : "In Lobby"}
             </p>
@@ -132,11 +132,7 @@ export default function PublicGames() {
     );
   });
 
-  
-
-
   return (
-    
     //   TODO: {isLoading && <div>Loading...</div>}
     //   TODO: {isError && <div>Error loading public games</div>}
 
@@ -215,7 +211,7 @@ export default function PublicGames() {
           align="middle"
           style={{
             marginTop: "60px",
-            borderColor: "var(--dark-gray)",
+            borderColor: "var(--darker-gray)",
             borderWidth: "2px",
             borderStyle: "solid",
             borderRadius: "0px",
@@ -229,7 +225,7 @@ export default function PublicGames() {
               type="null"
               style={{
                 color:
-                  difficulty === 0 ? "var(--main-black)" : "var(--darker-gray)",
+                  difficulty === 0 ? "var(--main-black)" : "var(--dark-gray)",
               }}
               onClick={() => setDifficulty(0)}
             >
@@ -242,7 +238,7 @@ export default function PublicGames() {
               type="null"
               style={{
                 color:
-                  difficulty === 1 ? "var(--main-black)" : "var(--darker-gray)",
+                  difficulty === 1 ? "var(--main-black)" : "var(--dark-gray)",
               }}
               onClick={() => setDifficulty(1)}
             >
@@ -255,7 +251,7 @@ export default function PublicGames() {
               type="null"
               style={{
                 color:
-                  difficulty === 2 ? "var(--main-black)" : "var(--darker-gray)",
+                  difficulty === 2 ? "var(--main-black)" : "var(--dark-gray)",
               }}
               onClick={() => setDifficulty(2)}
             >
@@ -268,7 +264,7 @@ export default function PublicGames() {
               type="null"
               style={{
                 color:
-                  difficulty === 3 ? "var(--main-black)" : "var(--darker-gray)",
+                  difficulty === 3 ? "var(--main-black)" : "var(--dark-gray)",
               }}
               onClick={() => setDifficulty(3)}
             >
@@ -283,7 +279,7 @@ export default function PublicGames() {
               <p
                 className="subheader-text"
                 style={{
-                  color: "var(--darker-gray)",
+                  color: "var(--dark-gray)",
                   textAlign: "center",
                 }}
               >
@@ -292,9 +288,7 @@ export default function PublicGames() {
                   {difficultyMap[difficulty]}
                 </span>
                 <span>
-                  {" "}
-                  games found, why <br />
-                  don't you make one?{" "}
+                  games found, why <br /> don&apos;t you make one?
                 </span>
               </p>
             </Row>
