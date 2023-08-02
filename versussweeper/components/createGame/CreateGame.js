@@ -440,7 +440,7 @@ export default function CreateGame() {
                       style={{ fontSize: "20px" }}
                       className="button-text"
                     >
-                      Set Seed:
+                      Set Seed (Random if blank):
                     </Divider>
                   </Row>
                   <Row justify="center">

@@ -288,6 +288,7 @@ export default function PublicGames() {
                   {difficultyMap[difficulty]}
                 </span>
                 <span>
+                  {" "}
                   games found, why <br /> don&apos;t you make one?
                 </span>
               </p>
