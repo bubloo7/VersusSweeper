@@ -1,0 +1,34 @@
+.copy {
+    cursor: pointer;
+}
+
+.inputBox {
+    width: 95px;
+    height: 64px;
+    border-radius: 0;
+    background-color: var(--background-color);
+    color: var(--darker-gray);
+    border: 2px solid var(--darker-gray);
+    font-family: var(--robo-reg);
+    font-size: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: "center";
+}
+
+.inputBoxSeed {
+    width: 100%;
+    height: 64px;
+    border-radius: 0;
+    background-color: var(--background-color);
+    color: var(--darker-gray);
+    border: 2px solid var(--darker-gray);
+    font-family: var(--robo-reg);
+    font-size: 20px;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    padding-left: 35px;
+}
+
