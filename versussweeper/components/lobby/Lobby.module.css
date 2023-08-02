@@ -27,7 +27,7 @@
     font-family: var(--robo-reg);
     font-size: 20px;
     display: flex;
-    justify-content: start;
+    justify-content: flex-start;
     align-items: center;
     padding-left: 35px;
 }
