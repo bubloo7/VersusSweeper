@@ -250,8 +250,8 @@ export default function Minesweeper() {
       <Row justify="center" align="middle" style={{ marginTop: "60px" }}>
         <div
           style={{
-            border: "5px inset var(--light-gray)",
-            borderStyle: "inset",
+            border: "5px ridge var(--light-gray)",
+            borderStyle: "ridge",
             maxWidth: "100%",
           }}
         >
@@ -397,7 +397,11 @@ export default function Minesweeper() {
           </Row>
 
           {showNextGame && (
-            <Row justify="center" align="middle" style={{ marginTop: "20px" }}>
+            <Row
+              justify="center"
+              align="middle"
+              style={{ marginTop: "20px", marginBottom: "20px" }}
+            >
               <Button
                 className="black-button"
                 onClick={joinNextGame}
@@ -409,32 +413,6 @@ export default function Minesweeper() {
           )}
         </Col>
       </Row>
-
-      {/* {firstColClicked === -1 && (
-        <div>
-          {firstMoveName === name
-            ? "You get to make the first move!"
-            : `Waiting for ${firstMoveName} to make a move...`}
-        </div>
-      )}
-      <div>
-        Hits = {hits}
-        Misses = {misses}
-        Time = {Math.max(time, 0)}
-      </div> */}
-
-      {/* {hits + mines === rows * cols && <div>You win!</div>} */}
-      {/* <div>Mines left: {mines - numFlags}</div> */}
-      {/* {stunTimer > 0 && <div>Stunned for {stunTimer} seconds</div>} */}
-      {showNextGame && <button onClick={joinNextGame}>Join next game</button>}
-      {/* <Leaderboard
-        hits={hits}
-        misses={misses}
-        players={players}
-        name={name}
-        startTime={startTime}
-        finishTime={finishTime}
-      /> */}
     </>
   );
 }
