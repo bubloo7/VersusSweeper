@@ -231,12 +231,12 @@ export default function Lobby() {
                       >
                         Rows:
                       </h1>
-                      <div
+                      <Row
                         style={{ marginLeft: "5px" }}
                         className={styles.inputBox}
                       >
                         {rows}
-                      </div>
+                      </Row>
                     </Row>
                   </Col>
                   <Col flex={8}>
