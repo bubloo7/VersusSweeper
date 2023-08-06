@@ -1,9 +1,60 @@
+import { Row } from "antd";
+import Image from "next/image";
 import Link from "next/link";
+import Flag from "../images/retro/flag-logo.png";
 
 export default function Header() {
-    return (
-        <>
-            <Link href="\">VersusSweeper</Link>
-        </>
-    );
+
+    const navigateHome = () => {
+        window.location.href = "/";
+    }
+
+    const navigateToAboutUs = () => {
+        window.location.href = "/about";
+    }
+
+  return (
+    <>
+      <Row
+        justify="space-around"
+        align="middle"
+        style={{
+          backgroundColor: "var(--light-gray)",
+          border: "5px solid var(--darker-gray)",
+          height: "80px",
+        }}
+      >
+        <h1
+          className="subheader-text"
+          style={{
+            color: "var(--main-black)",
+            position: "absolute",
+            left: "80px",
+            cursor: "pointer",
+          }}
+          onClick={navigateHome}
+        >
+          VersusSweeper
+        </h1>
+        <Image
+          src={Flag}
+          alt="logo"
+          height={40}
+          style={{ position: "absolute", left: "auto", right: "auto" }}
+        />
+        <p
+          className="subheader-text"
+          style={{
+            color: "var(--white-text)",
+            position: "absolute",
+            right: "80px",
+            cursor: "pointer",
+          }}
+          onClick={navigateToAboutUs}
+        >
+          About Us
+        </p>
+      </Row>
+    </>
+  );
 }
