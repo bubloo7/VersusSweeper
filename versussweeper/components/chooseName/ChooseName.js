@@ -1,11 +1,27 @@
 import { GameContext } from "@/pages/[id]";
 import { useState, useContext } from "react";
 import { Button, Col, Row, Space, Input } from "antd";
+import { useFormik } from "formik";
+import * as Yup from "yup";
 
 export default function ChooseName() {
-  const [tempName, setTempName] = useState("");
   // we only load when the user clicks the button and we wait for the call to return
   const [loading, setLoading] = useState(false);
+
+  const formik = useFormik({
+    initialValues: {
+      tempName: "",
+    },
+    validationSchema: Yup.object({
+      tempName: Yup.string()
+        .min(1, "Must be 1 character or more")
+        .max(10, "Must be 10 characters or less")
+        .required("Required"),
+    }),
+    onSubmit: (values) => {
+      handleNameSelect();
+    },
+  });
 
   const [
     id,
@@ -44,10 +60,6 @@ export default function ChooseName() {
   ] = useContext(GameContext);
 
   const handleNameSelect = () => {
-    if (tempName.length === 0) {
-      return;
-    }
-
     fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/join`, {
       method: "POST",
       headers: {
@@ -160,26 +172,42 @@ export default function ChooseName() {
                 }}
                 className="button-text "
                 placeholder="Name"
-                value={tempName}
-                onChange={(e) => {
-                  setTempName(e.target.value);
-                }}
+                value={formik.values.tempName}
+                name="tempName"
+                type="text"
+                onChange={formik.handleChange}
                 onKeyDown={(e) => {
                   if (e.key === "Enter") {
-                    handleNameSelect();
+                    formik.handleSubmit();
                   }
                 }}
               />
               <Button
                 className="black-button"
                 style={{ backgroundColor: "var(--main-green)" }}
-                onClick={handleNameSelect}
+                onClick={formik.handleSubmit}
                 type="null"
               >
                 Join {id}
               </Button>
             </Space.Compact>
           </Row>
+
+          {formik.errors.tempName && formik.touched.tempName && (
+            <div
+              style={{
+                color: "var(--main-red)",
+                fontSize: "12px",
+                fontFamily: "var(--robo-reg)",
+                display: "flex",
+                justifyContent: "center",
+                marginTop: "10px",
+                
+              }}
+            >
+              {formik.errors.tempName}
+            </div>
+          )}
         </Col>
       </Row>
     );
