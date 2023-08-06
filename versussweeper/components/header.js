@@ -1,6 +1,5 @@
 import { Row } from "antd";
 import Image from "next/image";
-import Link from "next/link";
 import Flag from "../images/retro/flag-logo.png";
 
 export default function Header() {
@@ -20,16 +19,16 @@ export default function Header() {
         align="middle"
         style={{
           backgroundColor: "var(--light-gray)",
-          border: "5px solid var(--darker-gray)",
+          border: "3px solid var(--darker-gray)",
           height: "80px",
         }}
       >
         <h1
-          className="subheader-text"
+          className="subheader-text hide-small"
           style={{
             color: "var(--main-black)",
             position: "absolute",
-            left: "80px",
+            left: "60px",
             cursor: "pointer",
           }}
           onClick={navigateHome}
@@ -40,10 +39,11 @@ export default function Header() {
           src={Flag}
           alt="logo"
           height={40}
-          style={{ position: "absolute", left: "auto", right: "auto" }}
+          style={{ position: "absolute", left: "auto", right: "auto", cursor: "pointer" }}
+          onClick={navigateHome}
         />
         <p
-          className="subheader-text"
+          className="subheader-text hide-small"
           style={{
             color: "var(--white-text)",
             position: "absolute",

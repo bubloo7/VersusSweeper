@@ -8,6 +8,8 @@ import Minesweeper from "../components/Minesweeper";
 import io from "socket.io-client";
 import Loading from "@/components/Loading";
 
+import Layout from "@/components/Layout";
+
 export const GameContext = createContext();
 
 let socket = null;
@@ -159,141 +161,149 @@ const Page = () => {
 
   // Still checking if game exists
   if (loading) {
-    return <Loading />;
+    return (
+        <Loading />
+    );
   } else {
     // Game doesn't exist
     if (!gameFound) {
-      return <GameNotFound />;
+      return (
+          <GameNotFound />
+      );
     }
     // Game exists
     else {
       if (!name) {
         return (
-          <GameContext.Provider
-            value={[
-              id,
-              setDifficulty,
-              setRows,
-              setCols,
-              setMines,
-              setPublicRoom,
-              setStunDuration,
-              setPlayerLimit,
-              setDisableFlag,
-              setDisableMiddleMouse,
-              setSeed,
-              setSeedRandomlyGenerated,
-              setNextGameId,
-              setGameStarted,
-              setStartTime,
-              setHostName,
-              setFirstMoveName,
-              setFirstColClicked,
-              setFirstRowClicked,
-              setPlayers,
-              setClears,
-              setMisses,
-              setFinishTime,
-              setFlags,
-              setStun,
-              setRevealed,
-              setFlagged,
-              setName,
-              setGameFull,
-              socket,
-              stunTimer,
-              setStunTimer,
-              setShowNextGame,
-            ]}
-          >
-            <ChooseName />
-          </GameContext.Provider>
+            <GameContext.Provider
+              value={[
+                id,
+                setDifficulty,
+                setRows,
+                setCols,
+                setMines,
+                setPublicRoom,
+                setStunDuration,
+                setPlayerLimit,
+                setDisableFlag,
+                setDisableMiddleMouse,
+                setSeed,
+                setSeedRandomlyGenerated,
+                setNextGameId,
+                setGameStarted,
+                setStartTime,
+                setHostName,
+                setFirstMoveName,
+                setFirstColClicked,
+                setFirstRowClicked,
+                setPlayers,
+                setClears,
+                setMisses,
+                setFinishTime,
+                setFlags,
+                setStun,
+                setRevealed,
+                setFlagged,
+                setName,
+                setGameFull,
+                socket,
+                stunTimer,
+                setStunTimer,
+                setShowNextGame,
+              ]}
+            >
+              <ChooseName />
+            </GameContext.Provider>
         );
       } else {
         if (gameFull) {
           return <GameFull />;
         } else if (!gameStarted) {
           return (
-            <GameContext.Provider
-              value={[
-                id,
-                name,
-                difficulty,
-                rows,
-                cols,
-                mines,
-                publicRoom,
-                stunDuration,
-                playerLimit,
-                disableFlag,
-                disableMiddleMouse,
-                seed,
-                seedRandomlyGenerated,
-                setGameStarted,
-                setStartTime,
-                hostName,
-                setFirstMoveName,
-                players,
-                socket,
-              ]}
-            >
-              <Lobby />
-            </GameContext.Provider>
+            <Layout>
+              <GameContext.Provider
+                value={[
+                  id,
+                  name,
+                  difficulty,
+                  rows,
+                  cols,
+                  mines,
+                  publicRoom,
+                  stunDuration,
+                  playerLimit,
+                  disableFlag,
+                  disableMiddleMouse,
+                  seed,
+                  seedRandomlyGenerated,
+                  setGameStarted,
+                  setStartTime,
+                  hostName,
+                  setFirstMoveName,
+                  players,
+                  socket,
+                ]}
+              >
+                <Lobby />
+              </GameContext.Provider>
+            </Layout>
           );
         } else {
           return (
-            <GameContext.Provider
-              value={[
-                rows,
-                cols,
-                mines,
-                board,
-                setBoard,
-                revealed,
-                setRevealed,
-                flagged,
-                setFlagged,
-                stun,
-                setStun,
-                clears,
-                setClears,
-                misses,
-                setMisses,
-                seed,
-                id,
-                firstRowClicked,
-                setFirstRowClicked,
-                firstColClicked,
-                setFirstColClicked,
-                startTime,
-                setStartTime,
-                flags,
-                setFlags,
-                isCtrlPressed,
-                setIsCtrlPressed,
-                disableFlag,
-                setDisableFlag,
-                disableMiddleMouse,
-                setDisableMiddleMouse,
-                stunDuration,
-                name,
-                firstMoveName,
-                socket,
-                stunTimer,
-                setStunTimer,
-                players,
-                finishTime,
-                setFinishTime,
-                showNextGame,
-                setShowNextGame,
-                difficulty,
-                publicRoom,
-                playerLimit,
-                setPlayers,
-              ]}
-            >
-              <Minesweeper />
-            </GameContext.Provider>
+            <Layout>
+              <GameContext.Provider
+                value={[
+                  rows,
+                  cols,
+                  mines,
+                  board,
+                  setBoard,
+                  revealed,
+                  setRevealed,
+                  flagged,
+                  setFlagged,
+                  stun,
+                  setStun,
+                  clears,
+                  setClears,
+                  misses,
+                  setMisses,
+                  seed,
+                  id,
+                  firstRowClicked,
+                  setFirstRowClicked,
+                  firstColClicked,
+                  setFirstColClicked,
+                  startTime,
+                  setStartTime,
+                  flags,
+                  setFlags,
+                  isCtrlPressed,
+                  setIsCtrlPressed,
+                  disableFlag,
+                  setDisableFlag,
+                  disableMiddleMouse,
+                  setDisableMiddleMouse,
+                  stunDuration,
+                  name,
+                  firstMoveName,
+                  socket,
+                  stunTimer,
+                  setStunTimer,
+                  players,
+                  finishTime,
+                  setFinishTime,
+                  showNextGame,
+                  setShowNextGame,
+                  difficulty,
+                  publicRoom,
+                  playerLimit,
+                  setPlayers,
+                ]}
+              >
+                <Minesweeper />
+              </GameContext.Provider>
+            </Layout>
           );
         }
       }

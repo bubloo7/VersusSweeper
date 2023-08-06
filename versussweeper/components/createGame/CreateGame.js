@@ -5,6 +5,8 @@ import { Form, Button, Checkbox, Row, Col, Input, Space, Divider } from "antd";
 import { DownOutlined, RightOutlined } from "@ant-design/icons";
 import { useState } from "react";
 
+import Layout from "../Layout";
+
 export default function CreateGame() {
   const [advancedSettingsOpen, setAdvancedSettingsOpen] = useState(false);
 
@@ -99,7 +101,7 @@ export default function CreateGame() {
   );
 
   return (
-    <>
+    <Layout>
       <Row
         wrap={false}
         justify="center"
@@ -493,6 +495,6 @@ export default function CreateGame() {
           </Row>
         </Col>
       </Row>
-    </>
+    </Layout>
   );
 }

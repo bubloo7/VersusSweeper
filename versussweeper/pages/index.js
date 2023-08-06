@@ -12,7 +12,7 @@ import Four from "../images/retro/4.png";
 import { Input } from "antd";
 import { useState } from "react";
 
-import Header from "../components/Header";
+import Layout from "../components/Layout";
 
 export default function Home() {
   const [codeEntered, setCodeEntered] = useState("");
@@ -26,8 +26,7 @@ export default function Home() {
   }
 
   return (
-    <>
-    <Header />
+    <Layout>
       <Row
         justify="center"
         align="middle"
@@ -100,7 +99,15 @@ export default function Home() {
                   Have game code? Enter below:
                 </p>
 
-                <Space.Compact style={{ margin: "20px auto 0px auto", width: "100%" }}>
+                <Space.Compact
+                  style={{
+                    margin: "20px auto 0px auto",
+                    width: "80%",
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}
+                >
                   <Input
                     style={{
                       width: "100%",
@@ -132,10 +139,14 @@ export default function Home() {
             justify="center"
             align="middle"
             wrap={true}
-            style={{ marginTop: "200px", marginBottom: "200px" }}
+            style={{ marginTop: "200px", marginBottom: "120px" }}
           >
             <Col xs={22} sm={22} md={22} lg={22} xl={20} xxl={20}>
-              <Row justify="center" align="middle">
+              <Row
+                justify="center"
+                align="middle"
+                style={{ marginBottom: "20px" }}
+              >
                 <h1 className="subheader-text">How to play</h1>
               </Row>
 
@@ -185,8 +196,8 @@ export default function Home() {
                       style={{
                         color: "var(--darker-gray)",
                         textAlign: "start",
-                        padding: "10px 0px 0px 10px",
-                        maxWidth: "65%",
+                        padding: "15px 0px 0px 15px",
+                        maxWidth: "55%",
                       }}
                     >
                       Create a game with the level of difficulty you want.
@@ -251,7 +262,7 @@ export default function Home() {
                       style={{
                         color: "var(--darker-gray)",
                         textAlign: "start",
-                        padding: "10px 0px 0px 10px",
+                        padding: "15px 0px 0px 15px",
                         maxWidth: "55%",
                       }}
                     >
@@ -330,14 +341,14 @@ export default function Home() {
                       style={{
                         color: "var(--darker-gray)",
                         textAlign: "end",
-                        padding: "10px 10px 0px 0px",
+                        padding: "15px 15px 0px 0px",
                         marginBottom: "auto",
                         maxWidth: "55%",
                       }}
                     >
                       Once the game is set, invite your friends using the game
-                      code and start playing! Track the lobby and look over 
-                      the game settings before starting.
+                      code and start playing! Track the lobby and look over the
+                      game settings before starting.
                     </p>
                   </Row>
                 </Col>
@@ -386,8 +397,8 @@ export default function Home() {
                       style={{
                         color: "var(--darker-gray)",
                         textAlign: "start",
-                        padding: "10px 0px 0px 10px",
-                        maxWidth: "75%",
+                        padding: "15px 0px 0px 15px",
+                        maxWidth: "55%",
                       }}
                     >
                       Finally, enjoy the game! The first player to clear their
@@ -412,6 +423,6 @@ export default function Home() {
           </Row>
         </Col>
       </Row>
-    </>
+    </Layout>
   );
 }
