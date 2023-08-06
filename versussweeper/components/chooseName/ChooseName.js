@@ -19,7 +19,7 @@ export default function ChooseName() {
         .required("Required"),
     }),
     onSubmit: (values) => {
-      handleNameSelect();
+      handleNameSelect(values.tempName);
     },
   });
 
@@ -59,7 +59,7 @@ export default function ChooseName() {
     setShowNextGame,
   ] = useContext(GameContext);
 
-  const handleNameSelect = () => {
+  const handleNameSelect = (tempName) => {
     fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/join`, {
       method: "POST",
       headers: {
