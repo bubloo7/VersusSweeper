@@ -6,13 +6,13 @@
 
 .input {
   width: 95px;
-  height: 64px;
+  height: 52px;
   border-radius: 0;
   background-color: var(--background-color);
   color: var(--dark-gray);
   border: 2px solid var(--darker-gray);
   font-family: var(--robo-reg);
-  font-size: 20px;
+  font-size: 16px;
   text-transform: uppercase;
   display: flex;
   justify-content: center;

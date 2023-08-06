@@ -152,7 +152,7 @@ export default function ChooseName() {
               <Input
                 style={{
                   width: "310px",
-                  height: "58px",
+                  height: "52px",
                   color: "var(--darker-gray)",
                   borderRadius: "0px",
                   borderColor: "var(--darker-gray)",

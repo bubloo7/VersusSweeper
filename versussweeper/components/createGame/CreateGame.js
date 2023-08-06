@@ -148,7 +148,6 @@ export default function CreateGame() {
               <Row>
                 <Divider
                   orientation="left"
-                  style={{ fontSize: "20px" }}
                   className="button-text"
                 >
                   Difficulty:
@@ -243,7 +242,6 @@ export default function CreateGame() {
               <Row justify="start">
                 <Divider
                   orientation="left"
-                  style={{ fontSize: "20px" }}
                   className="button-text"
                 >
                   Dimensions:
@@ -280,7 +278,6 @@ export default function CreateGame() {
               <Row>
                 <Divider
                   orientation="left"
-                  style={{ fontSize: "20px" }}
                   className="button-text"
                 >
                   Number of Mines:
@@ -301,7 +298,6 @@ export default function CreateGame() {
               <Row>
                 <Divider
                   orientation="left"
-                  style={{ fontSize: "20px" }}
                   className="button-text"
                 >
                   Visibility:
@@ -332,6 +328,8 @@ export default function CreateGame() {
 
               <Row
                 justify="space-around"
+                align="middle"
+                wrap={false}
                 style={{ marginTop: "50px", marginBottom: "20px" }}
                 onClick={() => setAdvancedSettingsOpen(!advancedSettingsOpen)}
               >
@@ -362,7 +360,6 @@ export default function CreateGame() {
                   <Row>
                     <Divider
                       orientation="left"
-                      style={{ fontSize: "20px" }}
                       className="button-text"
                     >
                       Stun Duration (in Seconds):
@@ -382,7 +379,6 @@ export default function CreateGame() {
                   <Row>
                     <Divider
                       orientation="left"
-                      style={{ fontSize: "20px" }}
                       className="button-text"
                     >
                       Max number of players:
@@ -437,7 +433,6 @@ export default function CreateGame() {
                   <Row>
                     <Divider
                       orientation="left"
-                      style={{ fontSize: "20px" }}
                       className="button-text"
                     >
                       Set Seed (Random if blank):

@@ -102,7 +102,7 @@ export default function PublicGames() {
             style={{ height: "100%", width: "100%" }}
           >
             <TeamOutlined
-              style={{ color: "var(--dark-gray)", fontSize: "20px" }}
+              style={{ color: "var(--dark-gray)", fontSize: "16px" }}
             />
             <p
               className="body-text"
@@ -118,7 +118,7 @@ export default function PublicGames() {
             style={{ height: "100%", width: "100%" }}
           >
             <TrophyOutlined
-              style={{ color: "var(--dark-gray)", fontSize: "20px" }}
+              style={{ color: "var(--dark-gray)", fontSize: "16px" }}
             />
             <p
               className="body-text"
