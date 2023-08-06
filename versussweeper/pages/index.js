@@ -139,7 +139,7 @@ export default function Home() {
             justify="center"
             align="middle"
             wrap={true}
-            style={{ marginTop: "200px", marginBottom: "120px" }}
+            style={{ marginTop: "120px", marginBottom: "120px" }}
           >
             <Col xs={22} sm={22} md={22} lg={22} xl={20} xxl={20}>
               <Row
@@ -154,8 +154,8 @@ export default function Home() {
                 <Col
                   xs={24}
                   sm={18}
-                  md={11}
-                  lg={11}
+                  md={16}
+                  lg={10}
                   xl={10}
                   xxl={10}
                   style={{ marginTop: "20px" }}
@@ -195,8 +195,8 @@ export default function Home() {
                       style={{
                         color: "var(--main-black)",
                         textAlign: "start",
-                        padding: "15px 0px 0px 15px",
-                        maxWidth: "55%",
+                        padding: "15px 0px 15px 15px",
+                        maxWidth: "50%",
                       }}
                     >
                       Create a game with the level of difficulty you want.
@@ -219,8 +219,8 @@ export default function Home() {
                 <Col
                   xs={24}
                   sm={18}
-                  md={11}
-                  lg={11}
+                  md={16}
+                  lg={10}
                   xl={10}
                   xxl={10}
                   style={{ marginTop: "20px" }}
@@ -286,8 +286,8 @@ export default function Home() {
                 <Col
                   xs={24}
                   sm={18}
-                  md={11}
-                  lg={11}
+                  md={16}
+                  lg={10}
                   xl={10}
                   xxl={10}
                   style={{ marginTop: "20px" }}
@@ -352,8 +352,8 @@ export default function Home() {
                 <Col
                   xs={24}
                   sm={18}
-                  md={11}
-                  lg={11}
+                  md={16}
+                  lg={10}
                   xl={10}
                   xxl={10}
                   style={{ marginTop: "20px" }}
