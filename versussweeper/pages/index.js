@@ -171,9 +171,8 @@ export default function Home() {
                       }}
                     />
                     <h1
-                      className="subheader-text"
+                      className="subsubheader-text"
                       style={{
-                        fontSize: "14px",
                         color: "var(--dark-gray)",
                         paddingLeft: "20px",
                       }}
@@ -194,7 +193,7 @@ export default function Home() {
                     <p
                       className="body-text"
                       style={{
-                        color: "var(--darker-gray)",
+                        color: "var(--main-black)",
                         textAlign: "start",
                         padding: "15px 0px 0px 15px",
                         maxWidth: "55%",
@@ -237,9 +236,8 @@ export default function Home() {
                       }}
                     />
                     <h1
-                      className="subheader-text"
+                      className="subsubheader-text"
                       style={{
-                        fontSize: "14px",
                         color: "var(--dark-gray)",
                         paddingLeft: "20px",
                       }}
@@ -260,7 +258,7 @@ export default function Home() {
                     <p
                       className="body-text"
                       style={{
-                        color: "var(--darker-gray)",
+                        color: "var(--main-black)",
                         textAlign: "start",
                         padding: "15px 0px 0px 15px",
                         maxWidth: "55%",
@@ -305,9 +303,8 @@ export default function Home() {
                       }}
                     />
                     <h1
-                      className="subheader-text"
+                      className="subsubheader-text"
                       style={{
-                        fontSize: "14px",
                         color: "var(--dark-gray)",
                         paddingLeft: "20px",
                       }}
@@ -339,7 +336,7 @@ export default function Home() {
                     <p
                       className="body-text"
                       style={{
-                        color: "var(--darker-gray)",
+                        color: "var(--main-black)",
                         textAlign: "end",
                         padding: "15px 15px 0px 0px",
                         marginBottom: "auto",
@@ -372,9 +369,8 @@ export default function Home() {
                       }}
                     />
                     <h1
-                      className="subheader-text"
+                      className="subsubheader-text"
                       style={{
-                        fontSize: "14px",
                         color: "var(--dark-gray)",
                         paddingLeft: "20px",
                       }}
@@ -395,7 +391,7 @@ export default function Home() {
                     <p
                       className="body-text"
                       style={{
-                        color: "var(--darker-gray)",
+                        color: "var(--main-black)",
                         textAlign: "start",
                         padding: "15px 0px 0px 15px",
                         maxWidth: "55%",
