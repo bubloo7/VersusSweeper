@@ -1,7 +1,7 @@
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import styles from "./CreateGame.module.css";
-import { Form, Button, Checkbox, Row, Col, Input, Space, Divider } from "antd";
+import { Button, Checkbox, Row, Col, Input, Space, Divider } from "antd";
 import { DownOutlined, RightOutlined } from "@ant-design/icons";
 import { useState } from "react";
 
@@ -25,22 +25,27 @@ export default function CreateGame() {
 
   const validationSchema = Yup.object().shape({
     rows: Yup.number()
+      .integer("Rows: Must be an whole number")
       .min(5, "Rows: Must be at least 5")
       .max(20, "Rows: Must be at most 20")
       .required("Rows: Required"),
     cols: Yup.number()
+      .integer("Cols: Must be an whole number")
       .min(5, "Cols: Must be at least 5")
       .max(40, "Cols: Must be at most 40")
       .required("Cols: Required"),
     mines: Yup.number()
+      .integer("Mines: Must be an whole number")
       .min(0, "Mines: Must be at least 0")
       .max(Yup.ref("maxMines"), "Mines: Must be at most 25% of the board")
       .required("Mines: Required"),
     stunDuration: Yup.number()
+      .integer("Stun: Must be an whole number")
       .min(0, "Stun: Must be at least 0")
       .max(60, "Stun: Must be at most 60")
       .required("Stun: Required"),
     playerLimit: Yup.number()
+      .integer("Player Limit: Must be an whole number")
       .min(2, "Player Limit: Must be at least 2")
       .max(10, "Player Limit: Must be at most 10")
       .required("Player Limit: Required"),

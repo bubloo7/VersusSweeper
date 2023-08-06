@@ -368,7 +368,7 @@ export default function Lobby() {
 
                 <Row>
                   <h1
-                    style={{ fontSize: "20px", marginBottom: "20px" }}
+                    style={{ marginBottom: "20px" }}
                     className="button-text"
                   >
                     Seed:
@@ -380,9 +380,6 @@ export default function Lobby() {
                   </Col>
                 </Row>
               </Col>
-
-              {/* <Col flex={1}> </Col> */}
-
               <Col
                 flex={15}
                 style={{
