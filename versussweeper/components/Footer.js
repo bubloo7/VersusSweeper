@@ -3,10 +3,6 @@ import Image from "next/image";
 import Flag from "../images/retro/flag-logo.png";
 
 export default function Header() {
-  const navigateHome = () => {
-    window.location.href = "/";
-  };
-
   const navigateToAboutUs = () => {
     window.location.href = "/about";
   };
@@ -34,6 +30,18 @@ export default function Header() {
             style={{ color: "var(--white-text)", textAlign: "center" }}
           >
             1.0.0
+          </p>
+          <p
+            className="body-text hide-large"
+            style={{
+              color: "var(--white-text)",
+              textAlign: "center",
+              marginTop: "10px",
+              cursor: "pointer",
+            }}
+            onClick={navigateToAboutUs}
+          >
+            About Us
           </p>
         </Col>
       </Row>

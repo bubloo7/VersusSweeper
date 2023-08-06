@@ -249,11 +249,11 @@ a {
 }
 
 .hide-large {
-  display: none;
+  display: block;
 }
 
 @media (min-width: 768px) {
   .hide-large {
-    display: block;
+    display: none;
   }
 }
