@@ -1,8 +1,12 @@
 "use client";
 import useSWR from "swr";
 import React, { useEffect, useState } from "react";
-import { Pagination, Row, Col, Button, Input, Space } from "antd";
-import { TeamOutlined, TrophyOutlined } from "@ant-design/icons";
+import { Pagination, Row, Col, Button } from "antd";
+import {
+  TeamOutlined,
+  TrophyOutlined,
+  LoadingOutlined,
+} from "@ant-design/icons";
 import styles from "./PublicGames.module.css";
 
 import Layout from "../Layout";
@@ -88,20 +92,20 @@ export default function PublicGames() {
         }}
         className={styles.gameRow}
       >
-        <Col span={8}>
+        <Col xs={22} sm={20} md={20} lg={10} xl={10} xxl={10}>
           <h1
             className="subsubheader-text"
             style={{
               color: "var(--main-black)",
-              textAlign: "start",
+              textAlign: "center",
             }}
           >
             {key}
           </h1>
         </Col>
-        <Col span={4}>
+        <Col xs={22} sm={20} md={20} lg={10} xl={10} xxl={10}>
           <Row
-            justify="start"
+            justify="center"
             align="middle"
             style={{ height: "100%", width: "100%" }}
           >
@@ -117,7 +121,7 @@ export default function PublicGames() {
             </p>
           </Row>
           <Row
-            justify="start"
+            justify="center"
             align="middle"
             style={{ height: "100%", width: "100%" }}
           >
@@ -146,8 +150,8 @@ export default function PublicGames() {
         style={{
           height: "auto",
           backgroundColor: "var(--background-color)",
-          paddingTop: "150px",
-          paddingBottom: "150px",
+          paddingTop: "50px",
+          paddingBottom: "100px",
         }}
       >
         <Col span={18}>
@@ -165,7 +169,7 @@ export default function PublicGames() {
               style={{
                 color: "var(--main-black)",
                 textAlign: "center",
-                marginTop: "20px",
+                marginTop: "10px",
               }}
             >
               Find a game or create your own to start <br />
@@ -176,7 +180,7 @@ export default function PublicGames() {
             justify="center"
             align="middle"
             style={{
-              marginTop: "30px",
+              marginTop: "20px",
               maxWidth: "460px",
               marginLeft: "auto",
               marginRight: "auto",
@@ -212,13 +216,13 @@ export default function PublicGames() {
             justify="space-around"
             align="middle"
             style={{
-              marginTop: "60px",
+              marginTop: "40px",
               borderColor: "var(--darker-gray)",
               borderWidth: "2px",
               borderStyle: "solid",
               borderRadius: "0px",
               padding: "20px",
-              marginBottom: "40px",
+              marginBottom: "20px",
             }}
           >
             <Col flex={1} style={{ textAlign: "center" }}>
@@ -274,7 +278,20 @@ export default function PublicGames() {
               </Button>
             </Col>
           </Row>
-          {isLoading && <div>Loading...</div>}
+          {isLoading && (
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                marginBottom: "20px",
+              }}
+            >
+              <LoadingOutlined
+                style={{ fontSize: "20px", color: "var(--darker-gray)" }}
+              />
+            </div>
+          )}
           {Object.keys(publicGames).length === 0 && (
             <>
               <Row justify="center">
