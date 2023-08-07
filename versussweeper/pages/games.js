@@ -6,7 +6,7 @@ export default function Games() {
             <Head>
                 <title>Public Games</title>
             </Head>
-            <PublicGames />;
+            <PublicGames />
         </>
     );
 }

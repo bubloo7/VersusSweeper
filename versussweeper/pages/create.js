@@ -7,7 +7,7 @@ export default function Create() {
             <Head>
                 <title>Create Game</title>
             </Head>
-            <CreateGame />;
+            <CreateGame />
         </>
     );
 }
