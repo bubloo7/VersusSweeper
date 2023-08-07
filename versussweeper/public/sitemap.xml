@@ -1,0 +1,23 @@
+<urlset>
+    <url>
+        <loc>https://versussweeper.com/</loc>
+        <priority>1.0</priority>
+        <changefreq>yearly</changefreq>
+    </url>
+    <url>
+        <loc>https://versussweeper.com/public</loc>
+        <priority>.7</priority>
+        <changefreq>yearly</changefreq>
+    </url>
+
+    <url>
+        <loc>https://versussweeper.com/create</loc>
+        <priority>.7</priority>
+        <changefreq>yearly</changefreq>
+    </url>
+    <url>
+        <loc>https://versussweeper.com/about</loc>
+        <priority>.5</priority>
+        <changefreq>yearly</changefreq>
+    </url>
+</urlset>

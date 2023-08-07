@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /$
+Allow: /about
+Allow: /create
+Allow: /public
+Disallow: /
+
+Sitemap: https://www.versussweeper.com/sitemap.xml
