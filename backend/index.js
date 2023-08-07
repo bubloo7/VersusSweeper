@@ -22,10 +22,17 @@ const server = http.createServer(app);
 // got this from bard lol
 function generateRandomId(length) {
     var characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-    return Array(length)
+    let id = Array(length)
         .fill(0)
         .map((_, i) => characters.charAt(Math.floor(Math.random() * characters.length)))
         .join("");
+    while (id === "ABOUT") {
+        id = Array(length)
+            .fill(0)
+            .map((_, i) => characters.charAt(Math.floor(Math.random() * characters.length)))
+            .join("");
+    }
+    return id;
 }
 
 function generateRandomSeed(length) {
