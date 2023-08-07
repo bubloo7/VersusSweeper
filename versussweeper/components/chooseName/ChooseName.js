@@ -197,7 +197,7 @@ export default function ChooseName() {
             <div
               style={{
                 color: "var(--main-red)",
-                fontSize: "12px",
+                fontSize: "14px",
                 fontFamily: "var(--robo-reg)",
                 display: "flex",
                 justifyContent: "center",
