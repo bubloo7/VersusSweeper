@@ -10,12 +10,13 @@ import Two from "../images/retro/2.png";
 import Three from "../images/retro/3.png";
 import Four from "../images/retro/4.png";
 import { Input } from "antd";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import Layout from "../components/Layout";
 
 export default function Home() {
   const [codeEntered, setCodeEntered] = useState("");
+  const [gameExists, setGameExists] = useState(false);
 
   function navigateToCreate() {
     window.location.href = "/create";
@@ -23,6 +24,34 @@ export default function Home() {
 
   function navigateToGames() {
     window.location.href = "/games";
+  }
+
+  useEffect(() => {
+    if (gameExists) {
+      setTimeout(() => {
+        setGameExists(false);
+      }, 3000);
+    }
+  }, [gameExists]);
+
+  function goToGame(code) {
+    fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/exists`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        id: code,
+      }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.exists) {
+          window.location.href = `/${code}`;
+        } else {
+          setGameExists(true);
+        }
+      });
   }
 
   return (
@@ -124,13 +153,25 @@ export default function Home() {
                   <Button
                     type="null"
                     className="black-button"
-                    onClick={() => {
-                      window.location.href = `/${codeEntered.toUpperCase()}`;
-                    }}
+                    onClick={() => goToGame(codeEntered.toUpperCase())}
                   >
                     Join Game
                   </Button>
                 </Space.Compact>
+
+                {gameExists ? (
+                  <p
+                    style={{
+                      textAlign: "center",
+                      color: "var(--main-red)",
+                      marginTop: "10px",
+                      fontSize: "14px",
+                    }}
+                    className="body-text"
+                  >
+                    Game does not exist.
+                  </p>
+                ) : null}
               </div>
             </Col>
           </Row>
