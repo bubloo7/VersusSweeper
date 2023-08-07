@@ -185,7 +185,12 @@ export default function ChooseName() {
               />
               <Button
                 className="black-button"
-                style={{ backgroundColor: "var(--main-green)" }}
+                style={{
+                  backgroundColor:
+                    Object.keys(formik.errors).length > 0
+                      ? "var(--main-red)"
+                      : "var(--main-green)",
+                }}
                 onClick={formik.handleSubmit}
                 type="null"
               >
@@ -203,7 +208,6 @@ export default function ChooseName() {
                 display: "flex",
                 justifyContent: "center",
                 marginTop: "10px",
-                
               }}
             >
               {formik.errors.tempName}

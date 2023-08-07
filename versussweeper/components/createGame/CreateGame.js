@@ -115,8 +115,8 @@ export default function CreateGame() {
         style={{
           height: "auto",
           backgroundColor: "var(--background-color)",
-          paddingTop: "150px",
-          paddingBottom: "150px",
+          paddingTop: "50px",
+          paddingBottom: "100px",
         }}
       >
         <Col span={18}>
@@ -135,7 +135,7 @@ export default function CreateGame() {
               style={{
                 color: "var(--main-black)",
                 textAlign: "center",
-                marginTop: "20px",
+                marginTop: "10px",
               }}
             >
               Set your preferred game settings and create a game. <br />
@@ -147,20 +147,20 @@ export default function CreateGame() {
             justify="center"
             style={{
               backgroundColor: "var(--lighter-gray)",
-              marginTop: "50px",
-              padding: "50px",
+              marginTop: "20px",
+              padding: "15px 50px 15px 50px",
             }}
           >
             <Col span={20}>
-              <Row>
-                <Divider
-                  orientation="left"
+              <Row justify="start">
+                <h2
                   className="button-text"
+                  style={{ color: "var(--main-black)", marginBottom: "5px" }}
                 >
                   Difficulty:
-                </Divider>
+                </h2>
               </Row>
-              <Row justify="start">
+              <Row justify="center" align="middle" wrap={true}>
                 <Col flex={1}>
                   <Button
                     className={
@@ -239,7 +239,7 @@ export default function CreateGame() {
                 <Row justify="center">
                   <h3
                     className="button-text"
-                    style={{ color: "var(--darker-gray)" }}
+                    style={{ color: "var(--darker-gray)", marginTop: "10px" }}
                   >
                     Custom Settings: 5-20 Rows, 5-40 Columns, 0-25% Mines
                   </h3>
@@ -247,12 +247,16 @@ export default function CreateGame() {
               )}
 
               <Row justify="start">
-                <Divider
-                  orientation="left"
+                <h2
                   className="button-text"
+                  style={{
+                    color: "var(--main-black)",
+                    marginBottom: "5px",
+                    marginTop: "20px",
+                  }}
                 >
                   Dimensions:
-                </Divider>
+                </h2>
               </Row>
               <Row justify="center">
                 <Col flex={8}>
@@ -283,15 +287,19 @@ export default function CreateGame() {
                 </Col>
               </Row>
               <Row>
-                <Divider
-                  orientation="left"
+                <h2
                   className="button-text"
+                  style={{
+                    color: "var(--main-black)",
+                    marginBottom: "5px",
+                    marginTop: "10px",
+                  }}
                 >
                   Number of Mines:
-                </Divider>
+                </h2>
               </Row>
               <Row justify="center">
-                <Col span={13}>
+                <Col span={14}>
                   <Input
                     className={styles.input}
                     type="number"
@@ -303,12 +311,16 @@ export default function CreateGame() {
                 </Col>
               </Row>
               <Row>
-                <Divider
-                  orientation="left"
+                <h2
                   className="button-text"
+                  style={{
+                    color: "var(--main-black)",
+                    marginBottom: "5px",
+                    marginTop: "10px",
+                  }}
                 >
                   Visibility:
-                </Divider>
+                </h2>
               </Row>
               <Row justify="start" wrap={true}>
                 <Space size="large" wrap={true}>
@@ -337,7 +349,7 @@ export default function CreateGame() {
                 justify="space-around"
                 align="middle"
                 wrap={false}
-                style={{ marginTop: "50px", marginBottom: "20px" }}
+                style={{ marginTop: "50px", marginBottom: "10px" }}
                 onClick={() => setAdvancedSettingsOpen(!advancedSettingsOpen)}
               >
                 <h2 className="subheader-text">Advanced Settings</h2>
@@ -365,15 +377,19 @@ export default function CreateGame() {
               {advancedSettingsOpen && (
                 <>
                   <Row>
-                    <Divider
-                      orientation="left"
+                    <h2
                       className="button-text"
+                      style={{
+                        color: "var(--main-black)",
+                        marginBottom: "5px",
+                        marginTop: "10px",
+                      }}
                     >
                       Stun Duration (in Seconds):
-                    </Divider>
+                    </h2>
                   </Row>
                   <Row justify="center">
-                    <Col span={13}>
+                    <Col span={14}>
                       <Input
                         className={styles.input}
                         type="number"
@@ -384,15 +400,19 @@ export default function CreateGame() {
                     </Col>
                   </Row>
                   <Row>
-                    <Divider
-                      orientation="left"
+                    <h2
                       className="button-text"
+                      style={{
+                        color: "var(--main-black)",
+                        marginBottom: "5px",
+                        marginTop: "10px",
+                      }}
                     >
                       Max number of players:
-                    </Divider>
+                    </h2>
                   </Row>
                   <Row justify="center">
-                    <Col span={13}>
+                    <Col span={14}>
                       <Input
                         className={styles.input}
                         type="number"
@@ -403,9 +423,9 @@ export default function CreateGame() {
                     </Col>
                   </Row>
                   <Divider />
-                  <Row wrap={true}>
+                  <Row wrap={true} justify="center" align="middle">
                     <Col flex={1}>
-                      <Row justify="center">
+                      <Row justify="center" align="middle">
                         <p className="button-text">Disable Flag:</p>
                         <Checkbox
                           type="checkbox"
@@ -438,15 +458,19 @@ export default function CreateGame() {
                   </Row>
                   <Divider />
                   <Row>
-                    <Divider
-                      orientation="left"
+                    <h2
                       className="button-text"
+                      style={{
+                        color: "var(--main-black)",
+                        marginBottom: "5px",
+                        marginTop: "10px",
+                      }}
                     >
                       Set Seed (Random if blank):
-                    </Divider>
+                    </h2>
                   </Row>
                   <Row justify="center">
-                    <Col span={13}>
+                    <Col span={14}>
                       <Input
                         className={styles.input}
                         style={{ width: "100%" }}
@@ -492,7 +516,12 @@ export default function CreateGame() {
             <Button
               className="black-button"
               type="null"
-              style={{ backgroundColor: "var(--main-green)" }}
+              style={{
+                backgroundColor:
+                  Object.keys(formik.errors).length > 0
+                    ? "var(--main-red)"
+                    : "var(--main-green)",
+              }}
               onClick={formik.handleSubmit}
             >
               Create Room
