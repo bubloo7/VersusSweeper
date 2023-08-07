@@ -287,7 +287,7 @@ export default function Minesweeper() {
                                 padding: "0px 20px 20px 20px",
                             }}
                         >
-                            <h1
+                            <h2
                                 className="subheader-text"
                                 style={{
                                     color: "var(--main-green)",
@@ -296,37 +296,37 @@ export default function Minesweeper() {
                                 }}
                             >
                                 Your Stats
-                            </h1>
+                            </h2>
 
                             <Row justify="space-between" align="middle" style={{ marginTop: "24px" }}>
-                                <h1 className="button-text" style={{ textAlign: "center" }}>
+                                <h3 className="button-text" style={{ textAlign: "center" }}>
                                     <AimOutlined />
                                     {"  "}Hits:
-                                </h1>
+                                </h3>
                                 <Row className={styles.inputBox}>{hits}</Row>
                             </Row>
                             <Row justify="space-between" align="middle" style={{ marginTop: "10px" }}>
-                                <h1 className="button-text" style={{ textAlign: "start" }}>
+                                <h3 className="button-text" style={{ textAlign: "start" }}>
                                     <CloseSquareOutlined />
                                     {"  "}Misses:
-                                </h1>
+                                </h3>
                                 <Row style={{ marginLeft: "5px" }} className={styles.inputBox}>
                                     {misses}
                                 </Row>
                             </Row>
                             <Row justify="space-between" align="middle" style={{ marginTop: "10px" }}>
-                                <h1 className="button-text" style={{ textAlign: "start" }}>
+                                <h3 className="button-text" style={{ textAlign: "start" }}>
                                     <FieldTimeOutlined />
                                     {"  "}Time (S):
-                                </h1>
+                                </h3>
                                 <Row style={{ marginLeft: "5px" }} className={styles.inputBox}>
                                     {Math.max(time, 0)}
                                 </Row>
                             </Row>
                             <Row justify="space-between" align="middle" style={{ marginTop: "10px" }}>
-                                <h1 className="button-text" style={{ textAlign: "start" }}>
+                                <h3 className="button-text" style={{ textAlign: "start" }}>
                                     Mines Left:
-                                </h1>
+                                </h3>
                                 <Row style={{ marginLeft: "5px" }} className={styles.inputBox}>
                                     {mines - numFlags}
                                 </Row>
@@ -341,9 +341,9 @@ export default function Minesweeper() {
                                 padding: "0px 10px 20px 10px",
                             }}
                         >
-                            <h1 className="subheader-text" style={{ textAlign: "center", marginTop: "20px" }}>
+                            <h2 className="subheader-text" style={{ textAlign: "center", marginTop: "20px" }}>
                                 Leaderboard
-                            </h1>
+                            </h2>
                             <Leaderboard
                                 hits={hits}
                                 misses={misses}

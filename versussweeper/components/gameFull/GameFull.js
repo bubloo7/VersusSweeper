@@ -15,7 +15,7 @@ export default function GameFull() {
       >
         <Col flex="160px">{/* Gutter */}</Col>
         <Col flex="1 0 20%">
-          <h1
+          <h2
             style={{
               fontSize: "84px",
               paddingRight: "40px",
@@ -25,7 +25,7 @@ export default function GameFull() {
             align="right"
           >
             *
-          </h1>
+          </h2>
         </Col>
         <Col flex="1 0 40%" style={{ paddingLeft: "40px" }}>
           <Row justify="left">

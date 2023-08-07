@@ -15,7 +15,7 @@ export default function CreateGame() {
     rows: 9,
     cols: 9,
     mines: 10,
-    stunDuration: 15,
+    stunDuration: 5,
     playerLimit: 8,
     disableFlag: false,
     disableMiddleMouse: false,
@@ -237,12 +237,12 @@ export default function CreateGame() {
 
               {difficulty === 3 && (
                 <Row justify="center">
-                  <h1
+                  <h3
                     className="button-text"
                     style={{ color: "var(--darker-gray)" }}
                   >
                     Custom Settings: 5-20 Rows, 5-40 Columns, 0-25% Mines
-                  </h1>
+                  </h3>
                 </Row>
               )}
 
@@ -257,7 +257,7 @@ export default function CreateGame() {
               <Row justify="center">
                 <Col flex={8}>
                   <Row justify="center" align="middle">
-                    <h1 className="button-text">Rows:</h1>
+                    <p className="button-text">Rows:</p>
                     <Input
                       className={styles.input}
                       type="number"
@@ -270,7 +270,7 @@ export default function CreateGame() {
                 </Col>
                 <Col flex={8}>
                   <Row justify="center" align="middle">
-                    <h1 className="button-text">Columns:</h1>
+                    <p className="button-text">Columns:</p>
                     <Input
                       className={styles.input}
                       type="number"
@@ -340,8 +340,8 @@ export default function CreateGame() {
                 style={{ marginTop: "50px", marginBottom: "20px" }}
                 onClick={() => setAdvancedSettingsOpen(!advancedSettingsOpen)}
               >
-                <h1 className="subheader-text">Advanced Settings</h1>
-                <h1 className="subheader-text">
+                <h2 className="subheader-text">Advanced Settings</h2>
+                <h2 className="subheader-text">
                   {advancedSettingsOpen ? (
                     <DownOutlined
                       style={{
@@ -359,7 +359,7 @@ export default function CreateGame() {
                       }}
                     />
                   )}
-                </h1>
+                </h2>
               </Row>
 
               {advancedSettingsOpen && (
@@ -406,7 +406,7 @@ export default function CreateGame() {
                   <Row wrap={true}>
                     <Col flex={1}>
                       <Row justify="center">
-                        <h1 className="button-text">Disable Flag:</h1>
+                        <p className="button-text">Disable Flag:</p>
                         <Checkbox
                           type="checkbox"
                           name="disableFlag"
@@ -425,7 +425,7 @@ export default function CreateGame() {
                     </Col>
                     <Col flex={1}>
                       <Row justify="center">
-                        <h1 className="button-text">Disable Middle Mouse:</h1>
+                        <p className="button-text">Disable Middle Mouse:</p>
                         <Checkbox
                           type="checkbox"
                           name="disableMiddleMouse"

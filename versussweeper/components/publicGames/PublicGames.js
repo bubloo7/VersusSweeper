@@ -93,7 +93,7 @@ export default function PublicGames() {
         className={styles.gameRow}
       >
         <Col xs={22} sm={20} md={20} lg={10} xl={10} xxl={10}>
-          <h1
+          <h2
             className="subsubheader-text"
             style={{
               color: "var(--main-black)",
@@ -101,7 +101,7 @@ export default function PublicGames() {
             }}
           >
             {key}
-          </h1>
+          </h2>
         </Col>
         <Col xs={22} sm={20} md={20} lg={10} xl={10} xxl={10}>
           <Row

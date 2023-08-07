@@ -188,7 +188,7 @@ export default function Home() {
                 align="middle"
                 style={{ marginBottom: "20px" }}
               >
-                <h1 className="subheader-text">How to play</h1>
+                <h2 className="subheader-text">How to play</h2>
               </Row>
 
               <Row justify="space-around" align="middle">
@@ -211,7 +211,7 @@ export default function Home() {
                         border: "4px solid var(--darker-gray)",
                       }}
                     />
-                    <h1
+                    <h3
                       className="subsubheader-text"
                       style={{
                         color: "var(--dark-gray)",
@@ -219,7 +219,7 @@ export default function Home() {
                       }}
                     >
                       Create
-                    </h1>
+                    </h3>
                   </Row>
                   <Row
                     justify="start"
@@ -276,7 +276,7 @@ export default function Home() {
                         border: "4px solid var(--darker-gray)",
                       }}
                     />
-                    <h1
+                    <h3
                       className="subsubheader-text"
                       style={{
                         color: "var(--dark-gray)",
@@ -284,7 +284,7 @@ export default function Home() {
                       }}
                     >
                       Set Up
-                    </h1>
+                    </h3>
                   </Row>
                   <Row
                     justify="start"
@@ -343,7 +343,7 @@ export default function Home() {
                         border: "4px solid var(--darker-gray)",
                       }}
                     />
-                    <h1
+                    <h3
                       className="subsubheader-text"
                       style={{
                         color: "var(--dark-gray)",
@@ -351,7 +351,7 @@ export default function Home() {
                       }}
                     >
                       Invite
-                    </h1>
+                    </h3>
                   </Row>
                   <Row
                     justify="end"
@@ -409,7 +409,7 @@ export default function Home() {
                         border: "4px solid var(--darker-gray)",
                       }}
                     />
-                    <h1
+                    <h3
                       className="subsubheader-text"
                       style={{
                         color: "var(--dark-gray)",
@@ -417,7 +417,7 @@ export default function Home() {
                       }}
                     >
                       Enjoy
-                    </h1>
+                    </h3>
                   </Row>
                   <Row
                     justify="start"

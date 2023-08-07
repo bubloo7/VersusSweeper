@@ -20,7 +20,7 @@ export default function GameNotFound() {
         <Col
           flex="1 0 25%"
         >
-          <h1
+          <h2
             style={{
               fontSize: "84px",
               paddingRight: "40px",
@@ -30,7 +30,7 @@ export default function GameNotFound() {
             align="right"
           >
             *
-          </h1>
+          </h2>
         </Col>
         <Col flex="1 0 45%" style={{ paddingLeft: "40px" }}>
           <Row justify="left">

@@ -32,7 +32,7 @@ export default function Header() {
                     }}
                     onClick={navigateHome}
                 >
-                    VersusSweeper
+                    Versus Sweeper
                 </h1>
                 <Image
                     src={Flag}

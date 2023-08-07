@@ -67,10 +67,10 @@ export default function Lobby() {
     const randomColor = colors[Math.floor(Math.random() * colors.length)];
     return (
       <Row justify="center" key={player}>
-        <h1 className="subheader-text" style={{ fontSize: "28px" }}>
+        <h3 className="subheader-text" style={{ fontSize: "28px" }}>
           {hostName === player ? "`" : ""}
-        </h1>
-        <h1
+        </h3>
+        <h3
           className="button-text"
           style={{
             color: player === name ? randomColor : "var(--main-black)", 
@@ -81,7 +81,7 @@ export default function Lobby() {
           }}
         >
           {player}
-        </h1>
+        </h3>
       </Row>
     );
   });
@@ -128,7 +128,7 @@ export default function Lobby() {
             <Row justify="center" style={{ marginTop: "50px" }} wrap={true}>
               <Col>
                 <Row justify="center" style={{ marginBottom: "10px" }}>
-                  <h1
+                  <h2
                     className="subheader-text"
                     style={{
                       color: "var(--main-green)",
@@ -136,8 +136,8 @@ export default function Lobby() {
                     }}
                   >
                     {publicRoom ? "Public Room" : "Private Room"}
-                  </h1>
-                  <h1
+                  </h2>
+                  <h2
                     className="subheader-text"
                     style={{
                       color: "var(--main-black)",
@@ -145,8 +145,8 @@ export default function Lobby() {
                     }}
                   >
                     -
-                  </h1>
-                  <h1
+                  </h2>
+                  <h2
                     className="subheader-text"
                     style={{
                       color: "var(--darker-gray)",
@@ -154,7 +154,7 @@ export default function Lobby() {
                     }}
                   >
                     {difficultyMap[difficulty]}
-                  </h1>
+                  </h2>
                 </Row>
                 <Row
                   justify="center"
@@ -201,7 +201,7 @@ export default function Lobby() {
                 }}
               >
                 <Row justify="center">
-                  <h1
+                  <h2
                     className="subheader-text"
                     style={{
                       color: "var(--main-black)",
@@ -211,26 +211,26 @@ export default function Lobby() {
                     }}
                   >
                     Settings
-                  </h1>
+                  </h2>
                 </Row>
 
                 <Row justify="start">
-                  <h1
+                  <p
                     style={{ textAlign: "center", marginBottom: "20px" }}
                     className="button-text"
                   >
                     Dimensions:
-                  </h1>
+                  </p>
                 </Row>
                 <Row justify="center" style={{ marginBottom: "20px" }}>
                   <Col flex={8}>
                     <Row justify="center" align="middle">
-                      <h1
+                      <p
                         className="button-text"
                         style={{ textAlign: "center" }}
                       >
                         Rows:
-                      </h1>
+                      </p>
                       <Row
                         style={{ marginLeft: "5px" }}
                         className={styles.inputBox}
@@ -241,12 +241,12 @@ export default function Lobby() {
                   </Col>
                   <Col flex={8}>
                     <Row justify="center" align="middle">
-                      <h1
+                      <p
                         className="button-text"
                         style={{ textAlign: "center" }}
                       >
                         Columns:
-                      </h1>
+                      </p>
                       <Row
                         style={{ marginLeft: "5px" }}
                         className={styles.inputBox}
@@ -258,12 +258,12 @@ export default function Lobby() {
                 </Row>
 
                 <Row>
-                  <h1
+                  <p
                     style={{ textAlign: "center", marginBottom: "20px" }}
                     className="button-text"
                   >
                     Number of Mines:
-                  </h1>
+                  </p>
                 </Row>
                 <Row justify="center" style={{ marginBottom: "20px" }}>
                   <Col span={13}>
@@ -272,12 +272,12 @@ export default function Lobby() {
                 </Row>
 
                 <Row>
-                  <h1
+                  <p
                     style={{ textAlign: "center", marginBottom: "20px" }}
                     className="button-text"
                   >
                     Stun Duration (in Seconds):
-                  </h1>
+                  </p>
                 </Row>
                 <Row justify="center" style={{ marginBottom: "40px" }}>
                   <Col span={13}>
@@ -291,7 +291,7 @@ export default function Lobby() {
                   style={{ marginBottom: "20px" }}
                 >
                   <Col span={18}>
-                    <h1 className="button-text">Disable Flag:</h1>
+                    <p className="button-text">Disable Flag:</p>
                   </Col>
                   <Col span={6}>
                     {disableFlag ? (
@@ -318,7 +318,7 @@ export default function Lobby() {
                   style={{ marginBottom: "20px" }}
                 >
                   <Col span={18}>
-                    <h1 className="button-text">Disable Middle Mouse:</h1>
+                    <p className="button-text">Disable Middle Mouse:</p>
                   </Col>
                   <Col span={6}>
                     {disableMiddleMouse ? (
@@ -345,7 +345,7 @@ export default function Lobby() {
                   style={{ marginBottom: "20px" }}
                 >
                   <Col span={18}>
-                    <h1 className="button-text">Seed Randomly Generated:</h1>
+                    <p className="button-text">Seed Randomly Generated:</p>
                   </Col>
                   <Col span={6}>
                     {seedRandomlyGenerated ? (
@@ -367,12 +367,12 @@ export default function Lobby() {
                 </Row>
 
                 <Row>
-                  <h1
+                  <p
                     style={{ marginBottom: "20px" }}
                     className="button-text"
                   >
                     Seed:
-                  </h1>
+                  </p>
                 </Row>
                 <Row justify="center">
                   <Col span={13}>
@@ -388,7 +388,7 @@ export default function Lobby() {
                 }}
               >
                 <Row justify="center">
-                  <h1
+                  <h2
                     className="subheader-text"
                     style={{
                       color: "var(--main-black)",
@@ -398,7 +398,7 @@ export default function Lobby() {
                     }}
                   >
                     Lobby ({Object.keys(players).length}/{playerLimit})
-                  </h1>
+                  </h2>
                 </Row>
 
                 {playerNames}
