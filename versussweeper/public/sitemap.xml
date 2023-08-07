@@ -5,7 +5,7 @@
         <changefreq>yearly</changefreq>
     </url>
     <url>
-        <loc>https://versussweeper.com/public</loc>
+        <loc>https://versussweeper.com/games</loc>
         <priority>.7</priority>
         <changefreq>yearly</changefreq>
     </url>

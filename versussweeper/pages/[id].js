@@ -9,6 +9,7 @@ import io from "socket.io-client";
 import Loading from "@/components/Loading";
 
 import Layout from "@/components/Layout";
+import Head from "next/head";
 
 export const GameContext = createContext();
 
@@ -162,145 +163,167 @@ const Page = () => {
 
     // Still checking if game exists
     if (loading) {
-        return <Loading />;
+        // head is fine as is here
+        return (
+            <>
+                <Loading />;
+            </>
+        );
     } else {
         // Game doesn't exist
         if (!gameFound) {
+            // head is fine as is here
             return <GameNotFound />;
         }
         // Game exists
         else {
             if (!name) {
                 return (
-                    <GameContext.Provider
-                        value={[
-                            id,
-                            setDifficulty,
-                            setRows,
-                            setCols,
-                            setMines,
-                            setPublicRoom,
-                            setStunDuration,
-                            setPlayerLimit,
-                            setDisableFlag,
-                            setDisableMiddleMouse,
-                            setSeed,
-                            setSeedRandomlyGenerated,
-                            setNextGameId,
-                            setGameStarted,
-                            setStartTime,
-                            setHostName,
-                            setFirstMoveName,
-                            setFirstColClicked,
-                            setFirstRowClicked,
-                            setPlayers,
-                            setClears,
-                            setMisses,
-                            setFinishTime,
-                            setFlags,
-                            setStun,
-                            setRevealed,
-                            setFlagged,
-                            setName,
-                            setGameFull,
-                            socket,
-                            stunTimer,
-                            setStunTimer,
-                            setShowNextGame,
-                        ]}
-                    >
-                        <ChooseName />
-                    </GameContext.Provider>
+                    <>
+                        <Head>
+                            <title>{id}</title>
+                        </Head>
+                        <GameContext.Provider
+                            value={[
+                                id,
+                                setDifficulty,
+                                setRows,
+                                setCols,
+                                setMines,
+                                setPublicRoom,
+                                setStunDuration,
+                                setPlayerLimit,
+                                setDisableFlag,
+                                setDisableMiddleMouse,
+                                setSeed,
+                                setSeedRandomlyGenerated,
+                                setNextGameId,
+                                setGameStarted,
+                                setStartTime,
+                                setHostName,
+                                setFirstMoveName,
+                                setFirstColClicked,
+                                setFirstRowClicked,
+                                setPlayers,
+                                setClears,
+                                setMisses,
+                                setFinishTime,
+                                setFlags,
+                                setStun,
+                                setRevealed,
+                                setFlagged,
+                                setName,
+                                setGameFull,
+                                socket,
+                                stunTimer,
+                                setStunTimer,
+                                setShowNextGame,
+                            ]}
+                        >
+                            <ChooseName />
+                        </GameContext.Provider>
+                    </>
                 );
             } else {
                 if (gameFull) {
+                    // head is fine as is here
                     return <GameFull />;
                 } else if (!gameStarted) {
                     return (
-                        <Layout>
-                            <GameContext.Provider
-                                value={[
-                                    id,
-                                    name,
-                                    difficulty,
-                                    rows,
-                                    cols,
-                                    mines,
-                                    publicRoom,
-                                    stunDuration,
-                                    playerLimit,
-                                    disableFlag,
-                                    disableMiddleMouse,
-                                    seed,
-                                    seedRandomlyGenerated,
-                                    setGameStarted,
-                                    setStartTime,
-                                    hostName,
-                                    setFirstMoveName,
-                                    players,
-                                    socket,
-                                ]}
-                            >
-                                <Lobby />
-                            </GameContext.Provider>
-                        </Layout>
+                        <>
+                            <Head>
+                                <title>{id}</title>
+                            </Head>
+                            <Layout>
+                                <GameContext.Provider
+                                    value={[
+                                        id,
+                                        name,
+                                        difficulty,
+                                        rows,
+                                        cols,
+                                        mines,
+                                        publicRoom,
+                                        stunDuration,
+                                        playerLimit,
+                                        disableFlag,
+                                        disableMiddleMouse,
+                                        seed,
+                                        seedRandomlyGenerated,
+                                        setGameStarted,
+                                        setStartTime,
+                                        hostName,
+                                        setFirstMoveName,
+                                        players,
+                                        socket,
+                                    ]}
+                                >
+                                    <Lobby />
+                                </GameContext.Provider>
+                            </Layout>
+                        </>
                     );
                 } else {
                     return (
-                        <Layout>
-                            <GameContext.Provider
-                                value={[
-                                    rows,
-                                    cols,
-                                    mines,
-                                    board,
-                                    setBoard,
-                                    revealed,
-                                    setRevealed,
-                                    flagged,
-                                    setFlagged,
-                                    stun,
-                                    setStun,
-                                    clears,
-                                    setClears,
-                                    misses,
-                                    setMisses,
-                                    seed,
-                                    id,
-                                    firstRowClicked,
-                                    setFirstRowClicked,
-                                    firstColClicked,
-                                    setFirstColClicked,
-                                    startTime,
-                                    setStartTime,
-                                    flags,
-                                    setFlags,
-                                    isCtrlPressed,
-                                    setIsCtrlPressed,
-                                    disableFlag,
-                                    setDisableFlag,
-                                    disableMiddleMouse,
-                                    setDisableMiddleMouse,
-                                    stunDuration,
-                                    name,
-                                    firstMoveName,
-                                    socket,
-                                    stunTimer,
-                                    setStunTimer,
-                                    players,
-                                    finishTime,
-                                    setFinishTime,
-                                    showNextGame,
-                                    setShowNextGame,
-                                    difficulty,
-                                    publicRoom,
-                                    playerLimit,
-                                    setPlayers,
-                                ]}
-                            >
-                                <Minesweeper />
-                            </GameContext.Provider>
-                        </Layout>
+                        <>
+                            <Head>
+                                <title>{id}</title>
+                            </Head>
+                            <Layout>
+                                <GameContext.Provider
+                                    value={[
+                                        rows,
+                                        cols,
+                                        mines,
+                                        board,
+                                        setBoard,
+                                        revealed,
+                                        setRevealed,
+                                        flagged,
+                                        setFlagged,
+                                        stun,
+                                        setStun,
+                                        clears,
+                                        setClears,
+                                        misses,
+                                        setMisses,
+                                        seed,
+                                        id,
+                                        firstRowClicked,
+                                        setFirstRowClicked,
+                                        firstColClicked,
+                                        setFirstColClicked,
+                                        startTime,
+                                        setStartTime,
+                                        flags,
+                                        setFlags,
+                                        isCtrlPressed,
+                                        setIsCtrlPressed,
+                                        disableFlag,
+                                        setDisableFlag,
+                                        disableMiddleMouse,
+                                        setDisableMiddleMouse,
+                                        stunDuration,
+                                        name,
+                                        firstMoveName,
+                                        socket,
+                                        stunTimer,
+                                        setStunTimer,
+                                        players,
+                                        finishTime,
+                                        setFinishTime,
+                                        showNextGame,
+                                        setShowNextGame,
+                                        difficulty,
+                                        publicRoom,
+                                        playerLimit,
+                                        setPlayers,
+                                    ]}
+                                >
+                                    <Minesweeper />
+                                </GameContext.Provider>
+                            </Layout>
+                        </>
                     );
                 }
             }

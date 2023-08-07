@@ -26,7 +26,7 @@ function generateRandomId(length) {
         .fill(0)
         .map((_, i) => characters.charAt(Math.floor(Math.random() * characters.length)))
         .join("");
-    while (id === "ABOUT") {
+    while (id === "ABOUT" && id === "GAMES") {
         id = Array(length)
             .fill(0)
             .map((_, i) => characters.charAt(Math.floor(Math.random() * characters.length)))
