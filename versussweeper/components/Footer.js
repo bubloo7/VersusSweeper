@@ -1,6 +1,4 @@
 import { Col, Row } from "antd";
-import Image from "next/image";
-import Flag from "../images/retro/flag-logo.png";
 
 export default function Header() {
   const navigateToAboutUs = () => {

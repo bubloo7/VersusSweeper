@@ -44,7 +44,7 @@ export default function Header() {
                 <p
                     className="subheader-text hide-small"
                     style={{
-                        color: "var(--white-text)",
+                        color: "var(--main-black)",
                         position: "absolute",
                         right: "80px",
                         cursor: "pointer",

@@ -71,6 +71,7 @@ export default function Home() {
               <Image
                 src={HeroImage}
                 alt="Hero Image"
+                width={600}
                 style={{ maxWidth: "100%", height: "auto" }}
               />
             </Col>
@@ -205,6 +206,8 @@ export default function Home() {
                     <Image
                       src={One}
                       alt="One"
+                      width={100}
+                      height={100}
                       style={{
                         maxWidth: "15%",
                         height: "auto",
@@ -247,6 +250,8 @@ export default function Home() {
                     <Image
                       src={Image1}
                       alt="Create Image"
+                      width={300}
+                      height={300}
                       style={{
                         maxWidth: "50%",
                         height: "auto",
@@ -270,6 +275,8 @@ export default function Home() {
                     <Image
                       src={Two}
                       alt="Two"
+                      width={100}
+                      height={100}
                       style={{
                         maxWidth: "15%",
                         height: "auto",
@@ -311,6 +318,8 @@ export default function Home() {
                     <Image
                       src={Image2}
                       alt="Set Up Image"
+                      width={300}
+                      height={300}
                       style={{
                         maxWidth: "35%",
                         height: "auto",
@@ -337,6 +346,8 @@ export default function Home() {
                     <Image
                       src={Three}
                       alt="Three"
+                      width={100}
+                      height={100}
                       style={{
                         maxWidth: "15%",
                         height: "auto",
@@ -366,6 +377,8 @@ export default function Home() {
                     <Image
                       src={Image3}
                       alt="Invite Image"
+                      width={300}
+                      height={300}
                       style={{
                         maxWidth: "55%",
                         height: "auto",
@@ -403,6 +416,8 @@ export default function Home() {
                     <Image
                       src={Four}
                       alt="Four"
+                      width={100}
+                      height={100}
                       style={{
                         maxWidth: "15%",
                         height: "auto",
@@ -445,6 +460,8 @@ export default function Home() {
                     <Image
                       src={Image4}
                       alt="Enjoy Image"
+                      width={300}
+                      height={300}
                       style={{
                         maxWidth: "55%",
                         height: "auto",
