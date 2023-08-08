@@ -172,9 +172,10 @@ export default function CreateGame() {
                     onClick={() => {
                       formik.setFieldValue("difficulty", 0);
 
+                      formik.setFieldValue("mines", 10);
                       formik.setFieldValue("rows", 9);
                       formik.setFieldValue("cols", 9);
-                      formik.setFieldValue("mines", 10);
+                      
                     }}
                   >
                     Easy
@@ -191,9 +192,10 @@ export default function CreateGame() {
                     onClick={() => {
                       formik.setFieldValue("difficulty", 1);
 
+                      formik.setFieldValue("mines", 40);
                       formik.setFieldValue("rows", 16);
                       formik.setFieldValue("cols", 16);
-                      formik.setFieldValue("mines", 40);
+                      
                     }}
                   >
                     Medium
@@ -210,9 +212,9 @@ export default function CreateGame() {
                     onClick={() => {
                       formik.setFieldValue("difficulty", 2);
 
+                      formik.setFieldValue("mines", 99);
                       formik.setFieldValue("rows", 16);
                       formik.setFieldValue("cols", 30);
-                      formik.setFieldValue("mines", 99);
                     }}
                   >
                     Hard
