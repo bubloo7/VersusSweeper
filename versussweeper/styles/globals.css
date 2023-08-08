@@ -122,7 +122,7 @@ a {
 .body-text {
   font-family: var(--robo-reg);
   font-size: 15px;
-  letter-spacing: 2px;
+  letter-spacing: 1.5px;
   color: var(--main-black);
 }
 

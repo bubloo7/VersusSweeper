@@ -22,10 +22,10 @@ export default function MinesweeperRow(props) {
 
   const mHeight =
     props.rows <= 10 && props.cols <= 10
-      ? "36px"
+      ? "31px"
       : props.rows <= 16 && props.cols <= 25
-      ? "26px"
-      : "23px";
+      ? "23px"
+      : "19px";
 
   return (
     <Row

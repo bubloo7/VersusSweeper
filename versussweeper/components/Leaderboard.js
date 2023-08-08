@@ -68,7 +68,7 @@ export default function Leaderboard(props) {
             justify="space-between"
             align="middle"
             key={index}
-            style={{ marginTop: "15px", marginLeft: "20px" }}
+            style={{ marginTop: "10px", marginLeft: "20px" }}
             wrap={true}
           >
             <Col
@@ -79,13 +79,21 @@ export default function Leaderboard(props) {
             </Col>
             <Col
               className="body-text"
-              style={{ width: "20%", textAlign: "center", color: "var(--main-green)" }}
+              style={{
+                width: "20%",
+                textAlign: "center",
+                color: "var(--main-green)",
+              }}
             >
               {player.clears}
             </Col>
             <Col
               className="body-text"
-              style={{ width: "20%", textAlign: "center", color: "var(--main-red)" }}
+              style={{
+                width: "20%",
+                textAlign: "center",
+                color: "var(--main-red)",
+              }}
             >
               {player.misses}
             </Col>
@@ -121,7 +129,11 @@ export default function Leaderboard(props) {
         >
           <AimOutlined />
         </Col>
-        <Col className="button-text" flex={4} style={{ textAlign: "center", color: "var(--main-red)" }}>
+        <Col
+          className="button-text"
+          flex={4}
+          style={{ textAlign: "center", color: "var(--main-red)" }}
+        >
           <CloseSquareOutlined />
         </Col>
         <Col className="button-text" flex={4} style={{ textAlign: "center" }}>

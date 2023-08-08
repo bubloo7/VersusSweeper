@@ -15,11 +15,9 @@
 
 .inputBox {
     width: 95px;
-    height: 52px;
+    height: 32px;
     border-radius: 0;
-    color: var(--darker-gray);
-    background-color: transparent;
-    border-bottom: 2px solid var(--darker-gray);
+    border-bottom: 2px solid var(--background-color);
     font-family: var(--robo-reg);
     font-size: 16px;
     display: flex;

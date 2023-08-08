@@ -19,10 +19,8 @@
 
 .inputBox {
     width: 95px;
-    height: 52px;
+    height: 32px;
     border-radius: 0;
-    color: var(--darker-gray);
-    background-color: transparent;
     border-bottom: 2px solid var(--darker-gray);
     font-family: var(--robo-reg);
     font-size: 16px;
@@ -49,17 +47,15 @@
 
 .inputBoxSeed {
     width: 100%;
-    height: 52px;
+    height: 32px;
     border-radius: 0;
-    color: var(--darker-gray);
-    background-color: transparent;
     border-bottom: 2px solid var(--darker-gray);
     font-family: var(--robo-reg);
     font-size: 16px;
     display: flex;
-    justify-content: flex-start;
+    justify-content: center;
     align-items: center;
-    padding-left: 35px;
+    text-align: center;
 }
 
 

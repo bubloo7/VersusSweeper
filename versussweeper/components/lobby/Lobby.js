@@ -4,9 +4,9 @@ import Loading from "../Loading";
 import { Row, Col, Space, Button } from "antd";
 import {
   LinkOutlined,
-  CheckSquareFilled,
-  BorderOutlined,
   CheckSquareOutlined,
+  CloseOutlined,
+  CheckOutlined,
 } from "@ant-design/icons";
 import styles from "./Lobby.module.css";
 
@@ -73,10 +73,10 @@ export default function Lobby() {
         <h3
           className="button-text"
           style={{
-            color: player === name ? randomColor : "var(--main-black)", 
+            color: player === name ? randomColor : "var(--main-black)",
             fontSize: "28px",
             textAlign: "center",
-            marginBottom: "30px",
+            marginBottom: "20px",
             textTransform: "none",
           }}
         >
@@ -97,8 +97,8 @@ export default function Lobby() {
           align="middle"
           style={{
             backgroundColor: "var(--background-color)",
-            paddingTop: "150px",
-            paddingBottom: "150px",
+            paddingTop: "50px",
+            paddingBottom: "100px",
           }}
         >
           <Col span={18}>
@@ -117,7 +117,7 @@ export default function Lobby() {
                 style={{
                   color: "var(--main-black)",
                   textAlign: "center",
-                  marginTop: "20px",
+                  marginTop: "10px",
                 }}
               >
                 Almost there! Invite your friends to this room and <br />
@@ -125,7 +125,7 @@ export default function Lobby() {
               </p>
             </Row>
 
-            <Row justify="center" style={{ marginTop: "50px" }} wrap={true}>
+            <Row justify="center" style={{ marginTop: "20px" }} wrap={true}>
               <Col>
                 <Row justify="center" style={{ marginBottom: "10px" }}>
                   <h2
@@ -192,7 +192,7 @@ export default function Lobby() {
               </Col>
             </Row>
 
-            <Row justify="center" style={{ marginTop: "50px" }} wrap={true}>
+            <Row justify="center" style={{ marginTop: "20px" }} wrap={true}>
               <Col
                 flex={30}
                 style={{
@@ -202,12 +202,11 @@ export default function Lobby() {
               >
                 <Row justify="center">
                   <h2
-                    className="subheader-text"
+                    className="subsubheader-text"
                     style={{
                       color: "var(--main-black)",
                       textAlign: "center",
-                      marginTop: "20px",
-                      marginBottom: "50px",
+                      marginTop: "15px",
                     }}
                   >
                     Settings
@@ -216,13 +215,17 @@ export default function Lobby() {
 
                 <Row justify="start">
                   <p
-                    style={{ textAlign: "center", marginBottom: "20px" }}
+                    style={{
+                      textAlign: "center",
+                      marginTop: "20px",
+                      marginBottom: "5px",
+                    }}
                     className="button-text"
                   >
                     Dimensions:
                   </p>
                 </Row>
-                <Row justify="center" style={{ marginBottom: "20px" }}>
+                <Row justify="center">
                   <Col flex={8}>
                     <Row justify="center" align="middle">
                       <p
@@ -259,13 +262,13 @@ export default function Lobby() {
 
                 <Row>
                   <p
-                    style={{ textAlign: "center", marginBottom: "20px" }}
+                    style={{ textAlign: "center", marginTop: "15px" }}
                     className="button-text"
                   >
                     Number of Mines:
                   </p>
                 </Row>
-                <Row justify="center" style={{ marginBottom: "20px" }}>
+                <Row justify="center">
                   <Col span={13}>
                     <div className={styles.inputBox}>{mines}</div>
                   </Col>
@@ -273,13 +276,13 @@ export default function Lobby() {
 
                 <Row>
                   <p
-                    style={{ textAlign: "center", marginBottom: "20px" }}
+                    style={{ textAlign: "center", marginTop: "15px" }}
                     className="button-text"
                   >
                     Stun Duration (in Seconds):
                   </p>
                 </Row>
-                <Row justify="center" style={{ marginBottom: "40px" }}>
+                <Row justify="center">
                   <Col span={13}>
                     <div className={styles.inputBox}>{stunDuration}</div>
                   </Col>
@@ -288,24 +291,24 @@ export default function Lobby() {
                 <Row
                   justify="start"
                   align="middle"
-                  style={{ marginBottom: "20px" }}
+                  style={{ marginTop: "20px" }}
                 >
                   <Col span={18}>
                     <p className="button-text">Disable Flag:</p>
                   </Col>
                   <Col span={6}>
                     {disableFlag ? (
-                      <CheckSquareFilled
+                      <CheckOutlined
                         style={{
                           fontSize: "24px",
-                          color: "var(--darker-gray)",
+                          color: "var(--main-black)",
                         }}
                       />
                     ) : (
-                      <BorderOutlined
+                      <CloseOutlined
                         style={{
                           fontSize: "24px",
-                          color: "var(--darker-gray)",
+                          color: "var(--main-black)",
                         }}
                       />
                     )}
@@ -315,24 +318,24 @@ export default function Lobby() {
                 <Row
                   justify="start"
                   align="middle"
-                  style={{ marginBottom: "20px" }}
+                  style={{ marginTop: "5px" }}
                 >
                   <Col span={18}>
                     <p className="button-text">Disable Middle Mouse:</p>
                   </Col>
                   <Col span={6}>
                     {disableMiddleMouse ? (
-                      <CheckSquareFilled
+                      <CheckOutlined
                         style={{
                           fontSize: "24px",
-                          color: "var(--darker-gray)",
+                          color: "var(--main-black)",
                         }}
                       />
                     ) : (
-                      <BorderOutlined
+                      <CloseOutlined
                         style={{
                           fontSize: "24px",
-                          color: "var(--darker-gray)",
+                          color: "var(--main-black)",
                         }}
                       />
                     )}
@@ -342,24 +345,24 @@ export default function Lobby() {
                 <Row
                   justify="start"
                   align="middle"
-                  style={{ marginBottom: "20px" }}
+                  style={{ marginTop: "5px" }}
                 >
                   <Col span={18}>
                     <p className="button-text">Seed Randomly Generated:</p>
                   </Col>
                   <Col span={6}>
                     {seedRandomlyGenerated ? (
-                      <CheckSquareFilled
+                      <CheckOutlined
                         style={{
                           fontSize: "24px",
-                          color: "var(--darker-gray)",
+                          color: "var(--main-black)",
                         }}
                       />
                     ) : (
-                      <BorderOutlined
+                      <CloseOutlined
                         style={{
                           fontSize: "24px",
-                          color: "var(--darker-gray)",
+                          color: "var(--main-black)",
                         }}
                       />
                     )}
@@ -367,10 +370,7 @@ export default function Lobby() {
                 </Row>
 
                 <Row>
-                  <p
-                    style={{ marginBottom: "20px" }}
-                    className="button-text"
-                  >
+                  <p style={{ marginTop: "15px" }} className="button-text">
                     Seed:
                   </p>
                 </Row>
@@ -389,12 +389,12 @@ export default function Lobby() {
               >
                 <Row justify="center">
                   <h2
-                    className="subheader-text"
+                    className="subsubheader-text"
                     style={{
                       color: "var(--main-black)",
                       textAlign: "center",
-                      marginTop: "20px",
-                      marginBottom: "50px",
+                      marginTop: "15px",
+                      marginBottom: "30px",
                     }}
                   >
                     Lobby ({Object.keys(players).length}/{playerLimit})
@@ -405,7 +405,7 @@ export default function Lobby() {
               </Col>
             </Row>
 
-            <Row justify="center" style={{ marginTop: "50px" }}>
+            <Row justify="center" style={{ marginTop: "30px" }}>
               {hostName === name ? (
                 <Button
                   className="black-button"
@@ -414,6 +414,7 @@ export default function Lobby() {
                     // setGameStarted(true);
                     socket.emit("startGameToServer");
                   }}
+                  type="null"
                 >
                   Start Game
                 </Button>
