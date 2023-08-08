@@ -1,16 +1,19 @@
 @font-face {
-  font-family: "mine-sweeper";
+  font-family: "mine-sweeper", monospace;
   src: url("../fonts/mine-sweeper.ttf") format("truetype");
+  font-display: swap;
 }
 
 @font-face {
-  font-family: "RobotoMono-Regular";
+  font-family: "RobotoMono-Regular", monospace;
   src: url("../fonts/RobotoMono-Regular.ttf") format("truetype"); 
+  font-display: swap;
 }
 
 @font-face {
-  font-family: "RobotoMono-Bold";
+  font-family: "RobotoMono-Bold", monospace;
   src: url("../fonts/RobotoMono-Bold.ttf") format("truetype");
+  font-display: swap;
 }
 
 :root {

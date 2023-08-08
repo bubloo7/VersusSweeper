@@ -1,15 +1,33 @@
 import { useRouter } from "next/router";
 import { useState, useEffect, createContext } from "react";
-import ChooseName from "../components/chooseName/ChooseName";
-import GameFull from "../components/gameFull/GameFull";
-import GameNotFound from "../components/gameNotFound/GameNotFound";
-import Lobby from "../components/lobby/Lobby";
-import Minesweeper from "../components/Minesweeper";
 import io from "socket.io-client";
 import Loading from "@/components/Loading";
 
 import Layout from "@/components/Layout";
 import Head from "next/head";
+import dynamic from "next/dynamic";
+
+const ChooseName = dynamic(() => import("../components/chooseName/ChooseName"), {
+    ssr: false,
+    loading: () => <Loading />,
+});
+const GameFull = dynamic(() => import("../components/gameFull/GameFull"), {
+    ssr: false,
+    loading: () => <Loading />,
+});
+const GameNotFound = dynamic(() => import("../components/gameNotFound/GameNotFound"), {
+    ssr: false,
+    loading: () => <Loading />,
+});
+const Lobby = dynamic(() => import("../components/lobby/Lobby"), {
+    ssr: false,
+    loading: () => <Loading />,
+});
+const Minesweeper = dynamic(() => import("../components/Minesweeper"), {
+    ssr: false,
+    loading: () => <Loading />,
+});
+
 
 export const GameContext = createContext();
 
