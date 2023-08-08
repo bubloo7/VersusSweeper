@@ -1,3 +1,4 @@
 scratch
 backend/node_modules
 backend/.env
+discord/.env
