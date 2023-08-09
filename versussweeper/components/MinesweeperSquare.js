@@ -294,6 +294,7 @@ export default function MinesweeperRow(props) {
       }}
       onClick={handleClick}
       onMouseDown={handleMiddleClick}
+      priority
     />
   );
 }
