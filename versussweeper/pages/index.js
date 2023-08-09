@@ -1,4 +1,4 @@
-import { Button, Col, Row, Space } from "antd";
+import { Button, Col, Row, Space, Input } from "antd";
 import Image from "next/image";
 import HeroImage from "../images/hero-image.png";
 import Image1 from "../images/1-image.png";
@@ -9,7 +9,6 @@ import One from "../images/retro/1.png";
 import Two from "../images/retro/2.png";
 import Three from "../images/retro/3.png";
 import Four from "../images/retro/4.png";
-import { Input } from "antd";
 import { useEffect, useState } from "react";
 
 import Layout from "../components/Layout";
@@ -70,9 +69,11 @@ export default function Home() {
             <Col xs={24} sm={18} md={10} lg={10} xl={10} xxl={10}>
               <Image
                 src={HeroImage}
-                alt="Hero Image"
-                width={600}
+                alt="Hero Image Versus Sweeper"
+                width={2196}
+                height={1524}
                 style={{ maxWidth: "100%", height: "auto" }}
+                priority={true}
               />
             </Col>
             <Col
