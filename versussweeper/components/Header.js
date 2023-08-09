@@ -1,6 +1,6 @@
 import { Row } from "antd";
 import Image from "next/image";
-import Flag from "../images/retro/flag-logo.png";
+import Flag from "../images/retro/flag-logo.svg";
 
 export default function Header() {
     const navigateHome = () => {

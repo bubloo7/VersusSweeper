@@ -1,14 +1,14 @@
 import { Button, Col, Row, Space, Input } from "antd";
 import Image from "next/image";
-import HeroImage from "../images/hero-image.png";
-import Image1 from "../images/1-image.png";
-import Image2 from "../images/2-image.png";
-import Image3 from "../images/3-image.png";
-import Image4 from "../images/4-image.png";
-import One from "../images/retro/1.png";
-import Two from "../images/retro/2.png";
-import Three from "../images/retro/3.png";
-import Four from "../images/retro/4.png";
+import HeroImage from "../images/hero-image.svg";
+import Image1 from "../images/1-image.svg";
+import Image2 from "../images/2-image.svg";
+import Image3 from "../images/3-image.svg";
+import Image4 from "../images/4-image.svg";
+import One from "../images/retro/1.svg";
+import Two from "../images/retro/2.svg";
+import Three from "../images/retro/3.svg";
+import Four from "../images/retro/4.svg";
 import { useEffect, useState } from "react";
 
 import Layout from "../components/Layout";

@@ -1,31 +1,19 @@
 import { GameContext } from "@/pages/[id]";
 import { useContext } from "react";
 import Image from "next/image";
-// import Hidden from "../images/hidden.png";
-// import Zero from "../images/0.png";
-// import One from "../images/1.png";
-// import Two from "../images/2.png";
-// import Three from "../images/3.png";
-// import Four from "../images/4.png";
-// import Five from "../images/5.png";
-// import Six from "../images/6.png";
-// import Seven from "../images/7.png";
-// import Eight from "../images/8.png";
-// import Mine from "../images/mine.png";
-// import Flag from "../images/flag.png";
 
-import Hidden from "../images/retro/empty-regular.png";
-import Zero from "../images/retro/0.png";
-import One from "../images/retro/1.png";
-import Two from "../images/retro/2.png";
-import Three from "../images/retro/3.png";
-import Four from "../images/retro/4.png";
-import Five from "../images/retro/5.png";
-import Six from "../images/retro/6.png";
-import Seven from "../images/retro/7.png";
-import Eight from "../images/retro/8.png";
-import Mine from "../images/retro/bomb-hit.png";
-import Flag from "../images/retro/flag.png";
+import Hidden from "../images/retro/empty-regular.svg";
+import Zero from "../images/retro/0.svg";
+import One from "../images/retro/1.svg";
+import Two from "../images/retro/2.svg";
+import Three from "../images/retro/3.svg";
+import Four from "../images/retro/4.svg";
+import Five from "../images/retro/5.svg";
+import Six from "../images/retro/6.svg";
+import Seven from "../images/retro/7.svg";
+import Eight from "../images/retro/8.svg";
+import Mine from "../images/retro/bomb-hit.svg";
+import Flag from "../images/retro/flag.svg";
 
 import { reveal, middleClick } from "../javascript/MinesweeperUtils";
 
