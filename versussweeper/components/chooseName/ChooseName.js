@@ -16,7 +16,7 @@ export default function ChooseName() {
       tempName: Yup.string()
         .min(1, "Must be 1 character or more")
         .max(10, "Must be 10 characters or less")
-        .matches(/^\S*$/, "Spaces are not allowed")
+        .matches(/^[a-zA-Z0-9]*$/, "Only letters and numbers (no spaces or symbols)")
         .required("Required"),
     }),
     onSubmit: (values) => {
@@ -198,8 +198,7 @@ export default function ChooseName() {
               </Button>
             </Space.Compact>
           </Row>
-
-          {formik.errors.tempName && formik.touched.tempName && (
+          {formik.errors.tempName && (
             <div
               style={{
                 color: "var(--main-red)",
