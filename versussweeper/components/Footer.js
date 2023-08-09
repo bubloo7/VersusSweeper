@@ -1,9 +1,7 @@
 import { Col, Row } from "antd";
+import Link from "next/link";
 
 export default function Header() {
-  const navigateToAboutUs = () => {
-    window.location.href = "/about";
-  };
 
   return (
     <>
@@ -19,28 +17,22 @@ export default function Header() {
         <Col>
           <p
             className="body-text"
-            style={{ color: "var(--white-text)", textAlign: "center" }}
+            style={{ color: "var(--main-black)", textAlign: "center" }}
           >
-            VERSUSSWEEPER 2023
+            VersusSweeper 2023. | 1.0.0
           </p>
-          <p
-            className="body-text"
-            style={{ color: "var(--white-text)", textAlign: "center" }}
-          >
-            1.0.0
-          </p>
-          <p
-            className="body-text hide-large"
+          <Row justify="center" align="middle" style={{marginTop: "10px"}}>
+          <Link
+            href="/about"
+            passHref
+            className="hide-large body-text"
             style={{
               color: "var(--white-text)",
-              textAlign: "center",
-              marginTop: "10px",
-              cursor: "pointer",
             }}
-            onClick={navigateToAboutUs}
           >
-            About Us
-          </p>
+            ABOUT US
+          </Link>
+          </Row>
         </Col>
       </Row>
     </>

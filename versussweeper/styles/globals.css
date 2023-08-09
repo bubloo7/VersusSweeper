@@ -239,7 +239,7 @@ a {
 }
 
 .hide-small {
-  display: block;
+  display: visible;
 }
 
 @media (max-width: 768px) {
@@ -249,11 +249,15 @@ a {
 }
 
 .hide-large {
-  display: block;
+  display: visible;
 }
 
 @media (min-width: 768px) {
   .hide-large {
     display: none;
   }
+}
+
+.header:hover {
+  text-decoration: underline;
 }
