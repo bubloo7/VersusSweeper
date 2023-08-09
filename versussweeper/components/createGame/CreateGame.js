@@ -351,7 +351,7 @@ export default function CreateGame() {
                 justify="space-around"
                 align="middle"
                 wrap={false}
-                style={{ marginTop: "50px", marginBottom: "10px" }}
+                style={{ marginTop: "50px", marginBottom: "10px", cursor: "pointer" }}
                 onClick={() => setAdvancedSettingsOpen(!advancedSettingsOpen)}
               >
                 <h2 className="subheader-text">Advanced Settings</h2>
