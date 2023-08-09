@@ -12,18 +12,11 @@ import Four from "../images/retro/4.svg";
 import { useEffect, useState } from "react";
 
 import Layout from "../components/Layout";
+import Link from "next/link";
 
 export default function Home() {
   const [codeEntered, setCodeEntered] = useState("");
   const [gameExists, setGameExists] = useState(false);
-
-  function navigateToCreate() {
-    window.location.href = "/create";
-  }
-
-  function navigateToGames() {
-    window.location.href = "/games";
-  }
 
   useEffect(() => {
     if (gameExists) {
@@ -101,22 +94,24 @@ export default function Home() {
                   align="middle"
                   style={{ marginTop: "20px" }}
                 >
-                  <Button
-                    type="null"
-                    className="black-button"
-                    style={{ backgroundColor: "var(--main-red)" }}
-                    onClick={navigateToGames}
-                  >
-                    Find Game
-                  </Button>
+                  <Link href="/games" passHref>
+                    <Button
+                      type="null"
+                      className="black-button"
+                      style={{ backgroundColor: "var(--main-red)" }}
+                    >
+                      Find Game
+                    </Button>
+                  </Link>
+                  <Link href="/create" passHref>
                   <Button
                     type="null"
                     className="black-button"
                     style={{ backgroundColor: "var(--main-green)" }}
-                    onClick={navigateToCreate}
                   >
                     Create Game
                   </Button>
+                  </Link>
                 </Row>
 
                 <p

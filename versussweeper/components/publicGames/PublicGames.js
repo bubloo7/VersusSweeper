@@ -10,6 +10,7 @@ import {
 import styles from "./PublicGames.module.css";
 
 import Layout from "../Layout";
+import Link from "next/link";
 
 export default function PublicGames() {
   const [publicGames, setPublicGames] = useState({});
@@ -71,10 +72,6 @@ export default function PublicGames() {
 
   const refreshPage = () => {
     mutate();
-  };
-
-  const navigateToCreate = () => {
-    window.location.href = "/create";
   };
 
   const handlePageChange = (page) => {
@@ -197,18 +194,19 @@ export default function PublicGames() {
               </Button>
             </Col>
             <Col flex={6}>
-              <Button
-                className="black-button"
-                type="null"
-                style={{
-                  backgroundColor: "var(--main-green)",
-                  marginLeft: "auto",
-                  marginRight: "auto",
-                }}
-                onClick={navigateToCreate}
-              >
-                Create Game
-              </Button>
+              <Link href="/create" passHref>
+                <Button
+                  className="black-button"
+                  type="null"
+                  style={{
+                    backgroundColor: "var(--main-green)",
+                    marginLeft: "auto",
+                    marginRight: "auto",
+                  }}
+                >
+                  Create Game
+                </Button>
+              </Link>
             </Col>
           </Row>
           <Row
@@ -313,14 +311,15 @@ export default function PublicGames() {
                 </p>
               </Row>
               <Row justify="center" style={{ marginTop: "40px" }}>
-                <Button
-                  className="black-button"
-                  type="null"
-                  style={{ backgroundColor: "var(--main-green)" }}
-                  onClick={navigateToCreate}
-                >
-                  Create Game
-                </Button>
+                <Link href="/create" passHref>
+                  <Button
+                    className="black-button"
+                    type="null"
+                    style={{ backgroundColor: "var(--main-green)" }}
+                  >
+                    Create Game
+                  </Button>
+                </Link>
               </Row>
             </>
           )}
