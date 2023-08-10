@@ -2,9 +2,9 @@
   background-color: var(--lighter-gray);
   height: 70px;
   margin-top: 10px;
-  margin-left: 80px;
-  margin-right: 80px;
-  padding: 5px 0px 0px 0px;
+  margin-left: 30px;
+  margin-right: 30px;
+  padding: 5px 0px 5px 0px;
 }
 
 .gameRow:hover {

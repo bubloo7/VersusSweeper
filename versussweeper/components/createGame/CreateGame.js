@@ -119,7 +119,7 @@ export default function CreateGame() {
           paddingBottom: "100px",
         }}
       >
-        <Col span={18}>
+        <Col xs={22} sm={22} md={20} lg={18} xl={18} xxl={18}>
           <Row justify="center">
             <h1
               className="header-text"
@@ -148,20 +148,20 @@ export default function CreateGame() {
             style={{
               backgroundColor: "var(--lighter-gray)",
               marginTop: "20px",
-              padding: "15px 50px 15px 50px",
+              padding: "15px 0px 15px 0px",
             }}
           >
-            <Col span={20}>
+            <Col xs={20} sm={20} md={18} lg={16} xl={16} xxl={16}>
               <Row justify="start">
-                <h2
+                <p
                   className="button-text"
                   style={{ color: "var(--main-black)", marginBottom: "5px" }}
                 >
                   Difficulty:
-                </h2>
+                </p>
               </Row>
               <Row justify="center" align="middle" wrap={true}>
-                <Col flex={1}>
+                <Col xs={16} sm={12} md={12} lg={6} xl={6} xxl={6}>
                   <Button
                     className={
                       difficulty === 0
@@ -175,13 +175,13 @@ export default function CreateGame() {
                       formik.setFieldValue("mines", 10);
                       formik.setFieldValue("rows", 9);
                       formik.setFieldValue("cols", 9);
-                      
                     }}
+                    style={{ width: "100%" }}
                   >
                     Easy
                   </Button>
                 </Col>
-                <Col flex={1}>
+                <Col xs={16} sm={12} md={12} lg={6} xl={6} xxl={6}>
                   <Button
                     className={
                       difficulty === 1
@@ -195,13 +195,13 @@ export default function CreateGame() {
                       formik.setFieldValue("mines", 40);
                       formik.setFieldValue("rows", 16);
                       formik.setFieldValue("cols", 16);
-                      
                     }}
+                    style={{ width: "100%" }}
                   >
                     Medium
                   </Button>
                 </Col>
-                <Col flex={1}>
+                <Col xs={16} sm={12} md={12} lg={6} xl={6} xxl={6}>
                   <Button
                     className={
                       difficulty === 2
@@ -216,11 +216,12 @@ export default function CreateGame() {
                       formik.setFieldValue("rows", 16);
                       formik.setFieldValue("cols", 30);
                     }}
+                    style={{ width: "100%" }}
                   >
                     Hard
                   </Button>
                 </Col>
-                <Col flex={1}>
+                <Col xs={16} sm={12} md={12} lg={6} xl={6} xxl={6}>
                   <Button
                     className={
                       difficulty === 3
@@ -231,6 +232,7 @@ export default function CreateGame() {
                     onClick={() => {
                       formik.setFieldValue("difficulty", 3);
                     }}
+                    style={{ width: "100%" }}
                   >
                     Custom
                   </Button>
@@ -241,15 +243,19 @@ export default function CreateGame() {
                 <Row justify="center">
                   <h3
                     className="button-text"
-                    style={{ color: "var(--darker-gray)", marginTop: "10px" }}
+                    style={{
+                      color: "var(--darker-gray)",
+                      marginTop: "10px",
+                      textAlign: "center",
+                    }}
                   >
-                    Custom Settings: 5-20 Rows, 5-40 Columns, 0-25% Mines
+                    Custom Settings: <br /> 5-20 Rows, 5-40 Columns, 0-25% Mines
                   </h3>
                 </Row>
               )}
 
               <Row justify="start">
-                <h2
+                <p
                   className="button-text"
                   style={{
                     color: "var(--main-black)",
@@ -258,7 +264,7 @@ export default function CreateGame() {
                   }}
                 >
                   Dimensions:
-                </h2>
+                </p>
               </Row>
               <Row justify="center">
                 <Col flex={8}>
@@ -289,7 +295,7 @@ export default function CreateGame() {
                 </Col>
               </Row>
               <Row>
-                <h2
+                <p
                   className="button-text"
                   style={{
                     color: "var(--main-black)",
@@ -298,7 +304,7 @@ export default function CreateGame() {
                   }}
                 >
                   Number of Mines:
-                </h2>
+                </p>
               </Row>
               <Row justify="center">
                 <Col span={14}>
@@ -313,7 +319,7 @@ export default function CreateGame() {
                 </Col>
               </Row>
               <Row>
-                <h2
+                <p
                   className="button-text"
                   style={{
                     color: "var(--main-black)",
@@ -322,36 +328,44 @@ export default function CreateGame() {
                   }}
                 >
                   Visibility:
-                </h2>
+                </p>
               </Row>
-              <Row justify="start" wrap={true}>
-                <Space size="large" wrap={true}>
+              <Row justify="center" align="middle" wrap={true}>
+                <Col xs={16} sm={12} md={12} lg={12} xl={12} xxl={12}>
                   <Button
                     className={
                       publicRoom ? "create-button-active" : "create-button"
                     }
                     type="null"
                     onClick={() => formik.setFieldValue("publicRoom", true)}
+                    style={{ width: "100%" }}
                   >
                     Public
                   </Button>
+                </Col>
+                <Col xs={16} sm={12} md={12} lg={12} xl={12} xxl={12}>
                   <Button
                     className={
                       !publicRoom ? "create-button-active" : "create-button"
                     }
                     type="null"
                     onClick={() => formik.setFieldValue("publicRoom", false)}
+                    style={{ width: "100%" }}
                   >
                     Private
                   </Button>
-                </Space>
+                </Col>
               </Row>
 
               <Row
                 justify="space-around"
                 align="middle"
                 wrap={false}
-                style={{ marginTop: "50px", marginBottom: "10px", cursor: "pointer" }}
+                style={{
+                  marginTop: "50px",
+                  marginBottom: "10px",
+                  cursor: "pointer",
+                }}
                 onClick={() => setAdvancedSettingsOpen(!advancedSettingsOpen)}
               >
                 <h2 className="subheader-text">Advanced Settings</h2>
@@ -379,7 +393,7 @@ export default function CreateGame() {
               {advancedSettingsOpen && (
                 <>
                   <Row>
-                    <h2
+                    <p
                       className="button-text"
                       style={{
                         color: "var(--main-black)",
@@ -388,7 +402,7 @@ export default function CreateGame() {
                       }}
                     >
                       Stun Duration (in Seconds):
-                    </h2>
+                    </p>
                   </Row>
                   <Row justify="center">
                     <Col span={14}>
@@ -402,7 +416,7 @@ export default function CreateGame() {
                     </Col>
                   </Row>
                   <Row>
-                    <h2
+                    <p
                       className="button-text"
                       style={{
                         color: "var(--main-black)",
@@ -411,7 +425,7 @@ export default function CreateGame() {
                       }}
                     >
                       Max number of players:
-                    </h2>
+                    </p>
                   </Row>
                   <Row justify="center">
                     <Col span={14}>
@@ -460,7 +474,7 @@ export default function CreateGame() {
                   </Row>
                   <Divider />
                   <Row>
-                    <h2
+                    <p
                       className="button-text"
                       style={{
                         color: "var(--main-black)",
@@ -469,7 +483,7 @@ export default function CreateGame() {
                       }}
                     >
                       Set Seed (Random if blank):
-                    </h2>
+                    </p>
                   </Row>
                   <Row justify="center">
                     <Col span={14}>

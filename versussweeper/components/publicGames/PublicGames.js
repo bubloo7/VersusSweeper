@@ -151,7 +151,7 @@ export default function PublicGames() {
           paddingBottom: "100px",
         }}
       >
-        <Col span={18}>
+        <Col xs={22} sm={22} md={20} lg={18} xl={18} xxl={18}>
           <Row justify="center">
             <h1
               className="header-text"
@@ -183,7 +183,7 @@ export default function PublicGames() {
               marginRight: "auto",
             }}
           >
-            <Col flex={6} style={{ alignItems: "end" }}>
+            <Col flex={1} style={{ alignItems: "end" }}>
               <Button
                 className="black-button"
                 type="null"
@@ -193,7 +193,7 @@ export default function PublicGames() {
                 Refresh
               </Button>
             </Col>
-            <Col flex={6}>
+            <Col flex={1}>
               <Link href="/create" passHref>
                 <Button
                   className="black-button"
@@ -331,7 +331,7 @@ export default function PublicGames() {
               total={Object.keys(publicGames).length}
               pageSize={5}
               responsive={true}
-              hideOnSinglePage={false}
+              hideOnSinglePage={true}
               style={{
                 marginTop: "20px",
                 marginRight: "80px",
