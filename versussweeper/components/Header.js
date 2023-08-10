@@ -55,7 +55,7 @@ export default function Header() {
             >
               About Us
             </Link>
-            <Link href="https://google.com" passHref>
+            <Link href="https://discord.gg/cvKZsUhrFr" passHref>
               <DiscordIcon className="header-text" />
             </Link>
           </Row>
@@ -90,7 +90,7 @@ export default function Header() {
         </Col>
         <Col flex={1}>
           <Row justify="end" align="middle">
-            <Link href="https://google.com" passHref>
+            <Link href="https://discord.gg/cvKZsUhrFr" passHref>
               <DiscordIcon className="header-text" />
             </Link>
           </Row>
