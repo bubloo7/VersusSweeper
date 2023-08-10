@@ -1,6 +1,6 @@
 import { GameContext } from "@/pages/[id]";
 import { useState, useContext } from "react";
-import { Button, Col, Row, Space, Input } from "antd";
+import { Button, Col, Row, Input } from "antd";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 
@@ -16,7 +16,10 @@ export default function ChooseName() {
       tempName: Yup.string()
         .min(1, "Must be 1 character or more")
         .max(10, "Must be 10 characters or less")
-        .matches(/^[a-zA-Z0-9]*$/, "Only letters and numbers (no spaces or symbols)")
+        .matches(
+          /^[a-zA-Z0-9]*$/,
+          "Only letters and numbers (no spaces or symbols)"
+        )
         .required("Required"),
     }),
     onSubmit: (values) => {
@@ -142,9 +145,12 @@ export default function ChooseName() {
           backgroundColor: "var(--background-color)",
         }}
       >
-        <Col span={24}>
+        <Col xs={22} sm={22} md={20} lg={18} xl={18} xxl={18}>
           <Row justify="center">
-            <h1 className="header-text" style={{ color: "var(--main-black)" }}>
+            <h1
+              className="header-text"
+              style={{ color: "var(--main-black)", textAlign: "center" }}
+            >
               Ready to join?
             </h1>
           </Row>
@@ -160,11 +166,11 @@ export default function ChooseName() {
               The game is set and your <br /> opponents await you!
             </p>
           </Row>
-          <Row justify="center">
-            <Space.Compact style={{ marginTop: "75px" }}>
+          <Row justify="center" align="middle" wrap={true} style={{ marginTop: "75px" }}>
+            <Col xs={16} sm={14} md={12} lg={8} xl={8} xxl={8}>
               <Input
                 style={{
-                  width: "310px",
+                  width: "100%",
                   height: "52px",
                   color: "var(--darker-gray)",
                   borderRadius: "0px",
@@ -183,6 +189,8 @@ export default function ChooseName() {
                   }
                 }}
               />
+            </Col>
+            <Col xs={16} sm={6} md={6} lg={4} xl={4} xxl={4}>
               <Button
                 className="black-button"
                 style={{
@@ -190,13 +198,14 @@ export default function ChooseName() {
                     Object.keys(formik.errors).length > 0
                       ? "var(--main-red)"
                       : "var(--main-green)",
+                  width: "100%",
                 }}
                 onClick={formik.handleSubmit}
                 type="null"
               >
                 Join {id}
               </Button>
-            </Space.Compact>
+            </Col>
           </Row>
           {formik.errors.tempName && (
             <div
