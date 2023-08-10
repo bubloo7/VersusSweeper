@@ -246,8 +246,8 @@ export default function Home() {
                     <Image
                       src={Image1}
                       alt="Create Image"
-                      width={300}
-                      height={300}
+                      width={290}
+                      height={213}
                       style={{
                         maxWidth: "50%",
                         height: "auto",
@@ -314,8 +314,8 @@ export default function Home() {
                     <Image
                       src={Image2}
                       alt="Set Up Image"
-                      width={300}
-                      height={300}
+                      width={229}
+                      height={221}
                       style={{
                         maxWidth: "35%",
                         height: "auto",
@@ -373,8 +373,8 @@ export default function Home() {
                     <Image
                       src={Image3}
                       alt="Invite Image"
-                      width={300}
-                      height={300}
+                      width={299}
+                      height={193}
                       style={{
                         maxWidth: "55%",
                         height: "auto",
@@ -456,8 +456,8 @@ export default function Home() {
                     <Image
                       src={Image4}
                       alt="Enjoy Image"
-                      width={300}
-                      height={300}
+                      width={302}
+                      height={194}
                       style={{
                         maxWidth: "55%",
                         height: "auto",

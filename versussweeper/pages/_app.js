@@ -26,14 +26,7 @@ export default function App({ Component, pageProps }) {
                 <link rel="manifest" href="/manifest.json"></link> */}
           <meta name="theme-color" content="#f4f4f4"></meta>
 
-          <link
-            rel="preload"
-            href="../fonts/mine-sweeper.ttf"
-            as="font"
-            type="font/ttf"
-            crossOrigin="anonymous"
-          />
-          <link
+          {/* <link
             rel="preload"
             href="../fonts/RobotoMono-Regular.ttf"
             as="font"
@@ -47,6 +40,14 @@ export default function App({ Component, pageProps }) {
             type="font/ttf"
             crossOrigin="anonymous"
           />
+            <link
+            rel="preload"
+            href="..\fonts\mine-sweeper.ttf"
+            as="font"
+            type="font/ttf"
+            crossOrigin="anonymous"
+            /> */}
+
         </Head>
         <Component {...pageProps} />
       </>
