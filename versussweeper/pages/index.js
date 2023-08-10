@@ -63,8 +63,8 @@ export default function Home() {
               <Image
                 src={HeroImage}
                 alt="Hero Image Versus Sweeper"
-                width={2196}
-                height={1524}
+                width={549}
+                height={381}
                 style={{ maxWidth: "100%", height: "auto" }}
                 priority={true}
               />
@@ -209,6 +209,7 @@ export default function Home() {
                         height: "auto",
                         border: "4px solid var(--darker-gray)",
                       }}
+                      priority={true}
                     />
                     <h3
                       className="subsubheader-text"
@@ -255,6 +256,7 @@ export default function Home() {
                         bottom: "0",
                         right: "5px",
                       }}
+                      priority={true}
                     />
                   </Row>
                 </Col>
@@ -278,6 +280,7 @@ export default function Home() {
                         height: "auto",
                         border: "4px solid var(--darker-gray)",
                       }}
+                      priority={true}
                     />
                     <h3
                       className="subsubheader-text"
@@ -323,6 +326,7 @@ export default function Home() {
                         bottom: "40px",
                         right: "5px",
                       }}
+                      priority={true}
                     />
                   </Row>
                 </Col>
@@ -349,6 +353,7 @@ export default function Home() {
                         height: "auto",
                         border: "4px solid var(--darker-gray)",
                       }}
+                      priority={true}
                     />
                     <h3
                       className="subsubheader-text"
@@ -382,6 +387,7 @@ export default function Home() {
                         bottom: "5px",
                         left: "5px",
                       }}
+                      priority={true}
                     />
                     <p
                       className="body-text"
@@ -419,6 +425,7 @@ export default function Home() {
                         height: "auto",
                         border: "4px solid var(--darker-gray)",
                       }}
+                      priority={true}
                     />
                     <h3
                       className="subsubheader-text"
@@ -465,6 +472,7 @@ export default function Home() {
                         bottom: "5px",
                         right: "5px",
                       }}
+                      priority={true}
                     />
                   </Row>
                 </Col>
