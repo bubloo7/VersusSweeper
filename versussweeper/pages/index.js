@@ -209,7 +209,7 @@ export default function Home() {
                         height: "auto",
                         border: "4px solid var(--darker-gray)",
                       }}
-                      priority={true}
+                      sizes="100vw"
                     />
                     <h3
                       className="subsubheader-text"
@@ -256,7 +256,7 @@ export default function Home() {
                         bottom: "0",
                         right: "5px",
                       }}
-                      priority={true}
+                      sizes="100vw"
                     />
                   </Row>
                 </Col>
@@ -280,7 +280,7 @@ export default function Home() {
                         height: "auto",
                         border: "4px solid var(--darker-gray)",
                       }}
-                      priority={true}
+                      sizes="100vw"
                     />
                     <h3
                       className="subsubheader-text"
@@ -326,7 +326,7 @@ export default function Home() {
                         bottom: "40px",
                         right: "5px",
                       }}
-                      priority={true}
+                      sizes="100vw"
                     />
                   </Row>
                 </Col>
@@ -353,7 +353,7 @@ export default function Home() {
                         height: "auto",
                         border: "4px solid var(--darker-gray)",
                       }}
-                      priority={true}
+                      sizes="100vw"
                     />
                     <h3
                       className="subsubheader-text"
@@ -387,7 +387,7 @@ export default function Home() {
                         bottom: "5px",
                         left: "5px",
                       }}
-                      priority={true}
+                      sizes="100vw"
                     />
                     <p
                       className="body-text"
@@ -425,7 +425,7 @@ export default function Home() {
                         height: "auto",
                         border: "4px solid var(--darker-gray)",
                       }}
-                      priority={true}
+                      sizes="100vw"
                     />
                     <h3
                       className="subsubheader-text"
@@ -472,8 +472,8 @@ export default function Home() {
                         bottom: "5px",
                         right: "5px",
                       }}
-                      priority={true}
-                    />
+                      sizes="100vw"
+                      />
                   </Row>
                 </Col>
               </Row>
