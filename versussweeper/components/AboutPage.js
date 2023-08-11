@@ -187,7 +187,7 @@ export default function AboutPage() {
             >
               As avid gamers and competitive individuals, we sought to find
               games that would put us in 1v1 situations. There are a lot of
-              games on various platforms that provided us the opportunity to
+              games on various platforms that gave us the opportunity to
               compete, however, we found a great rivarly in competitive Sudoku
               via the website{" "}
               <a target="_blank" href="https://www.usdoku.com/" rel="noopener">
@@ -199,14 +199,13 @@ export default function AboutPage() {
               className="body-text"
               style={{ fontSize: "14px", textIndent: "40px" }}
             >
-              The simplicity of taking a classic, everloved game and bringing a
-              competitive aspect to it was intriguing. Along with the idea, the
-              clean UI and optimized backend made us want to create a similar
+              The simplicity of taking a classic, everloved game and adding a
+              competitive aspect was intriguing. Along with the idea, the clean
+              UI and optimized backend made us want to create a similar
               experience for another game we enjoyed. Reaching out to the
-              creators of UsDoku, we were able to find guidance regarding the
-              codebase, tech stack, and overall design of the website. Their
-              help and support was instrumental in the creation of Versus
-              Sweeper. <br />
+              creators of UsDoku, we found guidance regarding the codebase, tech
+              stack, and overall website design. Their help and support was
+              instrumental in the creation of Versus Sweeper. <br />
             </p>
           </Row>
         </Col>
