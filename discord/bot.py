@@ -14,7 +14,8 @@ load_dotenv()
 url = os.environ.get('BACKEND_URL')
 token = os.environ.get('TOKEN')
 invis = " ‎ "
-client = commands.Bot(command_prefix='!', intents=discord.Intents.all())
+invis = ""
+client = commands.Bot(command_prefix='!', intents=discord.Intents.all(),activity = discord.Game(name="/list, /create, /create_custom"))
 
 @client.event
 async def on_ready():
@@ -30,24 +31,24 @@ class JoinButton(discord.ui.View):
         
 
 
-@client.tree.command(name='ping', description='Pong!!!!')
-async def ping(interaction: discord.Interaction):
-    member = interaction.user
+# @client.tree.command(name='ping', description='Pong!!!!')
+# async def ping(interaction: discord.Interaction):
+#     member = interaction.user
 
-    red = discord.Color.red()
-    embed = discord.Embed(title="Easy Game", description="ID: 34422", color=red, url="https://www.google.com/")
-    embed.set_author(name=member.name, icon_url=member.avatar, url="https://www.google.com/")
-    embed.set_thumbnail(url="https://e7.pngegg.com/pngimages/726/613/png-clipart-minesweeper-go-classic-mines-game-cannon-shoot-game-fabulous-bubbles-android-game-angle.png")
-    embed.add_field(name="Rows", value="12", inline=True)
-    embed.add_field(name="Columns", value="12", inline=True)
-    embed.add_field(name="Mines", value="12", inline=True)
-    embed.add_field(name="Max Players", value="10", inline=True)
-    embed.add_field(name="Stun Duration", value="10", inline=True)
-    embed.add_field(name="Disable Flag", value="False", inline=True)
-    embed.add_field(name="Disable Middle Mouse", value="False", inline=True)
-    embed.add_field(name="Random Seed", value="False", inline=True)
-    embed.add_field(name="Seed", value="34224", inline=True)
-    await  interaction.response.send_message(embed=embed, view=JoinButton(34422))
+#     red = discord.Color.red()
+#     embed = discord.Embed(title="Easy Game", description="ID: 34422", color=red, url="https://www.google.com/")
+#     embed.set_author(name=member.name, icon_url=member.avatar, url="https://www.google.com/")
+#     embed.set_thumbnail(url="https://e7.pngegg.com/pngimages/726/613/png-clipart-minesweeper-go-classic-mines-game-cannon-shoot-game-fabulous-bubbles-android-game-angle.png")
+#     embed.add_field(name="Rows", value="12", inline=True)
+#     embed.add_field(name="Columns", value="12", inline=True)
+#     embed.add_field(name="Mines", value="12", inline=True)
+#     embed.add_field(name="Max Players", value="10", inline=True)
+#     embed.add_field(name="Stun Duration", value="10", inline=True)
+#     embed.add_field(name="Disable Flag", value="False", inline=True)
+#     embed.add_field(name="Disable Middle Mouse", value="False", inline=True)
+#     embed.add_field(name="Random Seed", value="False", inline=True)
+#     embed.add_field(name="Seed", value="34224", inline=True)
+#     await  interaction.response.send_message(embed=embed, view=JoinButton(34422))
 
 @client.tree.command(name='list', description='List of public games')
 @app_commands.choices(difficulty=[app_commands.Choice(name='Easy', value='Easy'), app_commands.Choice(name='Medium', value='Medium'), app_commands.Choice(name='Hard', value='Hard'), app_commands.Choice(name='Custom', value='Custom')])
@@ -69,7 +70,7 @@ async def ping(interaction: discord.Interaction, difficulty: str):
         if num_games == 0:
             embed = discord.Embed(title=f"Public {difficulty} Games", description="No games found", color=discord.Color.green(), url="https://versussweeper.com/games")
             embed.set_thumbnail(url="https://e7.pngegg.com/pngimages/726/613/png-clipart-minesweeper-go-classic-mines-game-cannon-shoot-game-fabulous-bubbles-android-game-angle.png")
-            embed.add_field(name="Create a new game with /create_default or /create_custom!", value = "", inline=False)    
+            embed.add_field(name="Create a new game with /create or /create_custom!", value = "", inline=False)    
             await interaction.response.send_message(embed=embed)
 
         else:
@@ -91,14 +92,14 @@ async def ping(interaction: discord.Interaction, difficulty: str):
         print(response.text)
 
 
-@client.tree.command(name='create_default', description='Create a new game!')
+@client.tree.command(name='create', description='Create a new game!')
 @app_commands.choices(difficulty=[app_commands.Choice(name='Easy', value='Easy'), app_commands.Choice(name='Medium', value='Medium'), app_commands.Choice(name='Hard', value='Hard')])
 @app_commands.choices(visibility=[app_commands.Choice(name='Public', value='Public'), app_commands.Choice(name='Private', value='Private')])
 @app_commands.choices(stun_duration=[app_commands.Choice(name='0', value='0'), app_commands.Choice(name='3', value='3'), app_commands.Choice(name='5', value='5'), app_commands.Choice(name='10', value='10'), app_commands.Choice(name='15', value='15'), app_commands.Choice(name='30', value='30'), app_commands.Choice(name='60', value='60')])
 @app_commands.choices(max_players=[app_commands.Choice(name='1', value='1'),app_commands.Choice(name='2', value='2'), app_commands.Choice(name='3', value='3'), app_commands.Choice(name='4', value='4'), app_commands.Choice(name='5', value='5'), app_commands.Choice(name='6', value='6'), app_commands.Choice(name='7', value='7'), app_commands.Choice(name='8', value='8'), app_commands.Choice(name='9', value='9'), app_commands.Choice(name='10', value='10')])
 @app_commands.choices(disable_flag=[app_commands.Choice(name='False', value='False'), app_commands.Choice(name='True', value='True')])
 @app_commands.choices(disable_middle_mouse=[app_commands.Choice(name='False', value='False'), app_commands.Choice(name='True', value='True')])
-async def create_default(interaction: discord.Interaction, difficulty: str, visibility: str, stun_duration: str, max_players: str, disable_flag: str, disable_middle_mouse: str, seed: str = ""):
+async def create(interaction: discord.Interaction, difficulty: str, visibility: str, stun_duration: str, max_players: str, disable_flag: str, disable_middle_mouse: str, seed: str = ""):
     try:
         if seed != "":
             int(seed)

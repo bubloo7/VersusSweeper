@@ -2,7 +2,7 @@ User-agent: *
 Allow: /$
 Allow: /about
 Allow: /create
-Allow: /public
+Allow: /games
 Disallow: /
 
 Sitemap: https://www.versussweeper.com/sitemap.xml
