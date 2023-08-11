@@ -1,7 +1,7 @@
 import { Button, Row, Col } from "antd";
 import Link from "next/link";
 
-export default function GameNotFound() {
+export default function Page404() {
   return (
     <>
       <Row
@@ -27,12 +27,12 @@ export default function GameNotFound() {
         <Col flex="1 0 45%" style={{ paddingLeft: "40px" }}>
           <Row justify="left">
             <h1 className="header-text" style={{ color: "var(--main-black)" }}>
-              Game not found!
+              Error 404!
             </h1>
           </Row>
           <Row>
             <p className="body-text" style={{ color: "var(--main-black)" }}>
-              Game ID not valid, try again.
+              Page not found.
             </p>
           </Row>
           <Row>

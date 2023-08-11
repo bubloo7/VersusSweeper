@@ -1,10 +1,7 @@
 import { Row, Col, Button } from "antd";
+import Link from "next/link";
 
 export default function GameFull() {
-  const returnHome = () => {
-    window.location.href = "/";
-  };
-
   return (
     <>
       <Row
@@ -39,14 +36,15 @@ export default function GameFull() {
             </p>
           </Row>
           <Row>
-            <Button
-              className="black-button"
-              style={{ marginTop: "30px" }}
-              onClick={returnHome}
-              type="null"
-            >
-              Return Home
-            </Button>
+            <Link href="/" passHref>
+              <Button
+                className="black-button"
+                style={{ marginTop: "30px" }}
+                type="null"
+              >
+                Return Home
+              </Button>
+            </Link>
           </Row>
         </Col>
         <Col flex="160px">{/* Gutter */}</Col>
