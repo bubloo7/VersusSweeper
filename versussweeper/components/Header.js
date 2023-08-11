@@ -14,7 +14,6 @@ const DiscordSvg = () => (
 const DiscordIcon = (props) => <Icon component={DiscordSvg} {...props} />;
 
 export default function Header() {
-
   return (
     <>
       <Row
@@ -53,8 +52,10 @@ export default function Header() {
             >
               About Us
             </Link>
-            <Link href="https://discord.gg/cvKZsUhrFr" passHref>
-              <DiscordIcon className="header-text" />
+            <Link href="https://discord.gg/cvKZsUhrFr" passHref legacyBehavior>
+              <a target="_blank" rel="noopener noreferrer">
+                <DiscordIcon className="header-text" />
+              </a>
             </Link>
           </Row>
         </Col>

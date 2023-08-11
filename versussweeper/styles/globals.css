@@ -261,3 +261,21 @@ a {
 .header:hover {
   text-decoration: underline;
 }
+
+.linkedin-hover {
+  color: var(--main-black)
+}
+
+.linkedin-hover:hover {
+  color: var(--create-blue)
+}
+
+.image-hover {
+  width: 100%;
+  height: auto;
+  border: 2px solid var(--darker-gray);
+}
+
+.image-hover:hover {
+  border: 3px solid var(--create-blue);
+}
