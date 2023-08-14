@@ -12,7 +12,7 @@ export default function AboutPage() {
   return (
     <Layout>
       <Head>
-        <title>About</title>
+        <title>About | Versus Sweeper</title>
       </Head>
       <Row
         wrap={false}

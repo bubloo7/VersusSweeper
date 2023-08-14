@@ -10,11 +10,11 @@ const CreateGame = dynamic(() => import("../components/createGame/CreateGame"), 
 
 export default function Create() {
     return (
-        <>
-            <Head>
-                <title>Create Game</title>
-            </Head>
-            <CreateGame />
-        </>
+      <>
+        <Head>
+          <title>Create Game | Versus Sweeper</title>
+        </Head>
+        <CreateGame />
+      </>
     );
 }

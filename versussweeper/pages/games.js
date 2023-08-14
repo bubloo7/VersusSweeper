@@ -9,11 +9,11 @@ const PublicGames = dynamic(() => import("../components/publicGames/PublicGames"
 
 export default function Games() {
     return (
-        <>
-            <Head>
-                <title>Public Games</title>
-            </Head>
-            <PublicGames />
-        </>
+      <>
+        <Head>
+          <title>Public Games | Versus Sweeper</title>
+        </Head>
+        <PublicGames />
+      </>
     );
 }

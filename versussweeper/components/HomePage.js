@@ -200,7 +200,7 @@ export default function HomePage() {
                   <Row justify="start" align="middle">
                     <Image
                       src={One}
-                      alt="One"
+                      alt="One Tile"
                       width={100}
                       height={100}
                       style={{
@@ -271,7 +271,7 @@ export default function HomePage() {
                   <Row justify="start" align="middle">
                     <Image
                       src={Two}
-                      alt="Two"
+                      alt="Two Tile"
                       width={100}
                       height={100}
                       style={{
@@ -344,7 +344,7 @@ export default function HomePage() {
                   <Row justify="start" align="middle">
                     <Image
                       src={Three}
-                      alt="Three"
+                      alt="Three Tile"
                       width={100}
                       height={100}
                       style={{
@@ -416,7 +416,7 @@ export default function HomePage() {
                   <Row justify="start" align="middle">
                     <Image
                       src={Four}
-                      alt="Four"
+                      alt="Four Tile"
                       width={100}
                       height={100}
                       style={{

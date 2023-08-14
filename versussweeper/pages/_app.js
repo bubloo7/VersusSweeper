@@ -7,7 +7,7 @@ export default function App({ Component, pageProps }) {
     return (
       <>
         <Head>
-          <title>Versus Sweeper</title>
+          <title>Home | Versus Sweeper</title>
           <meta
             name="description"
             content="Classic Minesweeper with a live multiplayer twist! Invite your friends and test your wits in a game of competitive Minesweeper."
@@ -25,6 +25,10 @@ export default function App({ Component, pageProps }) {
           {/* <link rel="apple-touch-icon" href="/apple-touch-icon.png"></link>
                 <link rel="manifest" href="/manifest.json"></link> */}
           <meta name="theme-color" content="#f4f4f4"></meta>
+          <meta
+            name="google-site-verification"
+            content="GWbHMP-EcVHjC6UeMRmopLCC5n6vxOj4TmQ05DNrH_c"
+          />
 
           {/* <link
             rel="preload"
@@ -47,7 +51,6 @@ export default function App({ Component, pageProps }) {
             type="font/ttf"
             crossOrigin="anonymous"
             /> */}
-
         </Head>
         <Component {...pageProps} />
       </>
