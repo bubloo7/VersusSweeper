@@ -27,7 +27,7 @@ export default function App({ Component, pageProps }) {
           <meta name="theme-color" content="#f4f4f4"></meta>
           <meta
             name="google-site-verification"
-            content="GWbHMP-EcVHjC6UeMRmopLCC5n6vxOj4TmQ05DNrH_c"
+            content="BbAGkliICQMkpdasGzBpv9qtLX1OwnCCmzYW5Un-FXg"
           />
 
           {/* <link
