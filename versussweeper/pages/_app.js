@@ -19,7 +19,7 @@ export default function App({ Component, pageProps }) {
                 ></meta>
                 <meta name="author" content="Versus Sweeper"></meta>
                 <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
-                <link rel="icon" href="/bomb-hit.ico" />
+                <link rel="icon" href="/3d-flag.ico" />
                 {/* <link rel="apple-touch-icon" href="/apple-touch-icon.png"></link>
                 <link rel="manifest" href="/manifest.json"></link> */}
                 <meta name="theme-color" content="#f4f4f4"></meta>
