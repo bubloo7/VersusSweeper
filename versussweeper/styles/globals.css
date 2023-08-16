@@ -258,10 +258,6 @@ a {
   }
 }
 
-.header:hover {
-  text-decoration: underline;
-}
-
 .linkedin-hover {
   color: var(--main-black)
 }

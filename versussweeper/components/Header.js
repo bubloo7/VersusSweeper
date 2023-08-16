@@ -52,7 +52,7 @@ export default function Header() {
             >
               About Us
             </Link>
-            <Link href="https://discord.gg/cvKZsUhrFr" passHref legacyBehavior>
+            <Link href="https://discord.gg/cAKsV7UDGs" passHref legacyBehavior>
               <a target="_blank" rel="noopener noreferrer">
                 <DiscordIcon className="header-text" />
               </a>
@@ -89,7 +89,7 @@ export default function Header() {
         </Col>
         <Col flex={1}>
           <Row justify="end" align="middle">
-            <Link href="https://discord.gg/cvKZsUhrFr" passHref>
+            <Link href="https://discord.gg/cAKsV7UDGs" passHref>
               <DiscordIcon className="header-text" />
             </Link>
           </Row>
