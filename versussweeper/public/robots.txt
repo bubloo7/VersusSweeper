@@ -5,4 +5,4 @@ Allow: /create
 Allow: /games
 Disallow: /
 
-Sitemap: https://www.versussweeper.com/sitemap.xml
+Sitemap: https://versussweeper.com/sitemap.xml

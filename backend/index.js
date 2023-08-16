@@ -159,10 +159,8 @@ app.post("/join", async (req, res) => {
 app.post("/joinNextGame", async (req, res) => {
     req.setTimeout(0);
     let id = JSON.parse(await redis.call("JSON.GET", `game:${req.body.id}`, `$.nextGameId`))[0];
-    console.log(id, "exists");
 
     if (id !== "") {
-        console.log("game exists");
         res.send({ id });
     } else {
         id = generateRandomId(5);
@@ -236,10 +234,6 @@ io.on("connection", async (socket) => {
 
     socket.on("newPlayer", (data) => {
         socket.broadcast.to(id).emit("newPlayer", data);
-    });
-
-    socket.on("test", (data) => {
-        console.log("socket test", data);
     });
 
     socket.on("startGameToServer", () => {

@@ -39,7 +39,6 @@ export default function Leaderboard(props) {
   const [leaderboard, setLeaderboard] = useState([]);
 
   useEffect(() => {
-    console.log("in use effect test");
 
     let temp_players = { ...props.players };
     temp_players[props.name].misses = props.misses;
@@ -48,12 +47,10 @@ export default function Leaderboard(props) {
       props.finishTime,
       temp_players[props.name].finishTime
     );
-    console.log(props.finishTime, "finish time", props.startTime, "start time");
 
     let l = [...Object.values(temp_players)];
     l = l.sort(compare);
 
-    console.log(l, "players", props.finishTime);
 
     setLeaderboard(
       l.map((player, index) => {

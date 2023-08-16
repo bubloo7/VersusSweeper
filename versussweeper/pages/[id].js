@@ -141,7 +141,6 @@ const Page = () => {
                     // check if key in players
                     if (data.name in temp_players) {
                         let temp_players2 = { ...temp_players };
-                        console.log("updating players test");
                         temp_players2[data.name].clears = data.hits;
                         temp_players2[data.name].misses = data.misses;
                         if (data.finishTime !== 1682900908681 * 2) {
@@ -170,9 +169,7 @@ const Page = () => {
                     setLoading(false);
                 });
             return () => {
-                console.log("disconnecting socket. ready state", socket.readyState);
                 if (socket.readyState === 1) {
-                    console.log("ready state", socket.readyState);
                     socket.disconnect();
                 }
             };
