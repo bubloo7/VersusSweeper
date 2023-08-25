@@ -105,6 +105,22 @@ export default function CreateGame() {
     "Mines: Must be at most 25% of the board"
   );
 
+  const handleRowChange = (e) => {
+    formik.setFieldValue("rows", e.target.value);
+    validationSchema.fields.mines = validationSchema.fields.mines.max(
+      Math.floor(e.target.value * cols * 0.25),
+      "Mines: Must be at most 25% of the board"
+    );
+  };
+
+  const handleColChange = (e) => {
+    formik.setFieldValue("cols", e.target.value);
+    validationSchema.fields.mines = validationSchema.fields.mines.max(
+      Math.floor(rows * e.target.value * 0.25),
+      "Mines: Must be at most 25% of the board"
+    );
+  };
+
   return (
     <Layout>
       <Row
@@ -275,7 +291,7 @@ export default function CreateGame() {
                       type="number"
                       name="rows"
                       disabled={difficulty !== 3}
-                      onChange={formik.handleChange}
+                      onChange={handleRowChange}
                       value={rows}
                     />
                   </Row>
@@ -288,7 +304,7 @@ export default function CreateGame() {
                       type="number"
                       name="cols"
                       disabled={difficulty !== 3}
-                      onChange={formik.handleChange}
+                      onChange={handleColChange}
                       value={cols}
                     />
                   </Row>
