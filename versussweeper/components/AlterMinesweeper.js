@@ -83,8 +83,15 @@ export default function AlterMinesweeper() {
       description:
         "Clear the board first to win! Watch out for mine stun traps!",
       placement: "topRight",
-      duration: 5,
+      duration: 0,
       icon: <BombIcon />,
+      style: {
+        backgroundColor: "var(--background-color)",
+        color: "var(--main-black)",
+        border: "2px solid var(--main-black)",
+        borderRadius: "0px",
+      },
+
       onClose: () => {
         openControlsNotification();
       },
@@ -105,6 +112,12 @@ export default function AlterMinesweeper() {
       ),
       placement: "topRight",
       duration: 5,
+      style: {
+        backgroundColor: "var(--background-color)",
+        color: "var(--main-black)",
+        border: "2px solid var(--main-black)",
+        borderRadius: "0px",
+      },
       icon: <InfoCircleOutlined />,
     });
   };
