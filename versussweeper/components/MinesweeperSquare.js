@@ -278,10 +278,12 @@ export default function MinesweeperRow(props) {
 
   const width =
     props.rows <= 10 && props.cols <= 10
-      ? 20
+      ? 32
       : props.rows <= 16 && props.cols <= 25
-      ? 18
-      : 16;
+      ? 26
+      : props.cols <= 36 && props.rows <= 16
+      ? 24
+      : 20;
 
   return (
     <Image
