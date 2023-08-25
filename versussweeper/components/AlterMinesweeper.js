@@ -118,7 +118,7 @@ export default function AlterMinesweeper() {
         border: "2px solid var(--main-black)",
         borderRadius: "0px",
       },
-      icon: <InfoCircleOutlined />,
+      icon: <InfoCircleOutlined color="var(--main-black)"/>,
     });
   };
 
