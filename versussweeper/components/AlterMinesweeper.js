@@ -83,7 +83,7 @@ export default function AlterMinesweeper() {
       description:
         "Clear the board first to win! Watch out for mine stun traps!",
       placement: "topRight",
-      duration: 0,
+      duration: 5,
       icon: <BombIcon />,
       style: {
         backgroundColor: "var(--background-color)",
