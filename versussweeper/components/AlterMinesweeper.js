@@ -24,7 +24,7 @@ const BombSvg = () => (
 
 const BombIcon = (props) => <Icon component={BombSvg} {...props} />;
 
-export default function Minesweeper() {
+export default function AlterMinesweeper() {
   const [
     rows,
     cols,
@@ -85,11 +85,13 @@ export default function Minesweeper() {
       placement: "topRight",
       duration: 5,
       icon: <BombIcon />,
-      onClose: () => {openControlsNotification()},
+      onClose: () => {
+        openControlsNotification();
+      },
     });
   };
 
-const openControlsNotification = () => {    
+  const openControlsNotification = () => {
     api.info({
       message: "Controls",
       description: (
@@ -105,7 +107,7 @@ const openControlsNotification = () => {
       duration: 5,
       icon: <InfoCircleOutlined />,
     });
-}
+  };
 
   useEffect(() => {
     openWelcomeNotification();
@@ -259,106 +261,79 @@ const openControlsNotification = () => {
   return (
     <>
       {contextHolder}
-      <Row justify="center" align="middle" style={{ marginTop: "30px" }}>
-        <div
-          style={{
-            border: "5px ridge var(--light-gray)",
-            borderStyle: "ridge",
-            maxWidth: "100%",
-            overflowX: "auto",
-            margin: "0px 10px 0px 10px",
-          }}
-        >
-          {minesweeperRows}
-        </div>
-      </Row>
-
-      {firstColClicked === -1 && (
-        <Row
-          justify="center"
-          align="middle"
-          style={{ marginTop: "15px", textAlign: "center" }}
-          className="button-text"
-        >
-          {firstMoveName === name
-            ? "You get to make the first move!"
-            : `Waiting for ${firstMoveName} to make a move...`}
-        </Row>
-      )}
-
-      {stunTimer > 0 && (
-        <Row
-          justify="center"
-          align="middle"
-          style={{
-            marginTop: "10px",
-            textAlign: "center",
-            color: "var(--main-red)",
-          }}
-          className="button-text"
-        >
-          Stunned for {stunTimer} seconds!
-        </Row>
-      )}
-
-      {hits + mines === rows * cols && (
-        <Row
-          justify="center"
-          align="middle"
-          className="button-text"
-          style={{ marginTop: "20px", textAlign: "center" }}
-        >
-          <p>You completed the game, check out the leaderboard!</p>
-        </Row>
-      )}
-
-      {showNextGame && (
-        <Row
-          justify="center"
-          align="middle"
-          style={{ marginTop: "20px", marginBottom: "20px" }}
-        >
-          <Button
-            className="black-button"
-            onClick={joinNextGame}
-            style={{ backgroundColor: "var(--main-green)" }}
-            type="null"
-          >
-            Join Next Game
-          </Button>
-        </Row>
-      )}
 
       <Row
         justify="center"
-        align="middle"
-        style={{ marginTop: "20px", marginBottom: "50px" }}
+        align="start"
+        style={{ marginTop: "30px", marginBottom: "50px" }}
       >
-        <Col span={16}>
-          <Row>
+        <Col>
+          <div
+            style={{
+              border: "5px ridge var(--light-gray)",
+              borderStyle: "ridge",
+              maxWidth: "100%",
+              overflowX: "auto",
+              margin: "20px 10px 0px 10px",
+            }}
+          >
+            {minesweeperRows}
+          </div>
+        </Col>
+        <Col xs={22} sm={22} md={14} lg={10} xl={8} xxl={8}>
+          <Row
+            justify="center"
+            align="start"
+            style={{ margin: "20px 10px 0px 10px"}}
+          >
+            {firstColClicked === -1 && (
+              <Row
+                justify="center"
+                align="start"
+                style={{
+                  textAlign: "center",
+                  marginBottom: "20px",
+                }}
+                className="button-text"
+              >
+                {firstMoveName === name
+                  ? "You get to make the first move!"
+                  : `Waiting for ${firstMoveName} to make a move...`}
+              </Row>
+            )}
+
+            {stunTimer > 0 && (
+              <Row
+                justify="center"
+                align="start"
+                style={{
+                  textAlign: "center",
+                  color: "var(--main-red)",
+                  marginBottom: "20px",
+                }}
+                className="button-text"
+              >
+                Stunned for {stunTimer} seconds!
+              </Row>
+            )}
+
             <Col
-              flex={2}
+              xs={24}
+              sm={24}
+              md={24}
+              lg={24}
+              xl={24}
+              xxl={24}
               style={{
                 backgroundColor: "var(--light-gray)",
                 margin: "0px 10px 0px 10px",
                 padding: "0px 20px 20px 20px",
               }}
             >
-              <h2
-                className="subsubheader-text"
-                style={{
-                  color: "var(--main-green)",
-                  textAlign: "center",
-                  marginTop: "15px",
-                }}
-              >
-                Your Stats
-              </h2>
-
               <Row
                 justify="space-between"
                 align="middle"
-                style={{ marginTop: "20px" }}
+                style={{ marginTop: "10px" }}
               >
                 <h3 className="button-text" style={{ textAlign: "center" }}>
                   <FieldTimeOutlined />
@@ -387,48 +362,15 @@ const openControlsNotification = () => {
                   {mines - numFlags}
                 </Row>
               </Row>
-              <Row
-                justify="space-between"
-                align="middle"
-                style={{ marginTop: "10px" }}
-              >
-                <h3
-                  className="button-text"
-                  style={{ textAlign: "center", color: "var(--main-green)" }}
-                >
-                  <AimOutlined />
-                  {"  "}Hits:
-                </h3>
-                <Row
-                  style={{ marginLeft: "5px", color: "var(--main-green)" }}
-                  className={styles.inputBox}
-                >
-                  {hits}
-                </Row>
-              </Row>
-              <Row
-                justify="space-between"
-                align="middle"
-                style={{ marginTop: "10px" }}
-              >
-                <h3
-                  className="button-text"
-                  style={{ textAlign: "center", color: "var(--main-red)" }}
-                >
-                  <CloseSquareOutlined />
-                  {"  "}Misses:
-                </h3>
-                <Row
-                  style={{ marginLeft: "5px", color: "var(--main-red)" }}
-                  className={styles.inputBox}
-                >
-                  {misses}
-                </Row>
-              </Row>
             </Col>
 
             <Col
-              flex={4}
+              xs={24}
+              sm={24}
+              md={24}
+              lg={24}
+              xl={24}
+              xxl={24}
               style={{
                 backgroundColor: "var(--light-gray)",
                 margin: "0px 10px 0px 10px",
@@ -437,7 +379,7 @@ const openControlsNotification = () => {
             >
               <h2
                 className="subsubheader-text"
-                style={{ textAlign: "center", marginTop: "15px" }}
+                style={{ textAlign: "center", marginTop: "10px" }}
               >
                 Ranks
               </h2>
@@ -453,6 +395,34 @@ const openControlsNotification = () => {
           </Row>
         </Col>
       </Row>
+
+      {hits + mines === rows * cols && (
+        <Row
+          justify="center"
+          align="middle"
+          className="button-text"
+          style={{ marginTop: "20px", textAlign: "center" }}
+        >
+          <p>You completed the game, check out the leaderboard!</p>
+        </Row>
+      )}
+
+      {showNextGame && (
+        <Row
+          justify="center"
+          align="middle"
+          style={{ marginTop: "20px", marginBottom: "20px" }}
+        >
+          <Button
+            className="black-button"
+            onClick={joinNextGame}
+            style={{ backgroundColor: "var(--main-green)" }}
+            type="null"
+          >
+            Join Next Game
+          </Button>
+        </Row>
+      )}
     </>
   );
 }
