@@ -1,0 +1,47 @@
+# Production composition.
+# Usage: make prod   (or)   docker compose up -d --build
+#
+# Dev overrides live in docker-compose.dev.yml (see the Makefile).
+
+services:
+  backend:
+    build:
+      context: ./backend
+      target: prod
+    image: versussweeper-backend:prod
+    restart: unless-stopped
+    environment:
+      PORT: 3001
+      REDIS_HOST: ${REDIS_HOST:-redis}
+      REDIS_PORT: ${REDIS_PORT:-6379}
+      REDIS_USERNAME: ${REDIS_USERNAME:-default}
+      REDIS_PASSWORD: ${REDIS_PASSWORD:-}
+      CORS_ORIGIN: ${CORS_ORIGIN:-http://localhost:3000}
+    ports:
+      - "${BACKEND_PORT:-3001}:3001"
+
+  frontend:
+    build:
+      context: ./versussweeper
+      target: prod
+      args:
+        # NEXT_PUBLIC_* values are baked in at build time.
+        NEXT_PUBLIC_BACKEND_URL: ${NEXT_PUBLIC_BACKEND_URL:-http://localhost:3001}
+    image: versussweeper-frontend:prod
+    restart: unless-stopped
+    ports:
+      - "${FRONTEND_PORT:-3000}:3000"
+    depends_on:
+      - backend
+
+  discord:
+    build:
+      context: ./discord
+    image: versussweeper-discord:prod
+    restart: unless-stopped
+    environment:
+      # Required for the bot to actually connect — set TOKEN in .env.
+      TOKEN: ${TOKEN:-}
+      BACKEND_URL: ${BACKEND_URL:-http://backend:3001}
+    depends_on:
+      - backend

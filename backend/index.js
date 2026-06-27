@@ -6,11 +6,11 @@ const Redis = require("ioredis");
 require("dotenv").config();
 
 const app = express();
-const port = 3001;
+const port = process.env.PORT || 3001;
 const redis = new Redis({
-    port: 14371,
-    host: "redis-14371.c92.us-east-1-3.ec2.cloud.redislabs.com",
-    username: "default",
+    port: process.env.REDIS_PORT || 14371,
+    host: process.env.REDIS_HOST || "redis-14371.c92.us-east-1-3.ec2.cloud.redislabs.com",
+    username: process.env.REDIS_USERNAME || "default",
     password: process.env.REDIS_PASSWORD,
 });
 
@@ -221,7 +221,7 @@ app.get("/crash", (req, res) => {
 
 const io = new Server(server, {
     cors: {
-        origin: "http://localhost:3000",
+        origin: process.env.CORS_ORIGIN || "http://localhost:3000",
         methods: ["GET", "POST"],
     },
 });

@@ -1,0 +1,63 @@
+# Development overrides, layered on top of docker-compose.yml.
+# Usage: make dev
+#   (= docker compose -f docker-compose.yml -f docker-compose.dev.yml up --build)
+#
+# Adds hot reloading (source bind mounts) and a self-contained local
+# Redis Stack instance (RedisJSON + RediSearch) so no cloud Redis is needed.
+
+services:
+  backend:
+    build:
+      target: dev
+    image: versussweeper-backend:dev
+    restart: "no"
+    environment:
+      PORT: 3001
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+      REDIS_USERNAME: ""
+      REDIS_PASSWORD: ""
+      CORS_ORIGIN: http://localhost:3000
+    volumes:
+      - ./backend:/app
+      - /app/node_modules
+    depends_on:
+      - redis
+
+  frontend:
+    build:
+      target: dev
+      args:
+        NEXT_PUBLIC_BACKEND_URL: ${NEXT_PUBLIC_BACKEND_URL:-http://localhost:3001}
+    image: versussweeper-frontend:dev
+    restart: "no"
+    environment:
+      NEXT_PUBLIC_BACKEND_URL: ${NEXT_PUBLIC_BACKEND_URL:-http://localhost:3001}
+      # Dev talks to the backend directly (no /api proxy), so use the
+      # default Socket.IO path.
+      NEXT_PUBLIC_SOCKET_PATH: ${NEXT_PUBLIC_SOCKET_PATH:-/socket.io}
+      WATCHPACK_POLLING: "true"
+    volumes:
+      - ./versussweeper:/app
+      - /app/node_modules
+      - /app/.next
+
+  discord:
+    image: versussweeper-discord:dev
+    restart: "no"
+    environment:
+      TOKEN: ${TOKEN:-}
+      BACKEND_URL: ${BACKEND_URL:-http://backend:3001}
+    volumes:
+      - ./discord/bot.py:/app/bot.py:ro
+
+  redis:
+    image: redis/redis-stack-server:latest
+    restart: unless-stopped
+    ports:
+      - "${REDIS_LOCAL_PORT:-6379}:6379"
+    volumes:
+      - redis-data:/data
+
+volumes:
+  redis-data:
