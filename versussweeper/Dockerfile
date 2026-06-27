@@ -34,6 +34,8 @@ ENV NEXT_TELEMETRY_DISABLED=1
 # NEXT_PUBLIC_* vars are inlined at build time, so they must be present here
 ARG NEXT_PUBLIC_BACKEND_URL
 ENV NEXT_PUBLIC_BACKEND_URL=$NEXT_PUBLIC_BACKEND_URL
+ARG NEXT_PUBLIC_SOCKET_PATH
+ENV NEXT_PUBLIC_SOCKET_PATH=$NEXT_PUBLIC_SOCKET_PATH
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 RUN npm run build

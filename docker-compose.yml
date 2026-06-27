@@ -27,6 +27,7 @@ services:
       args:
         # NEXT_PUBLIC_* values are baked in at build time.
         NEXT_PUBLIC_BACKEND_URL: ${NEXT_PUBLIC_BACKEND_URL:-http://localhost:3001}
+        NEXT_PUBLIC_SOCKET_PATH: ${NEXT_PUBLIC_SOCKET_PATH:-/api/socket.io}
     image: versussweeper-frontend:prod
     restart: unless-stopped
     ports:
